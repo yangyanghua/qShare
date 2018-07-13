@@ -1,0 +1,286 @@
+body{
+	background: #F1EFEF;
+}
+.header{
+	position: relative;
+	height: auto;
+	padding-top: 4rem;	
+}
+ p{
+	padding: 0;
+	margin: 0;
+	box-sizing: content-box;
+}
+			.loading{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				background: #FFFFFF;
+				opacity: 0.95;
+				top: 0;
+				left: 0;
+				z-index: 1000;
+			}
+			.loading img{
+				width: 3.4rem;
+				height: 3rem;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top:-1.5rem;
+				margin-left: -1.7rem;
+			}
+.header .userId{
+	position: absolute;
+	top: 0;
+	z-index: 5;
+	text-align: center;
+	width: 4rem;
+	left: 50%;
+	margin-left:-2rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	color: #FFFFFF;
+	font-size: 14px;
+}
+.header .toMap{
+	position: absolute;
+	z-index: 5;
+	top: 0.05rem;
+	right: 0.2rem;
+	background: none;
+	border: none;
+	height: 0.8rem;
+	width: 0.8rem;
+	background: url(../image/icon_map.png) no-repeat 50% 50%;
+	background-size:0.6rem 0.6rem;
+}
+
+.header .headerBg{
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	height: 5.5rem;
+	width: 100%;
+	background: url(../image/bg.jpg) no-repeat 50% 50%;
+	background-size:cover;	
+}
+
+.header .userInfo{
+	z-index: 5;
+	position: relative;
+	width: 96%;
+	box-sizing: border-box;
+	padding: 0.3rem;
+	background: #FFFFFF;
+	border-top-left-radius:6px;
+	border-top-right-radius:6px;
+	margin:auto;
+	/*height: 4.3rem;*/
+	min-height: 3rem;
+	height: auto;
+	top: 60%;
+	box-shadow: 0 4px 11px -1px #CCCCCC;
+}
+.header .userInfo .baseInfo{
+	display: flex;
+	height: 1.3rem;
+}
+.header .userInfo .baseInfo .userImg{
+	flex: 0 0 1.3rem;
+	text-align: center;
+} 
+.header .userInfo .baseInfo .userImg span{
+	display: block;
+	height: 1.3rem;
+	width: 1.3rem;
+	border-radius:100px;
+	/*background:#CCCCCC url(../image/bg.jpg) no-repeat 50% 50%;
+	background-size:cover;*/
+}
+.header .userInfo .baseInfo .userName{
+	flex: 1;
+	box-sizing: border-box;
+	padding-left: 0.3rem;
+}
+.header .userInfo .baseInfo .userName p{
+	height: 0.65rem;
+	line-height: 0.65rem;
+	font-size: 14px;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.header .userInfo .baseInfo .userName p img{
+	height: 0.4rem;
+	margin-top: 0.1rem;
+}
+
+.header .userInfo .introduce{
+	line-height: 18px;
+	margin-top: 0.1rem;
+	font-size: 12px;
+	color: #666666;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	padding-bottom: 0.1rem;
+	border-bottom:1px solid #CCCCCC;	
+}
+.header .navList{
+	display: flex;
+	height: 1.2rem;
+	text-align: center;
+}
+.header .navList .navItem{
+	flex: 1;
+	position: relative;
+}
+.header .navList .navItem p{
+	color: #333333;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	font-weight: bold;
+	font-size: 12px;
+}
+.header .navList .navItem.active p{
+	color: #FF5B40;
+}
+.header .navList .navItem.active::before{
+	content: '';
+	height: 2px;
+	width: 1rem;
+	position: absolute;
+	bottom: -0.05rem;
+	left: 50%;
+	margin-left: -0.5rem;
+	background: #FF5B40;
+}
+
+.listContent{
+	width: 100%;
+	min-height: 3rem;
+	margin-top: 0.1rem;
+	box-sizing: border-box;
+	padding: 0.2rem;
+}
+.fansList .fansItem{
+	display: flex;
+	height: 1.6rem;
+	background: #FFFFFF;
+	padding: 0.2rem;
+	margin-bottom: 0.2rem;
+}
+.fansList .fansItem .fansImage{
+	flex: 0 0 1.6rem;
+}
+.fansList .fansItem .fansImage span{
+	display: block;
+	height: 1.4rem;
+	width: 1.4rem;
+	border:3px solid #FFFFFF;
+	border-radius:100px;
+	background:#CCCCCC url(../image/bg.jpg) no-repeat 50% 50%;
+	background-size:cover;
+	box-shadow: 0 5px 10px 0px #CCCCCC;
+}
+
+.fansList .fansItem .fansInfo{
+	flex:1;
+	box-sizing: border-box;
+	padding-left: 0.2rem;
+}
+.fansList .fansItem .fansInfo p{
+	height: 0.5rem;
+	line-height: 0.5rem;
+	font-size: 12px;
+	color: #666666;
+}
+.fansList .fansItem .fansInfo p.fansName{
+	height: 0.6rem;
+	line-height: 0.6rem;
+	font-weight: bold;
+	color: #333333;
+}
+
+.imageList{
+	width: 100%;
+}
+
+.imageItem{
+	width: 49%;
+	box-sizing: border-box;
+	background: #FFFFFF;
+	border-radius:4px ;
+	margin-bottom: 0.2rem;
+	overflow: hidden;
+	box-shadow: 0 4px 9px -2px #CCCCCC;
+}
+
+.imageItem:nth-child(2n-1){
+	float: left;
+}
+.imageItem:nth-child(2n){
+	float: right;
+}
+
+.imageItem .image{
+	width: 100%;
+}
+.imageItem .image img{
+	width: 100%;
+}
+ .imageItem .cname{
+ 	font-size: 12px;
+/* 	font-weight: bold;*/
+ 	color: #999;
+ 	padding-left: 0.2rem;
+ }
+
+
+ .c_userInfo{
+	display: flex;
+	height: 1.6rem;
+	padding:0 0.2rem;
+	margin-bottom: 0.2rem;
+	box-sizing: border-box;
+}
+ .c_userInfo .c_userImage{
+	flex: 0 0 1rem;
+}
+ .c_userInfo .c_userImage span{
+	display: block;
+	margin-top: 0.2rem;
+	height: 1rem;
+	width: 1rem;
+	border-radius:100px;
+	background:#CCCCCC url(../image/bg.jpg) no-repeat 50% 50%;
+	background-size:cover;
+	box-shadow: 0 5px 10px 0px #CCCCCC;
+}
+
+ .c_userInfo .c_user{
+	flex:1;
+	box-sizing: border-box;
+	padding-left: 0.2rem;
+}
+ .c_userInfo .c_user p{
+ 	box-sizing: border-box;
+ 	width: 100%;
+	height: 0.5rem;
+	line-height: 0.5rem;
+	font-size: 12px;
+	color: #666666;
+	overflow: hidden;
+	text-overflow: hidden;
+	white-space: nowrap;
+
+}
+ .c_userInfo .c_user p.c_userName{
+	height: 0.6rem;
+	line-height: 0.6rem;
+	font-weight: bold;
+	color: #333333;
+}

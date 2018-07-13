@@ -1,0 +1,124 @@
+<!doctype html>
+<html >
+
+	<head>
+		<meta charset="UTF-8">		
+		<title>快看Quick-登录</title>		
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes"/>  
+	    <script src="js/lib/mui.min.js"></script>
+	    <link href="css/mui/mui.min.css" rel="stylesheet"/>			
+		<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/login.css?v=2.4"/>
+	    <script type="text/javascript" charset="utf-8">
+	      	mui.init();
+	    </script>		
+	</head>
+	<body>
+		<header class="header mui-bar mui-bar-nav">
+			<div class="headerCon">
+				<div class="applogo">
+					<img src="image/logo3.png"/>
+				</div>
+				<h2 class="appTitle">快看Quick-带你一起看世界</h2>
+				<div class="downApp">
+					<button type="button" class="downBtn mui-btn mui-btn-danger">下载app</button>
+				</div>
+			</div>
+		</header>		
+	<div class="logoContent">
+		<img src="image/quick2x.png"/>
+	</div>
+	<div class="loginFrom">
+		<form >
+		<div class="phone">
+			<span id="phoneType">86</span>	
+			<!--<ul class="typeList">
+					<li class="tyitem">AI+126</li>
+					<li class="tyitem">0086</li>
+			</ul>-->
+			<input type="text" name="phonrNumer" id="phonrNumer" value="" placeholder="手机号" />	
+			</div>
+			<div class="code">		
+			<input type="text" name="checkCode" id="checkCode" value="" placeholder="验证码" />
+			<input type="button"  id="getCode" value="发送验证码" />	
+			</div>
+			
+			<div class="btnContent">
+				<button type="button"  id="loginBtn" class="mui-btn mui-btn-danger btn sBtn">登录</button>
+				<button type="button" id="resetBtn"  class="btn reBtn mui-btn mui-btn-warning mui-btn-outlined">取消</button>	
+			</div>
+		</form>
+		<div class="otherLogin">
+			<p class="wtitle">其他登录方式</p>
+			<ul class="wayList">
+				<li class="wayItem ">
+					<span id="sing"></span>
+				</li>
+				<li class="wayItem ">
+					<span id="weixin" ></span>
+				</li>
+				<!--<li class="wayItem ">
+					<span id="qq"></span>
+				</li>-->
+				<li class="wayItem ">
+					<span id="facebook">
+ 				      <fb:login-button scope="public_profile,email" style="height: 100%;width: 100%;opacity: 0; "  onlogin="checkLoginState();"></fb:login-button>						
+					</span>
+				</li>
+			</ul>			
+		</div>
+		
+	</div>
+	
+	
+	
+	<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/login.js?v=3.8" type="text/javascript" charset="utf-8"></script>
+	<!--<script>
+			window.fbAsyncInit = function() {
+			    FB.init({
+			      appId      : '1040756056003784',
+			      xfbml      : true,
+			      version    : 'v2.12'
+			    });
+			    FB.AppEvents.logPageView();
+			  };
+			
+			  (function(d, s, id){
+			     var js, fjs = d.getElementsByTagName(s)[0];
+			     if (d.getElementById(id)) {return;}
+			     js = d.createElement(s); js.id = id;
+			     js.src = "https://connect.facebook.net/en_US/sdk.js";
+			     fjs.parentNode.insertBefore(js, fjs);
+			   }(document, 'script', 'facebook-jssdk'));
+	</script>		
+	<script type="text/javascript">		
+		//facebook登陆	
+			var fbToken;
+	           var checkLoginState = function(){
+	                FB.getLoginStatus(function(response) {
+	                    statusChangeCallback(response);
+	                });
+	            } 
+	            function statusChangeCallback(response) {
+	                if (response.status === 'connected') {  //登陆状态已连接
+	                    fbToken = response.authResponse.accessToken;
+	                    console.log(response);
+	                   // otherLogin()
+	                    
+	                } else if (response.status === 'not_authorized') { //未经授权
+	                    console.log('facebook未经授权');
+	                } else {
+	                    console.log('不是登陆到Facebook;不知道是否授权');
+	                }
+	            }
+	            
+	</script>-->
+
+
+	</body>
+
+</html>

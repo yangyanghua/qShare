@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/map.css?v=1.2"/>
+	<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>
+	<title>所有照片（）</title>
+</head>
+<body>
+<div class="loading">
+	<img src="image/loading.gif"/>
+</div>	
+	
+	<div class="header">
+		<a class="brack" href="javascript:history.go(-1)"></a>
+		<p>足迹地图</p>
+	</div>
+	<div id="allmap"></div>
+	<div class="footer">
+			<div class="headerCon">
+				<div class="applogo">
+					<img src="image/logo3.png"/>
+				</div>
+				<h2 class="appTitle">快看Quick-带你一起看世界</h2>
+				<div class="downApp">
+					<button type="button" class="downBtn mui-btn mui-btn-danger">下载app</button>
+				</div>
+			</div>		
+	</div>
+	<!--<div class="image" style="top: 530px;left: 40%;">
+		<div class="images" style="background: #8A6DE9;"></div>
+		<span class="pnum">9</span>
+		<div class="info">
+			<div class="userInfo">
+				<p class="userImg"><span></span></p>
+				<div class="nandt">
+					<p class="name">霍元甲</p>
+					<p class="tiem">2012-02-12 08:12:12</p>
+				</div>
+				<p class="haiba">altitude:3314.5米</p>		
+			</div>
+			<img src="image/bg.jpg"/>
+			<p class="adds">中国.云南省.迪庆藏族自治州.香格里拉市.241国道</p>
+			<p class="cosle cosleimg">×</p>
+		</div>
+		<div class="imageListCon">
+			<div class="swiper-container">
+			  <div class="swiper-wrapper">
+			    <div class="swiper-slide"></div>
+			    <div class="swiper-slide"></div>
+			    <div class="swiper-slide"></div>
+			    <div class="swiper-slide"></div>
+			  </div>
+			</div>			
+			<p class="cosle cosleList">×</p>
+		</div>
+	</div>-->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Gkp2kjITvhmTA0VYLa11Dvli9uRwwN6R"></script>
+	<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	// 百度地图API功能
+	var fastLoad = true;
+	var mySwiper = {};
+	var map = new BMap.Map("allmap");    // 创建Map实例
+	var oldList = [];
+ 	map.addControl(new BMap.NavigationControl({anchor:'BMAP_ANCHOR_BOTTOM_RIGHT',type:'BMAP_NAVIGATION_CONTROL_ZOOM',showZoomInfo:false,enableGeolocation:false}));
+
+	var geolocation = new BMap.Geolocation();
+
+
+    function ComplexCustomOverlay(point){
+      this._point = point.point;
+      this._params = point.params;
+
+    }
+    ComplexCustomOverlay.prototype = new BMap.Overlay();
+  //  ComplexCustomOverlay.prototype = new BMap.Marker();
+    
+
+    ComplexCustomOverlay.prototype.initialize = function(map){
+    this._map = map;
+
+     var images = $('<div class="images" style="background: url('+this._params.photoUrl+') no-repeat 50% 50%;background-size:cover;	"></div>'); 
+     var userInfo = $('<div class="info"></div>');
+
+   // var imageListCon = $('<div class="imageListCon"></div>');
+
+		//	var cosleList  = $('<p class="cosle cosleList">×</p>');				
+		//    imageListCon.append();
+		//    imageListCon.append(cosleList);
+//									<p class="userImg"><span></span></p>
+//									<div class="nandt">
+//									<p class="name">霍元甲</p>
+//									<p class="tiem">2012-02-12 08:12:12</p>  									
+//									</div> 		
+		    var markerHtml = `<span class="pnum">${this._params.pnum}</span>`;
+
+			var info = $('<div class="info"></div>');
+			var infoColse = $('<p class="cosle cosleimg">×</p>');
+			var  infoHtml  = `<div class="userInfo">
+									<p class="haiba">altitude:${this._params.altitude}米</p>		
+								</div>
+								<img src="${this._params.photoUrl}"/>
+							<p class="adds">${this._params.locationName}</p>`;
+		        info.append(infoHtml);
+		        info.append(infoColse);
+	      var div =  $('<div></div>');
+		  if(this._params.pnum>1){
+		    	 div.append(markerHtml);
+		    }	      
+	      this._div = div[0];
+	      this._images = images[0];
+		//  this._cosleList = cosleList[0];
+		  this._infoColse = infoColse[0];
+
+		  this._infoColse.addEventListener('touchstart',function(){
+						//alert('touch started');
+				$('.info').animate({bottom:'140%',opacity:'0'});
+				setTimeout(function(){
+					$('.info').hide();
+				},800)						
+			});	
+
+		  
+//		  this._cosleList.addEventListener('touchstart',function(){
+//						//alert('touch started');
+//				$('.imageListCon').animate({bottom:'140%',opacity:'0'});
+//				setTimeout(function(){
+//					$('.imageListCon').hide();
+//				},800)						
+//			});		  		 
+		  var id = this._params.id;
+		  var point = this._point;
+		  this._images.addEventListener('touchstart',function(){
+						//alert('touch started');
+						map.panTo(point,false);	
+						$('.info').css({bottom:'140%',opacity:'0',display:'none'});
+//						div.find('.imageListCon').show();
+//						div.find('.imageListCon').animate({bottom:'120%',opacity:'1'});									
+						var $info = div.find('.info');								
+						$info.show();
+						$info.animate({bottom:'120%',opacity:'1'});		
+
+						
+			});
+	      div.addClass('image');
+	    //  div.attr('id','picture'+this._params.id);
+	      div.css('z-index',BMap.Overlay.getZIndex(this._point.lat));//聚合功能?
+	      div.append(images);
+	     
+	    //  div.append(imageListCon);
+	      div.append(info);
+	      map.getPanes().labelPane.appendChild(div[0]);//getPanes(),返回值:MapPane,返回地图覆盖物容器列表  labelPane呢???
+	      return div[0];
+    }
+    
+    ComplexCustomOverlay.prototype.draw = function(){
+      var map = this._map;
+      var pixel = map.pointToOverlayPixel(this._point);
+      this._div.style.left = pixel.x - 35 + "px";
+      this._div.style.top  = pixel.y - 30 + "px";
+    }
+
+
+//	var point1 = new BMap.Point(116.404, 39.915);
+//	var marker1 = new BMap.Marker(point1);
+//	console.log(ComplexCustomOverlay.setAnimation());
+//	map.addEventListener("zoomend", function(evt){
+//		map.clearOverlays();
+//		oldList = [];
+//		getDetailImages();
+//	});
+	map.addEventListener("tilesloaded", function(evt){
+			$('.loading').fadeOut();
+	});	
+//	
+//	map.addEventListener("moveend", function(evt){
+//	
+//			getDetailImages();
+//
+//			});	
+
+getDetailImages();
+
+function getDetailImages(){
+	//2716
+		var id = getUrlParam('id'); 
+		var index = getUrlParam('index')||'';
+//		var bounds = map.getBounds();
+//
+//		var opt = {
+//			minX:bounds.getSouthWest().lng,
+//			maxX:bounds.getNorthEast().lng,
+//			minY:bounds.getSouthWest().lat,
+//			maxY:bounds.getNorthEast().lat,
+//			userId:id,
+//		}
+		$.ajax({
+			type:"get",
+			url:api.getDetail,
+			data:{id:id},
+			async:true,
+			success:function(res){
+			if(res.photos.length==0){
+					$('title').text('所有照片（0）')
+					geolocation.getCurrentPosition(function(r){
+						if(this.getStatus() == BMAP_STATUS_SUCCESS){
+							var mk = new BMap.Marker(r.point);
+							map.addOverlay(mk);
+							//map.panTo(r.point);
+							map.centerAndZoom(r.point, 5);  // 初始化地图,设置中心点坐标和地图级别  	
+							//alert('您的位置：'+r.point.lng+','+r.point.lat);
+						}
+						else {
+							//alert('failed'+this.getStatus());
+						}        
+					},{enableHighAccuracy: true})	
+			}else{
+				if(index){					
+						$('title').text('所有照片（1）')
+						var point =  new BMap.Point(res.photos[index].longitude,res.photos[index].latitude);
+						map.centerAndZoom(point, 5);  // 初始化地图,设置中心点坐标和地图级别  						
+						var params = {point:point,params:res.photos[index]};
+						params.params.pnum = 1;
+						var myCompOverlay = new ComplexCustomOverlay(params);
+						map.addOverlay(myCompOverlay); 	
+						var point2 =  new BMap.Point(res.photos[index].longitude,res.photos[index].latitude);
+						map.panTo(point2,false);							
+				}else{
+					$('title').text('所有照片（'+res.photos.length+'）')
+					var point1 =  new BMap.Point(res.photos[0].longitude,res.photos[0].latitude);
+					map.centerAndZoom(point1, 5);  // 初始化地图,设置中心点坐标和地图级别  					
+					res.photos.forEach(function(item){
+							var point =  new BMap.Point(item.longitude,item.latitude);
+							var params = {point:point,params:item};
+							params.params.pnum = 1;
+							var myCompOverlay = new ComplexCustomOverlay(params);
+							map.addOverlay(myCompOverlay); 
+					})				
+					map.panTo(point1,false);
+				}				
+			}
+			},
+			error:function(res){
+				
+			}
+		});	
+}
+
+
+
+
+</script>
+</body>
+</html>
+

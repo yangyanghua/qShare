@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes"/>   
+    <title>快看Quick-带你一起看世界</title>
+    <script src="js/lib/mui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+    <link href="css/mui/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/mui/mui-preview.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css?v=3.33"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+<div class="loading">
+	<img src="image/loading.gif"/>
+</div>	
+	
+		<header class="header mui-bar mui-bar-nav">
+			<div class="headerCon">
+				
+				<div class="applogo">
+					<img src="image/logo3.png"/>
+				</div>
+				<h2 class="appTitle">快看Quick-带你一起看世界</h2>
+				<div class="downApp">
+					<button type="button" class="downBtn mui-btn mui-btn-danger">下载app</button>
+				</div>
+			</div>
+			<div class="ranking">
+				<p>排行</p>
+			</div>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<ul class="footerLsit">
+ 				<li class="comInput">
+					<span class="inputs">写评论</span>
+				</li> 				
+ 				<li class="comTotality">
+					<p class="comTotalityNumer"></p>
+				</li>
+				<li class="colTotality">
+					<p class="colTotalityNumer"></p>
+				</li>
+				<li class="zanTotality">
+					<p class="zanTotalityNumer"></p>
+				</li>
+			</ul>
+
+			<div class="comment">
+				<div class="cheader">
+					<p class="closeBtnp"><button class="btn closeBtn" id="closeBtn">取消</button></p>
+					<p>评论</p>
+					<p class="sendBtnp"> <button class="btn sendBtn" id="sendBtn" >发送</button></p>
+				</div>
+				<div class="mui-input-row" >
+					<textarea id="textarea" rows="5" placeholder="请输入评论内容"></textarea>
+				</div>				
+			</div>
+			
+			<div class="stars">
+				<h2 class="sTitle"><span class="sColse">×</span>评分</h2>
+				<p class="scoreNum">0</p>
+				<div class="starsListContent">
+					<ul class="starsList">
+						<li class="star"></li>
+						<li class="star"></li>
+						<li class="star"></li>
+						<li class="star"></li>
+						<li class="star"></li>
+						<li class="star"></li>
+						<li class="star"></li>
+						<li class="star"></li>
+						<li class="star"></li>
+						<li class="star"></li>
+					</ul>
+				</div>
+				<p class="instructions">*评分确定后无法修改</p>
+				<button class="sSubmitbtn mui-btn mui-btn-danger">确认评分</button>
+			</div>
+
+		</nav>
+
+<div class="mui-content">
+	<div class="mui-content-padded" style="margin: 0;">
+		<div class="pageContent">
+			<div class="banner" style="background: #FFFFFF;">
+				<button class="toMap"></button>
+				<div class="Dynpublisher">
+					<div class="portrait"><img src="image/bg.jpg"/></div>
+					<div class="nameInfo">
+						<p class="DynpublisherName"><span id="DynpublisherName">名字</span> <span class="sex boy"></span><span class="sex girl"></span></p>
+						<p class="level level1"></p>
+						<p class="level level2"></p>
+						<p class="level level3"></p>
+					</div>
+				</div>
+				<div class="scorecontent">
+					<p>评分</p>
+					<p class="scoreP"><span class="score"></span>/10</p>
+					<p><span  class="numberOfscores"></span>人</p>
+				</div>
+		
+			</div>
+			<div class="travelContent">
+				<h1 class="traveltitle"></h1>
+				<p class="secondary">
+					<span class="releaseTime"></span>
+					<label style="font-size: 12px;color: #333333;"><span class="viewed" style="margin-right: 0;"></span>次</label>
+				</p>
+				<ul class="viaNav">
+					<li><span class="tujing">途经</span></li>
+					<li><span class="passCity"></span>个城市</li>
+					<li>历时<span class="usDay"></span>天</li>
+				</ul>
+				<div class="cityList">
+					<div class="citySwiper">
+					  <div class="swiper-wrapper">
+<!--					    <div class="swiper-slide"><p class="date">10.20</p><p class="cityname">广西</p><span class="line"></span></div>-->
+					  </div>
+					    <div class="swiper-button-prev swiper-button-black"></div>
+    					<div class="swiper-button-next swiper-button-black"></div>
+					</div>					
+				</div>	
+			</div>
+				<div class="dynamicContent">
+					<ul class="dynamicList">
+
+						<!--<li class="dynamicItem">
+							<a href="image/bg.jpg" class="downImage" download  ></a>
+							<p class="dateInfo">
+								<span class="itemIndex">1/60</span>
+								<span class="tiem">第一天，拍摄于2018-12-03 05:20</span>
+								<div class="dynamicImg" style="background: url(image/bg.jpg);">
+									<img src="image/bg.jpg" data-preview-src="" data-preview-group="1"/>
+								</div>
+								<p class="address"><span class="addressIcon"></span>美国.新西泽州.纽约线.纽约市.皇后区第五大道（海拔399米）</p>
+							</p>
+							<p class="dynamicTxt">第一天到这个鸟不拉屎的地方，一眼望过去全是沙子，好多沙子啊，根本没办法吃东西，没办法只能继续走了。</p>
+						</li>-->
+					</ul>	
+				</div>	
+				<div class="commentsContent">
+					<div class="giveALike">
+					  <div class="zan"></div>
+					  <div class="zanUser">
+					  	<ul class="userList">
+					  		<!--
+								<li class="userItem"></li>
+                             -->
+					  	</ul>
+					  </div>
+					  <div class="more" id="loadmoreZan" >
+					  	<span ></span>
+					  </div>
+					</div>
+					<div class="commentsListContent">
+						<ul class="commentsList">
+
+							<!--<li class="commentsItem">
+								<div class="userPortrait"><span></span></div>
+								<div class="commentsTxt">
+								<p class="commentInfo">
+									<span class="userName">昵称而已</span>
+									<span class="date">2015-12-20 12:30</span>
+								</p>	 
+								<p class="commentContent">
+								   @<span class="name">用户昵称</span>：随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，
+								</p>							
+								</div>								
+							</li>							-->
+						
+							
+						</ul>
+					</div>
+					<!--<div class="loadMore">
+						<p class="loadMoreBtn">查看更多评论<span class="moreIcon"></span></p>
+					</div>-->
+	
+				</div>			
+		</div>
+	</div>
+
+</div>	
+
+<div class="rankingListContent">
+				<div class="rankList">
+					<div class="logo">
+						<img src="image/logo3.png"/>
+					</div>
+					<h2 class="rtitle">朋友圈排名<span class="line leftLine"></span><span class="line rightLine"></span></h2>
+					<ul class="rankListUl">
+						<!--<li class="rankItem">
+							<p class="rankIndex">1</p>
+							<p class="rankimage"><span></span></p>
+							<p class="rankName">得闲饮茶</p>
+							<p class="rankLike">5645</p>
+							<p class="rankRight"></p>
+						</li>-->
+
+					</ul>
+					
+				</div>	
+				
+				<div class="colseRank">×</div>
+				
+</div>	
+
+<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/lib/jquery.lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/lib/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/lib/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js?v=2.9" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

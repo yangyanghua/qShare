@@ -1,0 +1,274 @@
+	   body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+		body{
+			position: relative;
+		}
+		#allmap{
+			height: 92%;
+		}
+		.image{
+			position: absolute;		
+		}
+		.image .images{
+			position: relative;
+			z-index: 10;
+			height: 66px;
+			width: 66px;
+			border:2px solid #fff;
+			/*box-shadow: 0 0 3px 1px #D7DEE3;	*/		
+			background: url(../image/bg.jpg) no-repeat 50% 50%;
+			background-size:cover;			
+		}
+		.image::after{
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -2px;
+			z-index: 1;
+			width: 66px;
+			height: 66px;
+			background: #FFFFFF;
+			transform: rotateZ(-3deg);
+			border:3px solid #FFFFFF;
+			/*box-shadow: 0 0 3px 1px #D7DEE3;*/
+		}		
+		.image .pnum{
+			display: block;
+			position: absolute;
+			z-index: 20;
+			line-height: 20px;
+			color: #fff;
+			text-align: center;
+			padding:0 7px;
+			top:  -10px;
+			right: -10px;
+			font-size: 12px;
+			background: #EA1717;
+			border-radius:100px;
+		}
+		.image .info{
+			display: none;
+			position: absolute;
+			z-index: 20;
+			bottom: 140%;
+			opacity: 0;
+			left: 50%;
+			width: 8rem;
+			font-size: 12px;
+			color: #000000;
+			margin-left: -4rem;
+			min-height: 3rem;
+			height: auto;
+			box-sizing: border-box;
+			padding: 10px;
+			background: #FFFFFF;
+			box-shadow: 0px 5px 40px -13px #333;
+		}
+		.image .info::before{
+			content: '';
+			position: absolute;
+			z-index: 20;
+			bottom: -0.8rem;
+			left: 50%;
+			margin-left: -10px;
+			z-index: 20;
+			border-width: 20px;
+			border-style: solid;
+			border-color: transparent #fff #fff transparent;
+			transform: rotateZ(-166deg);
+		}
+		.image .info img{
+			width: 100%;
+		}
+		.image .cosle{
+			position: absolute;
+			top: -0.2rem;
+			right: -0.2rem;
+			padding: 0;
+			margin: 0;
+			width: 0.8rem;
+			height: 0.8rem;
+			line-height: 0.8rem;
+			text-align: center;
+			font-size: 16px;
+			color: #666666;		
+		}
+		.image .info .adds{
+			padding-left: 18px;
+			background: url(../image/icon_position2x.png) no-repeat 0 0;
+			background-size:13px 18px;
+		}
+
+		.image .userInfo{
+			display: flex;
+			height: 1rem;
+		}
+		.image .userInfo p{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		
+		.image .userInfo .userImg{
+			flex: 0 0 1rem;
+			text-align: center;
+		}
+		.image .userInfo .userImg span{
+			display: block;
+			height: 0.8rem;
+			width: 0.8rem;
+			border-radius:100px;
+			background:#CCCCCC url(../image/bg.jpg) no-repeat 50% 50%;
+			background-size:cover;
+		}
+		
+		.image .userInfo .nandt{
+			flex: 1;
+			text-align: left;
+		}
+		
+		.image .userInfo .haiba{
+			flex: 0 0 3rem;
+			text-align: left;
+			padding-top: 0.4rem;
+			padding-left: 0.1rem;
+		}
+		.image .imageListCon{
+			position: absolute;
+			z-index: 20;
+			bottom: 140%;
+			left: 50%;
+			width: 9rem;
+			margin-left: -4.5rem;
+			height: 4rem;
+			box-sizing: border-box;
+			padding: 10px;
+			background: #FFFFFF;
+			opacity: 0;
+			box-shadow: 0px 4px 18px 4px #CCCCCC;
+		}
+		.image .imageListCon::before{
+			content: '';
+			position: absolute;
+			bottom: -0.8rem;
+			left: 50%;
+			margin-left: -10px;
+			z-index: 20;
+			border-width: 20px;
+			border-style: solid;
+			border-color: transparent #fff #fff transparent;
+			transform: rotateZ(-166deg);			
+		}
+		
+		.swiper-container{
+			position: relative;
+			z-index: 30;
+			height: 3rem;
+			margin-top: 0.35rem;
+			padding:5px;
+		}
+		.swiper-container .swiper-slide{
+			box-sizing: border-box;
+			border: 2px solid #FFFFFF;
+			box-shadow: 0 0 8px 1px #CCCCCC;
+			background: url(../image/bg.jpg);
+			background-size:cover;	
+		}
+		.header{
+			position: fixed;
+			top: 0;
+			right: 0;
+			height: 0.8rem;
+			width: 100%;
+			background: rgba(250,250,250,0.9);
+			z-index: 10000;
+			box-shadow: 0 0 6px 2px #CCCCCC;
+		}
+		.header p{
+			margin: 0;
+			padding: 0;
+			height: 0.8rem;
+			line-height: 0.8rem;			
+			font-size: 12px;
+			color: #333;
+			text-align: center;
+		}
+		.header .brack{
+			position: absolute;
+			display: block;
+			height: 0.8rem;
+			width: 0.8rem;
+			top: 0;
+			left: 0;
+			background: url(../image/icon_back.png) no-repeat 50% 50%;
+			background-size:0.4rem 0.4rem;
+		}
+		.footer{
+			height: 8%;
+			width: 100%;
+		}
+		.footer .headerCon{
+			border-top:1px solid #F5F5F5;
+			width: 100%;
+			height: 1.4rem;
+			display: flex;
+		}
+		.footer .headerCon .applogo{
+			flex: 0 0 2.5rem;
+		}
+		.footer .headerCon .applogo img{
+			margin-top: 0.2rem;
+			margin-left: 0.1rem;
+			width: 2.2rem;
+		}
+		
+		.footer .headerCon .appTitle{
+			flex: 1;
+			line-height:1.4rem;
+			color: #666666;
+			font-size: 12px;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+		.footer .headerCon .downApp{
+			flex: 0 0 2.5rem;
+			text-align: right;
+			font-size: 12px;	
+			padding-top: 0.25rem;
+		}
+		
+		.footer .headerCon .downApp .downBtn{
+			outline: none;
+			border-radius:100px;
+			margin: 0;
+			padding: 0;
+			margin-right: 0.1rem;
+			width: 1.8rem;
+			height: 0.8rem;
+			top: 0;
+		    color: #fff;
+		    border: 1px solid #dd524d;
+		    background-color: #dd524d;			
+		}	
+		.loading{
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			background: #FFFFFF;
+			opacity: 0.95;
+			top: 0;
+			left: 0;
+			z-index: 1000;
+		}
+		.loading img{
+			width: 3.4rem;
+			height: 3rem;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top:-1.5rem;
+			margin-left: -1.7rem;
+		}		

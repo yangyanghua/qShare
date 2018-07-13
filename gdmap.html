@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>地图模式</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=468631da176556b1d279127c9e611066"></script>
+	    <script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	   	
+	   <!-- <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>	-->	
+	<style type="text/css">
+		body{
+			margin: 0;
+		}
+		.imagesbor{
+			position: relative;
+			width: 80px;
+			height: 80px;
+			border: 3px solid #FFFFFF;
+			box-shadow: 0 0 3px 1px #D7DEE3;
+			/*-webkit-animation: firstload 1s;*/
+		}
+		.imagesbor .imgBox{
+			width: 80px;
+			height: 80px;
+		}
+		
+		
+		.imagesbor::before{
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -5px;
+			z-index: -1;
+			width: 80px;
+			height: 80px;
+			background: #FFFFFF;
+		/*	transform-origin:top right;*/
+			transform: rotateZ(-4deg);
+			border:3px solid #FFFFFF;
+			box-shadow: 0 0 3px 1px #D7DEE3;
+		}
+		.imagesbor .imagesNum{
+			position: absolute;
+			background: #EA1717;
+			color: #FFFFFF;
+			border-radius:100px;
+			padding: 6px;
+			top:  -15px;
+			right: -10px;
+			font-size: 12px;
+		}
+			@-webkit-keyframes firstload /* Safari 和 Chrome */
+			{
+				from {transform: rotateY(45deg);opacity: 0;}
+				to {transform: rotateY(0);opacity: 1;}
+			}
+
+				
+	</style>
+	</head>
+
+	<body>
+		<div >
+	
+			<div id='container' style='width:100vw; height:100vh;'></div>
+
+		</div>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+	var quser = JSON.parse(localStorage.getItem('quser'));
+	console.log(quser);
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+    });
+    var markers = [];
+    var imgIds = [];
+    map.plugin(["AMap.CitySearch"], function() {
+        var citysearch = new AMap.CitySearch();
+        citysearch.getLocalCity();
+        AMap.event.addListener(citysearch, "complete", function(result) {
+            var citybounds;
+            if (result && result.city && result.bounds) {
+                citybounds = result.bounds;
+                map.setBounds(citybounds);
+            }
+        });
+    });  
+    function setLimitBounds(type) {
+        map.setLimitBounds(map.getBounds());
+         getLimitBounds2(type);
+    }
+	
+	
+    function getImageList(opt,isempty){
+        	$.ajax({
+        		type:"get",
+        		url:api.dynamicList,
+        		data:opt,
+        		async:true,
+        		success:function(res){
+        		if(isempty){
+        			 map.remove(markers);
+	      			 imgIds=[];
+//      			 markers=[];
+        		} 	
+			    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+			    
+				    for (var i = 0, marker; i < res.length; i++) {
+					    if(imgIds.indexOf(res[i].t.id)==-1||imgIds.length==0){
+					        var marker = new AMap.Marker({
+					            position: [res[i].position.longitude,res[i].position.latitude],
+					            map: map,
+					            content : "<div class=\"imagesbor\"><div class=\"imgBox\" lan="+res[i].t.position.longitude+" lat="+res[i].t.position.latitude+" style=\"background: url("+res[i].t.photoUrl+") no-repeat 50% 50%;background-size:cover ;\"></div><span class=\"imagesNum\">"+res[i].size+"</span></div> "
+					        });
+					        marker.setAnimation("AMAP_ANIMATION_DROP");
+					        markers.push(marker);
+					        imgIds.push(res[i].t.id);
+					        infoWindow.open(map,[res[i].position.longitude,res[i].position.latitude]);			        	
+				        }
+				    }
+        		},
+        		error:function(res){
+        			console.error('网络错误');
+        		}
+        	});
+    	
+    }
+ 
+     function getLimitBounds2(type) {
+        var limitBounds = map.getLimitBounds();
+        if (limitBounds) {
+//         console.log("左下"+limitBounds.southwest.lng + ',' + limitBounds.southwest.lat);
+//         console.log("左上"+limitBounds.southwest.lng + ',' + limitBounds.northeast.lat);
+//         console.log("右上"+limitBounds.northeast.lng + ',' + limitBounds.northeast.lat);
+//         console.log("右下"+limitBounds.northeast.lng + ',' + limitBounds.southwest.lat);  
+//        var center = map.getCenter();
+//			var p1 = [limitBounds.northeast.lng, center.lat];
+//			var p2 = [center.lng,center.lat];
+
+//			var p1 = [center.lng,limitBounds.northeast.lat];
+//			var p2 = [center.lng,center.lat];
+//
+//			// 返回 p1 到 p2 间的地面距离，单位：米
+//			var dis = AMap.GeometryUtil.distance(p1, p2)/1000;           
+//      	console.log('两点距离'+dis)
+//      			minX:limitBounds.southwest.lng,
+//      			maxX:limitBounds.northeast.lng,
+//      			minY:limitBounds.southwest.lat,
+//      			maxY:limitBounds.northeast.lat,     
+
+			var opt = {
+        			minX:limitBounds.southwest.lng,
+        			maxX:limitBounds.northeast.lng,
+        			minY:limitBounds.southwest.lat,
+        			maxY:limitBounds.northeast.lat,  				
+					accessToken:"f0040dd47ef84c3ba018cffc4b2585c5",//quser.accessToken,
+			}
+
+        	if(type=='move'){
+        		getImageList(opt);
+        	}else if(type=='zoom'){
+        		getImageList(opt,true);
+        	}
+        
+        } else {
+            alert('未设置限制区域');
+        }
+    }  
+    
+	    function clearLimitBounds() {
+	        map.clearLimitBounds();
+	    }
+	    map.on('touchend', function() {
+	    	//alert('地图移动结束');
+	    	console.log( "地图移动结束")
+	        setLimitBounds('move');
+	        clearLimitBounds(); 	
+	    });		
+
+	    map.on('zoomend', function() {
+	    	console.log( "地图缩放了")
+	        setLimitBounds('zoom');
+	        clearLimitBounds(); 	
+	    });	    
+	    map.on('complete', function() {
+	    	console.log( "地图图块加载完毕！当前地图中心点为：" + map.getCenter())
+	        setLimitBounds('zoom');
+	        clearLimitBounds(); 	
+	    });
+    map.setFitView();
+
+//  AMap.event.addDomListener('.imgBox', 'click',function(){
+//  	alert(123);
+//  });//给div绑定单击事件
+//	
+	
+	
+	$('.imgBox').on('click',function(){
+		//alert(12312);
+		var newzoom =  map.getZoom();
+		map.setZoomAndCenter(newzoom-3,[$(this).attr("lan"),$(this).attr("lat"),]);
+		
+	})
+	
+	
+	
+	
+	
+	
+		</script>
+	</body>
+
+</html>

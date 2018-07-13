@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>点赞</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>	
+		<link rel="stylesheet" href="css/mui.min.css">
+		<style type="text/css">
+			.mui-content>.mui-table-view:first-child {
+				margin-top: -1px;
+			}
+			.mui-content{
+				background: #FFFFFF;
+			}
+			body{
+				background: #FFFFFF;
+			}
+			.loading{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				background: #FFFFFF;
+				opacity: 0.95;
+				top: 0;
+				left: 0;
+				z-index: 1000;
+			}
+			.loading img{
+				width: 3.4rem;
+				height: 3rem;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top:-1.5rem;
+				margin-left: -1.7rem;
+			}			
+			a{
+				color: orange;
+			}
+			a:active{
+				color: orange;
+			}
+			.likeList{
+				min-height: 300px;
+				padding: 0.2rem;
+				
+			}
+			.mui-title{
+				font-size: 16px;
+				color: #666666;
+				font-weight: normal;
+			}
+			.mui-table-view:after{
+				background: #FFFFFF;
+			}
+			.commentsListContent{
+				border: none;
+			}
+			.commentsListContent .commentsList .commentsItem{
+				width: 100%;
+				min-height: 2rem;
+				display: flex;
+					
+			}
+			.commentsListContent .commentsList .commentsItem .userPortrait{
+				flex: 0 0 2rem;
+				position: relative;
+			}
+			.commentsListContent .commentsList .commentsItem .userPortrait span{
+				display: block;
+				height: 1.3rem;
+				width: 1.3rem;
+				margin: auto;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left:-0.65rem;
+				margin-top: -0.65rem;
+				background: url(../image/bg.jpg) no-repeat 50% 50%;
+				background-size:cover ;	
+				border-radius:100% ;
+			}
+			.commentsListContent .commentsList .commentsItem .commentsTxt{
+				position: relative;
+				flex: 1;
+				border-bottom: 1px solid gainsboro;
+			}
+			.commentsListContent .commentsList .commentsItem .commentsTxt .commentInfo{
+				position: absolute;
+				top: 50%;
+				margin-top: -15px;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+			}
+			.commentsListContent .commentsList .commentsItem .commentsTxt .commentInfo .userName{
+				float: left;
+				width: 50%;
+				box-sizing: border-box;
+				font-size: 16px;
+				color: #666666;
+				text-align: left;
+			    overflow:hidden;
+			    text-overflow:ellipsis;
+			    white-space:nowrap	
+			}
+			.commentsListContent .commentsList .commentsItem .commentsTxt .commentInfo .date{
+				float: right;
+				width: 50%;
+				box-sizing: border-box;
+				font-size: 12px;
+				color: #999999;
+				text-align: right;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="loading">
+			<img src="image/loading.gif"/>
+		</div>			
+		<header id="header" class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title" id="titles"></h1>
+		</header>		
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">				
+				<!--数据列表-->
+		<div class="commentsListContent">			
+				<ul class="mui-table-view mui-table-view-chevron likeList commentsList">
+						<!--<li class="commentsItem">
+							<div class="userPortrait"><span></span></div>
+							<div class="commentsTxt">
+							<p class="commentInfo">
+							<span class="userName">昵称而已</span>
+							<span class="date">2015-12-20 12:30</span>
+							</p>	 							
+							</div>								
+						</li>						-->
+				</ul>
+				</div>
+			</div>
+		</div>
+		<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			
+		$(function(){
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style:'circle',
+						callback: pulldownRefresh
+					},
+				}
+			});			
+			//获取URL参数
+			var getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = window.location.search.substr(1).match(reg);
+				if (r !== null) {
+					return decodeURI(r[2]);
+				}
+				return null;
+			};
+			function dateFtt(fmt,date)   
+				{ //author: meizz   
+				  var o = {   
+				    "M+" : date.getMonth()+1,                 //月份   
+				    "d+" : date.getDate(),                    //日   
+				    "h+" : date.getHours(),                   //小时   
+				    "m+" : date.getMinutes(),                 //分   
+				    "s+" : date.getSeconds(),                 //秒   
+				    "q+" : Math.floor((date.getMonth()+3)/3), //季度   
+				    "S"  : date.getMilliseconds()             //毫秒   
+				  };   
+				  if(/(y+)/.test(fmt))   
+				    fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));   
+				  for(var k in o)   
+				    if(new RegExp("("+ k +")").test(fmt))   
+				  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+				  return fmt;   
+				} 
+			
+		    var getGoodList  = function(id){
+		    	$.ajax({
+		    		type:"get",
+		    		data:{dynamicId:id,isLeast:true},
+		    		url:api.getGoods,
+		    		async:true,
+		    		success:function(res){
+		    			$('#titles').text('点赞（'+res.applauds.length+'）')
+		    			
+		    			var Htmls = '';
+		    			res.applauds.forEach(function(item,index){
+			     				res.bases.forEach(function(item1){
+			    					if(item.uid==item1.id){
+			    						Htmls+=
+										`<li class="commentsItem">
+											<div class="userPortrait"><span style="background:#ccc url(${item1.avatar}) no-repeat 50% 50%;background-size: cover;"></span></div>
+											<div class="commentsTxt">
+											<p class="commentInfo">
+											<span class="userName">${item1.nickName}</span>
+											<span class="date">${dateFtt('yyyy-MM-dd hh:mm',new Date(item.createTime))}</span>
+											</p>	 							
+											</div>								
+										</li>`	    						
+			    					}
+			    				})    			 	
+		    			})
+		    			$('.commentsList').empty();
+		    			$('.commentsList').append(Htmls);
+		    			$('.loading').fadeOut();
+		    		},
+		    		error:function(){
+		    			mui.toast('网络错误');
+		    		},
+		    	});
+		
+			}
+		    var id = getUrlParam('id')||'';
+		    getGoodList(id);
+		    
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+		    	$.ajax({
+		    		type:"get",
+		    		data:{dynamicId:id,isLeast:true},
+		    		url:api.getGoods,
+		    		async:true,
+		    		success:function(res){
+		    			$('#titles').text('点赞（'+res.applauds.length+'）')
+		    			
+		    			var Htmls = '';
+		    			res.applauds.forEach(function(item,index){
+		    				if(index<=6){
+			     				res.bases.forEach(function(item1){
+			    					if(item.uid==item1.id){
+			    						Htmls+=
+										`<li class="commentsItem">
+											<div class="userPortrait"><span style="background: url(${item1.avatar}) no-repeat 50% 50%;background-size: cover;"></span></div>
+											<div class="commentsTxt">
+											<p class="commentInfo">
+											<span class="userName">${item1.nickName}</span>
+											<span class="date">${dateFtt('yyyy-MM-dd hh:mm',new Date(item.createTime))}</span>
+											</p>	 							
+											</div>								
+										</li>`	    						
+			    					}
+			    				})    			 	
+		    				}
+		    			})
+		    			$('.commentsList').empty();
+		    			$('.commentsList').append(Htmls);
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						mui.toast("刷新成功！");		    			
+		    			
+		    		},
+		    		error:function(){
+		    			mui.toast('网络错误');
+		    		},
+		    	});
+
+
+
+			}			
+			
+			
+			
+			
+			
+			
+		})
+
+			
+
+
+		</script>
+	</body>
+
+</html>
