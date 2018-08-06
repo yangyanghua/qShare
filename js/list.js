@@ -112,7 +112,39 @@ $(function(){
 		});		
 	}	
 	
+	
+	function getFansList(id){
 
+		$.ajax({
+			type:"get",
+			url:api.fansList,
+			data:{userId:id},
+			async:true,
+			success:function(res){
+				console.log(res);
+				var fansListHtml = '';
+				res.forEach(function(item){
+					fansListHtml += `<li class="fansItem">
+						<div class="fansImage"><span style="background:#CCCCCC url(${item.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+						<div class="fansInfo">
+							<p class="fansName">${item.nickName}</p>
+							<p>景观ID:${item.id}</p>
+							<p>上次登录：${new Date(item.updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+						</div>
+					</li>`				
+				});
+				$('.fansList').empty();
+				$('.fansList').append(fansListHtml);
+			},
+			error:function(){
+				
+			}
+		});				
+
+	}
+	
+	
+	
 	function getUserDetail(id){
 		$.ajax({
 			type:"get",
@@ -137,6 +169,11 @@ $(function(){
 			}else if(res.level=='senior'||res.level=='highest'){
 				leve = 'image/btn_phontoer3x.png';
 			};
+			
+			$('.headerBg').css({
+				"background":"#CCCCCC url("+res.avatar+") no-repeat 50% 50%",
+				"backgroundSize":"cover"
+			})
 			
 			
 			var infoHtml = 	`<div class="baseInfo">
@@ -198,7 +235,7 @@ $(function(){
 			$(this).addClass('active');
 			var thisId = $(this).attr('id');
 			if(thisId==='fansList'){
-				
+				getFansList(id);
 			}else if(thisId==='dynamicList'){
 				getDynamicList(id);
 			}else if(thisId==='countryList'){

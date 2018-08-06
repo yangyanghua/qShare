@@ -2,8 +2,10 @@ var httpService = '';
 var currentHost = location.host;
 
 
-if (currentHost == '127.0.0.1:8020' || currentHost == '192.168.1.121:8080' ) {
+if (currentHost == '127.0.0.1:8020' || currentHost == '172.16.0.59:8080' ) {
+  
   httpService = 'http://pred-api.irenao.cn'; //測試/預生產
+  
 }else if(currentHost == 'pred-h5.irenao.cn'){
 	 httpService = 'http://pred-api.irenao.cn'; //測試/預生產
 }else{
@@ -25,12 +27,16 @@ var api = {
 	getweiboToken:httpService+'/api/v1/weibo/accesstoken',//获取微博token
 	getweixinToken:httpService+'/api/v1/weixin/accesstoken',//获取微信token
   readRank:httpService+'/api/v2/dynamic/read/rank',//阅读榜
+  fansList:httpService + '/api/v1/friend/fans/list',//用户粉丝列表
   dynamicPhotoCount:httpService+'/api/v1/dynamic/dynamicPhotoCount',//用户图
   dynamicList:httpService+'/api/v2/dynamic/map/user/list',//用户图片
 	score:httpService+'/api/v2/dynamic/score',//用户评分
 	cityList:httpService+'/api/v2/dynamic/city/list',//用户城市照片分类
 	countryList:httpService+'/api/v2/dynamic/country/list',//用户国家照片分类
 	scoreList:httpService + '/api/v1/user/rank/score',//用户评分榜
+	
+	
+	
 	
 }
 

@@ -62,8 +62,13 @@ body{
 	z-index: 1;
 	height: 5.5rem;
 	width: 100%;
-	background: url(../image/bg.jpg) no-repeat 50% 50%;
-	background-size:cover;	
+
+	    filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+	    -webkit-filter: blur(10px); /* Chrome, Opera */
+	       -moz-filter: blur(10px);
+	        -ms-filter: blur(10px);   
+	            filter: blur(10px);
+	    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /
 }
 
 .header .userInfo{
@@ -168,7 +173,7 @@ body{
 }
 .fansList .fansItem{
 	display: flex;
-	height: 1.6rem;
+	height: 2.2rem;
 	background: #FFFFFF;
 	padding: 0.2rem;
 	margin-bottom: 0.2rem;
