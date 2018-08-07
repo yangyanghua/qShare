@@ -48,24 +48,38 @@
 //									</div> 		
 		    var markerHtml = `<span class="pnum">${this._params.pnum}</span>`;
 
-			var info = $('<div class="info"></div>');
-			var infoColse = $('<p class="cosle cosleimg">×</p>');
-			var  infoHtml  = `<div class="userInfo">
+		    var info = $('<div class="info"></div>');
+		    var infoColse = $('<p class="cosle cosleimg">×</p>');
+		    var infoHtml = `<div class="userInfo">
 									<p class="haiba">altitude:${this._params.altitude}米</p>		
-								</div>
-								<img src="${this._params.photoUrl}"/>
-							<p class="adds">${this._params.locationName}</p>`;
-		        info.append(infoHtml);
-		        info.append(infoColse);
-	      var div =  $('<div></div>');
-		  if(this._params.pnum>1){
-		    	 div.append(markerHtml);
-		    }	      
-	      this._div = div[0];
-	      this._images = images[0];
-		//  this._cosleList = cosleList[0];
-		  this._infoColse = infoColse[0];
+								</div>`;
+		    var bigimg = $('<img class="bigimg" src="' + this._params.photoUrl + '"/>');
+		    var add = $('<p class="adds">' + this._params.locationName + '</p>');
+		    info.append(infoHtml);
+		    info.append(bigimg);
+		    info.append(add);
+		    info.append(infoColse);
+		    var div = $('<div></div>');
+		    if(this._params.pnum > 1) {
+		    	div.append(markerHtml);
+		    }
+		    this._div = div[0];
 
+		    this._images = images[0];
+		    //  this._cosleList = cosleList[0];
+		    this._infoColse = infoColse[0];
+		    this._bigImg = bigimg[0];
+		    var a = 1;
+		    this._bigImg.addEventListener('touchstart', function() {
+		    	if(a == 2) {
+		    		window.location.href = './index.html?id=' + getUrlParam('id');
+		    	}
+		    	setTimeout(function() {
+		    		a = 1;
+		    	}, 300)
+		    	a++;
+		    });  
+		  
 		  this._infoColse.addEventListener('touchstart',function(){
 						//alert('touch started');
 				$('.info').animate({bottom:'140%',opacity:'0'});
@@ -73,8 +87,14 @@
 					$('.info').hide();
 				},800)						
 			});	
-
-		  
+		  this._infoColse.addEventListener('touchstart',function(){
+						//alert('touch started');
+				$('.info').animate({bottom:'140%',opacity:'0'});
+				setTimeout(function(){
+					$('.info').hide();
+				},800)						
+			});		  	 
+	  	 
 //		  this._cosleList.addEventListener('touchstart',function(){
 //						//alert('touch started');
 //				$('.imageListCon').animate({bottom:'140%',opacity:'0'});

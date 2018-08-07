@@ -235,12 +235,20 @@ $(function(){
 			$(this).addClass('active');
 			var thisId = $(this).attr('id');
 			if(thisId==='fansList'){
+				$('.images').hide();
+				$('.fans').show();
 				getFansList(id);
 			}else if(thisId==='dynamicList'){
+				$('.images').show();
+				$('.fans').hide();				
 				getDynamicList(id);
 			}else if(thisId==='countryList'){
+				$('.images').show();
+				$('.fans').hide();						
 				getCountryList(id);
 			}else if(thisId==='cityList'){
+				$('.images').show();
+				$('.fans').hide();						
 				getCityList(id);
 			}
 	})
