@@ -210,25 +210,25 @@ body{
 	color: #333333;
 }
 
+
 .imageList{
-	width: 100%;
+	width: 49%;
+}
+.imageList.imageList1{
+	float: left;
+}
+.imageList.imageList2{
+	float: right;
 }
 
 .imageItem{
-	width: 49%;
+	width: 100%;
 	box-sizing: border-box;
 	background: #FFFFFF;
 	border-radius:4px ;
 	margin-bottom: 0.2rem;
 	overflow: hidden;
 	box-shadow: 0 4px 9px -2px #CCCCCC;
-}
-
-.imageItem:nth-child(2n-1){
-	float: left;
-}
-.imageItem:nth-child(2n){
-	float: right;
 }
 
 .imageItem .image{

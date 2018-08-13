@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>点赞</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>	
+		<link rel="stylesheet" href="css/mui.min.css">
+		<style type="text/css">
+			.mui-content>.mui-table-view:first-child {
+				margin-top: -1px;
+			}
+			.mui-content{
+				background: #FFFFFF;
+			}
+			body{
+				background: #FFFFFF;
+			}
+			.loading{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				background: #FFFFFF;
+				opacity: 0.95;
+				top: 0;
+				left: 0;
+				z-index: 1000;
+			}
+			.loading img{
+				width: 3.4rem;
+				height: 3rem;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top:-1.5rem;
+				margin-left: -1.7rem;
+			}			
+
+		.commentsListContent .commentsList .commentsItem{
+			width: 100%;
+			min-height: 2.15rem;
+			display: flex;
+				
+		}
+		.commentsListContent .commentsList{
+			padding: 0;
+		}
+		.commentsListContent .commentsList .commentsItem .userPortrait{
+			flex: 0 0 1.5rem;
+		}
+		.commentsListContent .commentsList .commentsItem .userPortrait span{
+			display: block;
+			height: 0.9rem;
+			width: 0.9rem;
+			margin: auto;
+			margin-top: 0.2rem;
+			background: url(../image/bg.jpg) no-repeat 50% 50%;
+			background-size:cover ;	
+			border-radius:100% ;
+		}
+		.commentsListContent .commentsList .commentsItem .commentsTxt{
+			flex: 1;
+			padding-right: 0.2rem;
+			border-bottom: 1px solid gainsboro;
+		}
+		.commentsListContent .commentsList .commentsItem .commentsTxt .commentInfo{
+			width: 100%;
+			height: 25px;
+			line-height: 25px;
+			padding-top: 0.32rem;
+		}
+		.commentsListContent .commentsList .commentsItem .commentsTxt .commentInfo .userName{
+			float: left;
+			width: 50%;
+			box-sizing: border-box;
+			font-size: 12px;
+			color: #fd5b42;
+			text-align: left;
+		    overflow:hidden;
+		    text-overflow:ellipsis;
+		    white-space:nowrap	
+		}
+		.commentsListContent .commentsList .commentsItem .commentsTxt .commentInfo .date{
+			float: right;
+			width: 50%;
+			box-sizing: border-box;
+			font-size: 12px;
+			color: #999999;
+			text-align: right;
+		}
+		
+		.commentsListContent .commentsList .commentsItem .commentsTxt .commentContent{
+			padding-top: 5px;
+			font-size: 14px;
+			color: #333333;
+			line-height: 24px;
+		
+		}
+		.commentsListContent .commentsList .commentsItem .commentsTxt .commentContent .name{
+			font-size: 14px;
+			color: #007AFF;
+			padding: 0 5px;
+		}
+		
+		.commentsListContent .commentsList .commentsItem:last-child .commentsTxt{
+			border-bottom: none;
+		}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="loading">
+			<img src="image/loading.gif"/>
+		</div>			
+		<header id="header" class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title" id="titles"></h1>
+		</header>		
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">				
+				<!--数据列表-->
+					<div class="commentsListContent">
+						<ul class="commentsList">
+
+							<!--<li class="commentsItem">
+								<div class="userPortrait"><span></span></div>
+								<div class="commentsTxt">
+								<p class="commentInfo">
+									<span class="userName">昵称而已</span>
+									<span class="date">2015-12-20 12:30</span>
+								</p>	 
+								<p class="commentContent">
+								   @<span class="name">用户昵称</span>：随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，随便放点文字看看效果，
+								</p>							
+								</div>								
+							</li>							-->
+						
+							
+						</ul>
+					</div>
+			</div>
+		</div>
+		<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			
+		$(function(){
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style:'circle',
+						callback: pulldownRefresh
+					},
+				}
+			});			
+			//获取URL参数
+			var getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = window.location.search.substr(1).match(reg);
+				if (r !== null) {
+					return decodeURI(r[2]);
+				}
+				return null;
+			};
+			function dateFtt(fmt,date)   
+				{ //author: meizz   
+				  var o = {   
+				    "M+" : date.getMonth()+1,                 //月份   
+				    "d+" : date.getDate(),                    //日   
+				    "h+" : date.getHours(),                   //小时   
+				    "m+" : date.getMinutes(),                 //分   
+				    "s+" : date.getSeconds(),                 //秒   
+				    "q+" : Math.floor((date.getMonth()+3)/3), //季度   
+				    "S"  : date.getMilliseconds()             //毫秒   
+				  };   
+				  if(/(y+)/.test(fmt))   
+				    fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));   
+				  for(var k in o)   
+				    if(new RegExp("("+ k +")").test(fmt))   
+				  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+				  return fmt;   
+				} 
+			var $commentsList  = $('.commentsList');
+		    var getCommentsList  = function(id){
+		    	$.ajax({
+		    		type:"get",
+		    		data:{dynamicId:id,isLeast:true},
+		    		url:api.commentList,
+		    		async:true,
+		    		success:function(res){
+		    			$('#titles').text('评论（'+res.comments.length+'）')
+		    			
+						var comhtml = '';
+						var uiduser  = {};
+						var touser = {};
+						res.comments.forEach(function(item){
+							res.bases.forEach(function(item1){
+								if(item.uid==item1.id){
+									uiduser = item1;					
+								}
+								if(item.toUid==item1.id){
+									touser = item1;					
+								}						
+							})					
+							
+							if(item.type==1){
+								comhtml +=
+										'<li class="commentsItem">'+
+											'<div class="userPortrait" userid="'+item.uid+'" ><span style="background:#ccc url('+uiduser.avatar+') no-repeat 50% 50%; background-size: cover;"></span></div>'+
+											'<div class="commentsTxt">'+
+											'<p class="commentInfo">'+
+												'<span class="userName" userid="'+item.uid+'">'+uiduser.nickName+'</span>'+
+												'<span class="date">'+dateFtt('yyyy-MM-dd hh:mm',new Date(item.createTime))+'</span>'+
+											'</p>'+	 
+											'<p class="commentContent">'+
+												item.content
+											'</p>'+							
+											'</div>'+								
+										'</li>';							
+							}else if(item.type==3){
+								comhtml +=
+										'<li class="commentsItem">'+
+											'<div class="userPortrait" userid="'+item.uid+'" ><span style="background: url('+uiduser.avatar+') no-repeat 50% 50%; background-size: cover;"></span></div>'+
+											'<div class="commentsTxt">'+
+											'<p class="commentInfo">'+
+												'<span class="userName" userid="'+item.uid+'">'+uiduser.nickName+'</span>'+
+												'<span class="date">'+dateFtt('yyyy-MM-dd hh:mm',new Date(item.createTime))+'</span>'+
+											'</p>'+	 
+											'<p class="commentContent">'+
+												'@<span class="name">'+touser.nickName+'</span>：'+ item.content +
+											'</p>'+							
+											'</div>'+								
+										'</li>';							
+							}					
+						})
+						$commentsList.empty();
+						$commentsList.append(comhtml);
+						$('.loading').fadeOut();
+						setTimeout(function(){
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						},1000)
+						
+						//mui.toast("刷新成功！");		 
+
+		    		},
+		    		error:function(){
+		    			mui.toast('网络错误');
+		    		},
+		    	});
+		
+			}
+		    var id = getUrlParam('id')||'';
+		    getCommentsList(id);
+		    
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				
+			getCommentsList(id);
+				
+
+			}			
+			
+
+			mui('body').on('tap', '.userPortrait', function(){
+						var uid = $(this).attr('userid'); 				
+						window.location.href = 'list.html?id='+uid;
+				
+			})
+			
+			mui('body').on('tap','.userName',function(){
+				
+				var uid = $(this).attr('userid'); 				
+				window.location.href = 'list.html?id='+uid;
+				
+			})			
+			
+			
+			
+			
+			
+
+		})
+
+			
+
+		</script>
+	</body>
+
+</html>

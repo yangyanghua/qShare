@@ -161,7 +161,7 @@
 	     				res.bases.forEach(function(item1){
 	    					if(item.uid==item1.id){
 	    						userListHtml+=
-	    							'<li class="userItem" style="background:#ccc url('+item1.avatar+') no-repeat 50% 50%;background-size: cover;" ></li>'
+	    							'<li class="userItem" userid="'+item.uid+'" style="background:#ccc url('+item1.avatar+') no-repeat 50% 50%;background-size: cover;" ></li>'
 	    					}
 	    				})    			 	
     				}
@@ -281,10 +281,10 @@
 					if(item.type==1){
 						comhtml +=
 								'<li class="commentsItem">'+
-									'<div class="userPortrait"><span style="background:#ccc url('+uiduser.avatar+') no-repeat 50% 50%; background-size: cover;"></span></div>'+
+									'<div class="userPortrait" userid="'+item.uid+'" ><span style="background:#ccc url('+uiduser.avatar+') no-repeat 50% 50%; background-size: cover;"></span></div>'+
 									'<div class="commentsTxt">'+
 									'<p class="commentInfo">'+
-										'<span class="userName">'+uiduser.nickName+'</span>'+
+										'<span class="userName" userid="'+item.uid+'" >'+uiduser.nickName+'</span>'+
 										'<span class="date">'+dateFtt('yyyy-MM-dd hh:mm',new Date(item.createTime))+'</span>'+
 									'</p>'+	 
 									'<p class="commentContent">'+
@@ -295,10 +295,10 @@
 					}else if(item.type==3){
 						comhtml +=
 								'<li class="commentsItem">'+
-									'<div class="userPortrait"><span style="background: url('+uiduser.avatar+') no-repeat 50% 50%; background-size: cover;"></span></div>'+
+									'<div class="userPortrait" userid="'+item.uid+'"><span style="background: url('+uiduser.avatar+') no-repeat 50% 50%; background-size: cover;"></span></div>'+
 									'<div class="commentsTxt">'+
 									'<p class="commentInfo">'+
-										'<span class="userName">'+uiduser.nickName+'</span>'+
+										'<span class="userName" userid="'+item.uid+'" >'+uiduser.nickName+'</span>'+
 										'<span class="date">'+dateFtt('yyyy-MM-dd hh:mm',new Date(item.createTime))+'</span>'+
 									'</p>'+	 
 									'<p class="commentContent">'+
@@ -373,22 +373,9 @@ $('.inputs').on('click',function(){
 })
 
 $('.comTotalityNumer').on('click',function(){
-	if(!userInfo){
-		var btnArray = ['关闭', '去登陆'];
-				mui.confirm('登陆后才可以评论', '提示', btnArray, function(e) {
-					if (e.index == 1) {
-						window.location.href = 'login.html?id='+id;
-					} else {
-						console.log('关闭提示');	
-					}
-				})
-		return false;		
-	}else{
-		mask.show();//显示遮罩
-		$('.mui-backdrop').css('bottom','4.5rem');
-		$('.comment').css('height','4.5rem');		
-		$('#textarea').focus();	
-	}
+
+		window.location.href = 'commentList.html?id='+id;
+
 })
 
 
@@ -710,8 +697,25 @@ function getRankList(){
 	
 }
 
-
-
+			mui('body').on('tap', '.userPortrait', function(){
+						var uid = $(this).attr('userid'); 				
+						window.location.href = 'list.html?id='+uid;
+				
+			})
+			
+			
+			mui('body').on('tap','.userName',function(){
+				
+				var uid = $(this).attr('userid'); 				
+				window.location.href = 'list.html?id='+uid;
+				
+			})				
+			mui('body').on('tap','.userItem',function(){
+				
+				var uid = $(this).attr('userid'); 				
+				window.location.href = 'list.html?id='+uid;
+				
+			})		
 
 
 });

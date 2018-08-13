@@ -17,6 +17,7 @@ var api = {
 	getUserDetail:httpService	+ '/api/v1/user/detail',//用户信息详情
 	getDetail:httpService +'/api/v1/dynamic/detail',//详情
 	getGoods:httpService+'/api/v1/good/list',//赞列表
+	commentList:httpService +	'/api/v1/comment/list',//评论列表
 	phoneLogin:httpService+'/api/v1/user/login',//手机登陆
 	getCode:httpService+'/api/v1/user/send/sms',//获取验证码
 	otherLogin:httpService+'/api/v1/user/register',//第三方登陆
@@ -34,8 +35,9 @@ var api = {
 	cityList:httpService+'/api/v2/dynamic/city/list',//用户城市照片分类
 	countryList:httpService+'/api/v2/dynamic/country/list',//用户国家照片分类
 	scoreList:httpService + '/api/v1/user/rank/score',//用户评分榜
+	photoLocation:httpService + '/api/v2/dynamic/photo/location',//获得国家、市照片
 	
-	
+
 	
 	
 }

@@ -152,13 +152,14 @@
 		  var point = this._point;
 		  this._images.addEventListener('touchstart',function(){
 						//alert('touch started');
-						map.panTo(point,false);	
-						$('.info').css({bottom:'140%',opacity:'0',display:'none'});
+						//map.panTo(point,false);	
+						window.location.href  = './index.html?id='+getUrlParam('id');
+//						$('.info').css({bottom:'140%',opacity:'0',display:'none'});
 //						div.find('.imageListCon').show();
 //						div.find('.imageListCon').animate({bottom:'120%',opacity:'1'});									
-						var $info = div.find('.info');								
-						$info.show();
-						$info.animate({bottom:'120%',opacity:'1',zIndex:'20000'});		
+//						var $info = div.find('.info');								
+//						$info.show();
+//						$info.animate({bottom:'120%',opacity:'1',zIndex:'20000'});		
 
 						
 			});

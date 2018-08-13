@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css/map.css"/>
 	<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>
 
-	<title>所有照片（0）</title>
+	<title>快看Quick-带你一起看世界</title>
 </head>
 <body>
 		<div class="loading">
@@ -63,34 +63,104 @@
 	<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/map.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+	
+	var countrycode = getUrlParam('countrycode')||'';
+	var citycode = getUrlParam('citycode')||'';
+	var id = getUrlParam('id'); 
 
-	map.addEventListener("zoomend", function(evt){
-		map.clearOverlays();
-		oldList = [];
-		getImages();
-	});
 	map.addEventListener("tilesloaded", function(evt){
 		
 		if(fastLoad){
-			getImages();
+			if(countrycode || citycode){
+				getImageBuycountryCode()
+			}else{
+				getImages();
+			};
 			fastLoad = false;
 			$('.loading').fadeOut();
 		}
+
+		
+		
+		
 	});	
 	
+
+
+		
+	map.addEventListener("zoomend", function(evt){
+		map.clearOverlays();
+		oldList = [];
+			if(countrycode || citycode){
+				getImageBuycountryCode()
+			}else{
+				getImages();
+			};
+	});		
+		
 	map.addEventListener("moveend", function(evt){
-			
-			
-			getImages();
+
+			if(countrycode || citycode){
+				getImageBuycountryCode()
+			}else{
+				getImages();
+			};
 			//	var bounds = map.getBounds();
 
-			});	
+			});			
+		
+
+function getImageBuycountryCode(){
+	var opt = {};
+	if(countrycode){
+		opt={
+			isLeast:true,
+			userId:id,
+			countryCode:countrycode
+		};
+	}else if(citycode){
+		opt={
+			isLeast:true,
+			userId:id,
+			cityCode:citycode
+		};		
+	}
+	
+	$.ajax({
+		type:"get",
+		url:api.photoLocation,
+		data:opt,
+		async:true,
+		success:function(res){
+				//$('title').text("所有照片（"+res.object.length+"）")
+				res.object.forEach(function(item){
+
+						var point =  new BMap.Point(item.longitude,item.latitude);
+						
+						var params = {point:point,params:item};
+						params.params.pnum = 1;
+						var myCompOverlay = new ComplexCustomOverlay(params);
+						map.addOverlay(myCompOverlay); 
+
+				})				
+			
+			
+		},
+		error:function(res){
+			
+		}
+	});
+	
+	
+	
+	
+}
 
 
 
 function getImages(){
 	//2716
-		var id = getUrlParam('id'); 
+		
 		var bounds = map.getBounds();
 
 		var opt = {
@@ -106,7 +176,7 @@ function getImages(){
 			data:opt,
 			async:true,
 			success:function(res){
-				$('title').text("所有照片（"+res.length+"）")
+				//$('title').text("所有照片（"+res.length+"）")
 				res.forEach(function(item){
 					if(oldList.indexOf(item.t.id)==-1){
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);

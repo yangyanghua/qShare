@@ -13,10 +13,14 @@ $(function(){
 			async:true,
 			success:function(res){
 				console.log(res);
-			var dynamicHtml = '';	
-			res.object.forEach(function(item){
+			var dynamicHtml1 = '';
+			var dynamicHtml2 = '';
+			res.object.forEach(function(item,index){
 			//	console.log(item.dynamics[0].firstUrl);
-				dynamicHtml+=`<li class="imageItem dynamics" id="${item.dynamics[0].id}">
+			
+			if(index % 2 === 0 ){
+
+				dynamicHtml2+=`<li class="imageItem dynamics" id="${item.dynamics[0].id}">
 						<div class="image">
 							<img src="${item.dynamics[0].firstUrl}"/>
 						</div>
@@ -29,10 +33,29 @@ $(function(){
 								<p>${new Date(item.dynamics[0].updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
 							</div>							
 						</div>
-					</li>`
+					</li>`				
+			}else{
+				dynamicHtml1+=`<li class="imageItem dynamics" id="${item.dynamics[0].id}">
+						<div class="image">
+							<img src="${item.dynamics[0].firstUrl}"/>
+						</div>
+						<h2 class="cname">${item.dynamics[0].locationName}</h2>
+						<div class="c_userInfo">
+							<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+							<div class="c_user">
+								<p class="c_userName">${thisUserInfo.nickName}</p>
+								<p>${new Date(item.dynamics[0].createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+								<p>${new Date(item.dynamics[0].updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+							</div>							
+						</div>
+					</li>`				
+			}
+				
+
 			})
 			$('.imageList').empty();
-			$('.imageList').append(dynamicHtml);
+			$('.imageList1').append(dynamicHtml1);
+			$('.imageList2').append(dynamicHtml2);
 			$('.loading').fadeOut();
 			},
 			error:function(){
@@ -50,25 +73,46 @@ $(function(){
 			async:true,
 			success:function(res){
 				console.log(res);
-				var cityListHtml = '';
-				res.forEach(function(item){
-					cityListHtml += `<li class="imageItem">
-							<div class="image">
-								<img src="${item.url}"/>
-							</div>
-							<h2 class="cname">${item.title}</h2>
-							<div class="c_userInfo">
-								<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-								<div class="c_user">
-									<p class="c_userName">${thisUserInfo.nickName}</p>
-									<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-									<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-								</div>							
-							</div>
-						</li>`					
+				var cityListHtml1 = '';
+				var cityListHtml2 = '';
+				
+				res.forEach(function(item,index){
+					if(index % 2 === 0){
+						cityListHtml2 += `<li class="imageItem city"  citycode="${item.code}">
+								<div class="image">
+									<img src="${item.url}"/>
+								</div>
+								<h2 class="cname">${item.title}</h2>
+								<div class="c_userInfo">
+									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+									<div class="c_user">
+										<p class="c_userName">${thisUserInfo.nickName}</p>
+										<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+										<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+									</div>							
+								</div>
+							</li>`							
+					}else{
+						cityListHtml1 += `<li class="imageItem city"  citycode="${item.code}">
+								<div class="image">
+									<img src="${item.url}"/>
+								</div>
+								<h2 class="cname">${item.title}</h2>
+								<div class="c_userInfo">
+									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+									<div class="c_user">
+										<p class="c_userName">${thisUserInfo.nickName}</p>
+										<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+										<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+									</div>							
+								</div>
+							</li>`						
+					}
+
 				});
 				$('.imageList').empty();
-				$('.imageList').append(cityListHtml);
+				$('.imageList1').append(cityListHtml1);
+				$('.imageList2').append(cityListHtml2);
 			},
 			error:function(){
 				
@@ -86,25 +130,46 @@ $(function(){
 			async:true,
 			success:function(res){
 				console.log(res);
-				var CountryListHtml = '';
-				res.forEach(function(item){
-					CountryListHtml += `<li class="imageItem">
-							<div class="image">
-								<img src="${item.url}"/>
-							</div>
-							<h2 class="cname">${item.title}</h2>
-							<div class="c_userInfo">
-								<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-								<div class="c_user">
-									<p class="c_userName">${thisUserInfo.nickName}</p>
-									<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-									<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-								</div>							
-							</div>
-						</li>`					
+				var CountryListHtml1 = '';
+				var CountryListHtml2 = '';
+				res.forEach(function(item,index){
+					if(index % 2===0){
+						CountryListHtml2 += `<li class="imageItem country" countrycode="${item.code}">
+								<div class="image">
+									<img src="${item.url}"/>
+								</div>
+								<h2 class="cname">${item.title}</h2>
+								<div class="c_userInfo">
+									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+									<div class="c_user">
+										<p class="c_userName">${thisUserInfo.nickName}</p>
+										<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+										<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+									</div>							
+								</div>
+							</li>`							
+					}else{
+							CountryListHtml1 += `<li class="imageItem country" countrycode="${item.code}">
+									<div class="image">
+										<img src="${item.url}"/>
+									</div>
+									<h2 class="cname">${item.title}</h2>
+									<div class="c_userInfo">
+										<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+										<div class="c_user">
+											<p class="c_userName">${thisUserInfo.nickName}</p>
+											<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+											<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+										</div>							
+									</div>
+								</li>`							
+					}
+					
+				
 				});
 				$('.imageList').empty();
-				$('.imageList').append(CountryListHtml);
+				$('.imageList1').append(CountryListHtml1);
+				$('.imageList2').append(CountryListHtml2);
 			},
 			error:function(){
 				
@@ -230,7 +295,6 @@ $(function(){
 		}	
 	})
 	$('.userInfo').on('click','.navItem',function(){
-			
 			$('.navItem').removeClass('active');
 			$(this).addClass('active');
 			var thisId = $(this).attr('id');
@@ -253,4 +317,18 @@ $(function(){
 			}
 	})
 
+
+			mui('body').on('tap','.country',function(){
+				
+				var code = $(this).attr('countrycode'); 				
+				window.location.href = 'map.html?id='+id+'&countrycode='+code;
+				
+			})	
+	
+			mui('body').on('tap','.city',function(){				
+				var code = $(this).attr('citycode'); 				
+				window.location.href = 'map.html?id='+id+'&citycode='+code;				
+			})	
+	
+	
 })
