@@ -57,14 +57,44 @@
 		});
 		
 	}	
+        function weiboCallbrack(data) {
+             console.info(data);
+				var opt  = {
+					nickName:data.screen_name,
+					accountId:data.id,
+					openid:'',
+					avatar:data.avatar_large,
+					userType:5,
+					accessToken:thirdToken,
+				};
+				login(opt);			 	
+        }
+        function weixinCallbrack(data) {
+             console.info(data);
+				var opt  = {
+					nickName:res.nickname,
+					accountId:res.openid,
+					openid:res.openid,
+					avatar:res.headimgurl,
+					userType:4,
+					accessToken:thirdToken,
+				};
+				login(opt);		 	
+        }
+
 	//获取微博用户信息
 	var getweiboUserInfo  = function(token,uid){
 		$.ajax({
 			type:"get",
 			url:"https://api.weibo.com/2/users/show.json",
+			dataType : "jsonp",
+			jsonpCallback: "weiboCallbrack",
 			data:{access_token:token,uid:uid},
 			async:true,
 			success:function(res){
+				console.log(res);
+				var data  = res();
+				
 				var opt  = {
 					nickName:res.screen_name,
 					accountId:res.id,
@@ -87,9 +117,11 @@
 		$.ajax({
 			type:"get",
 			url:"https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN",
+			dataType : "jsonp",	
 			data:{access_token:token,openid:openid,lang:getLang()},
 			async:true,
 			success:function(res){
+				console.log(res);
 				var opt  = {
 					nickName:res.nickname,
 					accountId:res.openid,
@@ -101,6 +133,7 @@
 				login(opt);
 			},
 			error:function(res){
+				
 				mui.toast('获取用户信息失败,请重试');
 			}
 		});		
@@ -109,6 +142,7 @@
 
 	//微博登录,获取token
 	function getToken(){
+		//$('#code').text(code);
 		if(qobj.type==='wb'){
 			$.ajax({
 				type:"get",
@@ -124,6 +158,7 @@
 				}
 			});			
 		}else if(qobj.type==='wx'){
+
 				$.ajax({
 					type:"get",
 					url:api.getweixinToken,
@@ -134,7 +169,24 @@
 						getweixinUserInfo(res.access_token,res.openid);
 					},
 					error:function(res){
-						mui.toast('获取用户token失败,请重试');
+					
+					mui.toast('获取用户token失败,请重试');
+					
+					var errorCode = xhr.getResponseHeader('ErrorCode');
+					console.log('errorcode:'+errorCode);
+					
+					if(errorCode==9){
+						mui.toast('登录超时');
+						localStorage.removeItem('user');
+					}else if(errorCode==10){
+						mui.toast('动态已被删除');
+					}else{
+						mui.toast('网络错误');
+					}						
+						
+						
+						
+						
 					}
 				});				
 		}
