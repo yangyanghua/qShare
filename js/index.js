@@ -58,24 +58,23 @@
 		
 	}	
         function weiboCallbrack(data) {
-             console.info(data);
+             console.log(data);
 				var opt  = {
-					nickName:data.screen_name,
-					accountId:data.id,
+					nickName:data.data.screen_name,
+					accountId:data.data.id,
 					openid:'',
-					avatar:data.avatar_large,
+					avatar:data.data.avatar_large,
 					userType:5,
 					accessToken:thirdToken,
 				};
 				login(opt);			 	
         }
         function weixinCallbrack(data) {
-             console.info(data);
 				var opt  = {
-					nickName:res.nickname,
-					accountId:res.openid,
-					openid:res.openid,
-					avatar:res.headimgurl,
+					nickName:data.data.nickname,
+					accountId:data.data.openid,
+					openid:data.data.openid,
+					avatar:data.data.headimgurl,
 					userType:4,
 					accessToken:thirdToken,
 				};
@@ -93,13 +92,11 @@
 			async:true,
 			success:function(res){
 				console.log(res);
-				var data  = res();
-				
 				var opt  = {
-					nickName:res.screen_name,
-					accountId:res.id,
+					nickName:res.data.screen_name,
+					accountId:res.data.id,
 					openid:'',
-					avatar:res.avatar_large,
+					avatar:res.data.avatar_large,
 					userType:5,
 					accessToken:thirdToken,
 				};
@@ -116,16 +113,16 @@
 		
 		$.ajax({
 			type:"get",
-			url:"https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN",
+			url:"https://api.weixin.qq.com/sns/userinfo",
 			dataType : "jsonp",	
 			data:{access_token:token,openid:openid,lang:getLang()},
 			async:true,
 			success:function(res){
 				console.log(res);
 				var opt  = {
-					nickName:res.nickname,
-					accountId:res.openid,
-					openid:res.openid,
+					nickName:res.data.nickname,
+					accountId:res.data.openid,
+					openid:res.data.openid,
 					avatar:res.headimgurl,
 					userType:4,
 					accessToken:thirdToken,
@@ -133,7 +130,8 @@
 				login(opt);
 			},
 			error:function(res){
-				
+				var err =  JSON.stringify(res);
+				alert(err);
 				mui.toast('获取用户信息失败,请重试');
 			}
 		});		
@@ -152,6 +150,8 @@
 				success:function(res){
 					thirdToken = res.accessToken;
 					getweiboUserInfo(res.accessToken,res.uid);
+					
+					
 				},
 				error:function(res){
 					mui.toast('获取用户token失败,请重试');
@@ -166,7 +166,8 @@
 					async:true,
 					success:function(res){
 						thirdToken = res.accessToken;
-						getweixinUserInfo(res.access_token,res.openid);
+						alert(JSON.stringify(res));
+						//getweixinUserInfo(res.access_token,res.openid);
 					},
 					error:function(res){
 					
