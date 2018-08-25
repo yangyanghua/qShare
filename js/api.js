@@ -37,9 +37,6 @@ var api = {
 	scoreList:httpService + '/api/v1/user/rank/score',//用户评分榜
 	photoLocation:httpService + '/api/v2/dynamic/photo/location',//获得国家、市照片
 	
-
-	
-	
 }
 
 	//获取用户信息

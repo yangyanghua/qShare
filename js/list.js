@@ -228,11 +228,11 @@ $(function(){
 //highest	highest	摄影家
 
 			if(res.level=='freshman'||res.level=='junior'){
-				leve = 'image/btnphontoer12x.png';
+				leve = './image/btnphontoer12x.png';
 			}else if(res.level=='medium'){
-				leve = 'image/btn_phontoer2x.png';
+				leve = './image/btn_phontoer2x.png';
 			}else if(res.level=='senior'||res.level=='highest'){
-				leve = 'image/btn_phontoer3x.png';
+				leve = './image/btn_phontoer3x.png';
 			};
 			
 			$('.headerBg').css({

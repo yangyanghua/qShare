@@ -57,19 +57,46 @@
 		});
 		
 	}	
+        function weiboCallbrack(data) {
+             console.log(data);
+				var opt  = {
+					nickName:data.data.screen_name,
+					accountId:data.data.id,
+					openid:'',
+					avatar:data.data.avatar_large,
+					userType:5,
+					accessToken:thirdToken,
+				};
+				login(opt);			 	
+        }
+        function weixinCallbrack(data) {
+				var opt  = {
+					nickName:data.data.nickname,
+					accountId:data.data.openid,
+					openid:data.data.openid,
+					avatar:data.data.headimgurl,
+					userType:4,
+					accessToken:thirdToken,
+				};
+				login(opt);		 	
+        }
+
 	//获取微博用户信息
 	var getweiboUserInfo  = function(token,uid){
 		$.ajax({
 			type:"get",
 			url:"https://api.weibo.com/2/users/show.json",
+			dataType : "jsonp",
+			jsonpCallback: "weiboCallbrack",
 			data:{access_token:token,uid:uid},
 			async:true,
 			success:function(res){
+				console.log(res);
 				var opt  = {
-					nickName:res.screen_name,
-					accountId:res.id,
+					nickName:res.data.screen_name,
+					accountId:res.data.id,
 					openid:'',
-					avatar:res.avatar_large,
+					avatar:res.data.avatar_large,
 					userType:5,
 					accessToken:thirdToken,
 				};
@@ -86,14 +113,16 @@
 		
 		$.ajax({
 			type:"get",
-			url:"https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN",
+			url:"https://api.weixin.qq.com/sns/userinfo",
+			dataType : "jsonp",	
 			data:{access_token:token,openid:openid,lang:getLang()},
 			async:true,
 			success:function(res){
+				console.log(res);
 				var opt  = {
-					nickName:res.nickname,
-					accountId:res.openid,
-					openid:res.openid,
+					nickName:res.data.nickname,
+					accountId:res.data.openid,
+					openid:res.data.openid,
 					avatar:res.headimgurl,
 					userType:4,
 					accessToken:thirdToken,
@@ -101,6 +130,8 @@
 				login(opt);
 			},
 			error:function(res){
+				var err =  JSON.stringify(res);
+				alert(err);
 				mui.toast('获取用户信息失败,请重试');
 			}
 		});		
@@ -109,6 +140,7 @@
 
 	//微博登录,获取token
 	function getToken(){
+		//$('#code').text(code);
 		if(qobj.type==='wb'){
 			$.ajax({
 				type:"get",
@@ -118,12 +150,15 @@
 				success:function(res){
 					thirdToken = res.accessToken;
 					getweiboUserInfo(res.accessToken,res.uid);
+					
+					
 				},
 				error:function(res){
 					mui.toast('获取用户token失败,请重试');
 				}
 			});			
 		}else if(qobj.type==='wx'){
+
 				$.ajax({
 					type:"get",
 					url:api.getweixinToken,
@@ -131,10 +166,28 @@
 					async:true,
 					success:function(res){
 						thirdToken = res.accessToken;
-						getweixinUserInfo(res.access_token,res.openid);
+						alert(JSON.stringify(res));
+						//getweixinUserInfo(res.access_token,res.openid);
 					},
 					error:function(res){
-						mui.toast('获取用户token失败,请重试');
+					
+					mui.toast('获取用户token失败,请重试');
+					
+					var errorCode = xhr.getResponseHeader('ErrorCode');
+					console.log('errorcode:'+errorCode);
+					
+					if(errorCode==9){
+						mui.toast('登录超时');
+						localStorage.removeItem('user');
+					}else if(errorCode==10){
+						mui.toast('动态已被删除');
+					}else{
+						mui.toast('网络错误');
+					}						
+						
+						
+						
+						
 					}
 				});				
 		}
