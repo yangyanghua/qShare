@@ -111,7 +111,6 @@
 //						var $info = div.find('.info');								
 //						$info.show();
 //						$info.animate({bottom:'120%',opacity:'1'});		
-
 						
 			});
 	      div.addClass('image');
