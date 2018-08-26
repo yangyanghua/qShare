@@ -189,7 +189,7 @@ $(function(){
 				console.log(res);
 				var fansListHtml = '';
 				res.forEach(function(item){
-					fansListHtml += `<li class="fansItem">
+					fansListHtml += `<li class="fansItem" userid="${item.id}" >
 						<div class="fansImage"><span style="background:#CCCCCC url(${item.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 						<div class="fansInfo">
 							<p class="fansName">${item.nickName}</p>
@@ -207,8 +207,6 @@ $(function(){
 		});				
 
 	}
-	
-	
 	
 	function getUserDetail(id){
 		$.ajax({
@@ -316,7 +314,7 @@ $(function(){
 				getCityList(id);
 			}
 	})
-
+		
 
 			mui('body').on('tap','.country',function(){
 				
@@ -329,6 +327,11 @@ $(function(){
 				var code = $(this).attr('citycode'); 				
 				window.location.href = 'map.html?id='+id+'&citycode='+code;				
 			})	
-	
+			mui('body').on('tap','.fansItem',function(){
+				
+				var userid = $(this).attr('userid'); 				
+				window.location.href = './list.html?id='+userid;
+				
+			})		
 	
 })

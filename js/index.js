@@ -91,7 +91,6 @@
 			data:{access_token:token,uid:uid},
 			async:true,
 			success:function(res){
-				console.log(res);
 				var opt  = {
 					nickName:res.data.screen_name,
 					accountId:res.data.id,
@@ -109,20 +108,20 @@
 		
 	};
 	
+	
 	function getweixinUserInfo(token,openid){
-		
+
 		$.ajax({
 			type:"get",
-			url:"https://api.weixin.qq.com/sns/userinfo",
-			dataType : "jsonp",	
+			url:api.getweixinUserinfo,
 			data:{access_token:token,openid:openid,lang:getLang()},
 			async:true,
 			success:function(res){
-				console.log(res);
+				alert(JSON.stringify(res));
 				var opt  = {
-					nickName:res.data.nickname,
-					accountId:res.data.openid,
-					openid:res.data.openid,
+					nickName:res.nickname,
+					accountId:res.openid,
+					openid:res.openid,
 					avatar:res.headimgurl,
 					userType:4,
 					accessToken:thirdToken,
@@ -130,8 +129,7 @@
 				login(opt);
 			},
 			error:function(res){
-				var err =  JSON.stringify(res);
-				alert(err);
+
 				mui.toast('获取用户信息失败,请重试');
 			}
 		});		
@@ -164,30 +162,13 @@
 					url:api.getweixinToken,
 					data:{code:code},
 					async:true,
-					success:function(res){
+					success:function(res){	
 						thirdToken = res.accessToken;
-						alert(JSON.stringify(res));
-						//getweixinUserInfo(res.access_token,res.openid);
+						getweixinUserInfo(res.access_token,res.openid);
 					},
 					error:function(res){
 					
-					mui.toast('获取用户token失败,请重试');
-					
-					var errorCode = xhr.getResponseHeader('ErrorCode');
-					console.log('errorcode:'+errorCode);
-					
-					if(errorCode==9){
-						mui.toast('登录超时');
-						localStorage.removeItem('user');
-					}else if(errorCode==10){
-						mui.toast('动态已被删除');
-					}else{
-						mui.toast('网络错误');
-					}						
-						
-						
-						
-						
+					mui.toast('获取用户token失败,请重试');						
 					}
 				});				
 		}
