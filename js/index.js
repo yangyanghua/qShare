@@ -111,33 +111,49 @@
 	
 	function getweixinUserInfo(token,openid){
 		
-		$.ajax({
-			type:"get",
-			url:"https://api.weixin.qq.com/sns/userinfo",
-			dataType : "jsonp",	
-			data:{access_token:token,openid:openid,lang:getLang()},
-			async:true,
-			success:function(res){
-				console.log(res);
-				var opt  = {
-					nickName:res.data.nickname,
-					accountId:res.data.openid,
-					openid:res.data.openid,
-					avatar:res.headimgurl,
-					userType:4,
-					accessToken:thirdToken,
-				};
-				login(opt);
-			},
-			error:function(res){
-				var err =  JSON.stringify(res);
-				alert(err);
-				mui.toast('获取用户信息失败,请重试');
-			}
-		});		
+
+//$.getJSON(",function (res) {
+//	
+//	console.log(res)
+//	
+//});
+
+var url ="https://api.weixin.qq.com/sns/userinfo?access_token="+token+"&openid="+openid+"&jsoncallback=?";
+
+
+
+//		$.ajax({
+//			type:"get",
+//			url:"https://api.weixin.qq.com/sns/userinfo",
+//			dataType : "jsonp",	
+//			data:{access_token:token,openid:openid,lang:getLang()},
+//			jsonp: "callbackparam",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+//			jsonpCallback: "weixinCallbrack",
+//			async:true,
+//			success:function(res){
+//				console.log(res);
+//				var opt  = {
+//					nickName:res.data.nickname,
+//					accountId:res.data.openid,
+//					openid:res.data.openid,
+//					avatar:res.headimgurl,
+//					userType:4,
+//					accessToken:thirdToken,
+//				};
+//				login(opt);
+//			},
+//			error:function(res){
+//				var err =  JSON.stringify(res);
+//				alert(err);
+//				mui.toast('获取用户信息失败,请重试');
+//			}
+//		});	
+		
+		
+		
 		
 	}
-
+	getweixinUserInfo('13_XhEMq2VBqvex3UxxJiqZKRVvivoagBOwCKeww-pMRREfAr7pOYadLs5eKXyHFLYSxNIxJvwIZSYw7oVjw87QpOdPtZbh0H6l-ryeOj2Zb1s','loHhZ1LidlZ_I5_UbxmoWoaxd9rl');
 	//微博登录,获取token
 	function getToken(){
 		//$('#code').text(code);
@@ -156,9 +172,8 @@
 				error:function(res){
 					mui.toast('获取用户token失败,请重试');
 				}
-			});			
+			});
 		}else if(qobj.type==='wx'){
-
 				$.ajax({
 					type:"get",
 					url:api.getweixinToken,
@@ -167,11 +182,16 @@
 					success:function(res){
 						thirdToken = res.accessToken;
 						alert(JSON.stringify(res));
+						
+						
+						getweixinUserInfo('13_XhEMq2VBqvex3UxxJiqZKRVvivoagBOwCKeww-pMRREfAr7pOYadLs5eKXyHFLYSxNIxJvwIZSYw7oVjw87QpOdPtZbh0H6l-ryeOj2Zb1s','loHhZ1LidlZ_I5_UbxmoWoaxd9rl');
+						
+						
 						//getweixinUserInfo(res.access_token,res.openid);
 					},
 					error:function(res){
 					
-					mui.toast('获取用户token失败,请重试');
+					 mui.toast('获取用户token失败,请重试');
 					
 					var errorCode = xhr.getResponseHeader('ErrorCode');
 					console.log('errorcode:'+errorCode);
@@ -184,10 +204,6 @@
 					}else{
 						mui.toast('网络错误');
 					}						
-						
-						
-						
-						
 					}
 				});				
 		}

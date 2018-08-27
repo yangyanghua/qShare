@@ -245,7 +245,7 @@ $(function(){
 								<div class="userImg"><span class="image" style="background:#CCCCCC url(${res.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 								<div class="userName">
 									<p class="name">${res.nickName}</p>
-									<p class="lv"><img src=${leve}/></p>
+									<p class="lv"><img src="${leve}" /></p>
 								</div>
 							</div>
 							<p class="introduce">${res.summary}</p>
@@ -285,7 +285,7 @@ $(function(){
 //			
 //			})
 	$('.toMap').on('click',function(){
-		window.location.href = 'map?id='+id;
+		window.location.href = 'map.html?id='+id;
 	})
 	
 	$('.imageList').on('click','.dynamics',function(){
