@@ -91,7 +91,6 @@
 			data:{access_token:token,uid:uid},
 			async:true,
 			success:function(res){
-				console.log(res);
 				var opt  = {
 					nickName:res.data.screen_name,
 					accountId:res.data.id,
@@ -109,51 +108,33 @@
 		
 	};
 	
+	
 	function getweixinUserInfo(token,openid){
-		
-
-//$.getJSON(",function (res) {
-//	
-//	console.log(res)
-//	
-//});
-
-var url ="https://api.weixin.qq.com/sns/userinfo?access_token="+token+"&openid="+openid+"&jsoncallback=?";
 
 
+		$.ajax({
+			type:"get",
+			url:api.getweixinUserinfo,
+			data:{access_token:token,openid:openid,lang:getLang()},
+			async:true,
+			success:function(res){
+				var opt  = {
+					nickName:res.nickname,
+					accountId:res.openid,
+					openid:res.openid,
+					avatar:res.headimgurl,
+					userType:4,
+					accessToken:thirdToken,
+				};
+				login(opt);
+			},
+			error:function(res){
 
-//		$.ajax({
-//			type:"get",
-//			url:"https://api.weixin.qq.com/sns/userinfo",
-//			dataType : "jsonp",	
-//			data:{access_token:token,openid:openid,lang:getLang()},
-//			jsonp: "callbackparam",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
-//			jsonpCallback: "weixinCallbrack",
-//			async:true,
-//			success:function(res){
-//				console.log(res);
-//				var opt  = {
-//					nickName:res.data.nickname,
-//					accountId:res.data.openid,
-//					openid:res.data.openid,
-//					avatar:res.headimgurl,
-//					userType:4,
-//					accessToken:thirdToken,
-//				};
-//				login(opt);
-//			},
-//			error:function(res){
-//				var err =  JSON.stringify(res);
-//				alert(err);
-//				mui.toast('获取用户信息失败,请重试');
-//			}
-//		});	
-		
-		
-		
+				mui.toast('获取用户信息失败,请重试');
+			}
+		});		
 		
 	}
-	getweixinUserInfo('13_XhEMq2VBqvex3UxxJiqZKRVvivoagBOwCKeww-pMRREfAr7pOYadLs5eKXyHFLYSxNIxJvwIZSYw7oVjw87QpOdPtZbh0H6l-ryeOj2Zb1s','loHhZ1LidlZ_I5_UbxmoWoaxd9rl');
 	//微博登录,获取token
 	function getToken(){
 		//$('#code').text(code);
@@ -179,31 +160,13 @@ var url ="https://api.weixin.qq.com/sns/userinfo?access_token="+token+"&openid="
 					url:api.getweixinToken,
 					data:{code:code},
 					async:true,
-					success:function(res){
+					success:function(res){	
 						thirdToken = res.accessToken;
-						alert(JSON.stringify(res));
-						
-						
-						getweixinUserInfo('13_XhEMq2VBqvex3UxxJiqZKRVvivoagBOwCKeww-pMRREfAr7pOYadLs5eKXyHFLYSxNIxJvwIZSYw7oVjw87QpOdPtZbh0H6l-ryeOj2Zb1s','loHhZ1LidlZ_I5_UbxmoWoaxd9rl');
-						
-						
-						//getweixinUserInfo(res.access_token,res.openid);
+						getweixinUserInfo(res.access_token,res.openid);
 					},
 					error:function(res){
 					
-					 mui.toast('获取用户token失败,请重试');
-					
-					var errorCode = xhr.getResponseHeader('ErrorCode');
-					console.log('errorcode:'+errorCode);
-					
-					if(errorCode==9){
-						mui.toast('登录超时');
-						localStorage.removeItem('user');
-					}else if(errorCode==10){
-						mui.toast('动态已被删除');
-					}else{
-						mui.toast('网络错误');
-					}						
+					mui.toast('获取用户token失败,请重试');						
 					}
 				});				
 		}

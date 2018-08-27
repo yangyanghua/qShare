@@ -27,6 +27,7 @@ var api = {
 	cancleAdd:httpService+'/api/v1/good/cancle',//取消赞
 	getweiboToken:httpService+'/api/v1/weibo/accesstoken',//获取微博token
 	getweixinToken:httpService+'/api/v1/weixin/accesstoken',//获取微信token
+	getweixinUserinfo:httpService+'/api/v1/weixin/userinfo',//获取微信token
   readRank:httpService+'/api/v2/dynamic/read/rank',//阅读榜
   fansList:httpService + '/api/v1/friend/fans/list',//用户粉丝列表
   dynamicPhotoCount:httpService+'/api/v1/dynamic/dynamicPhotoCount',//用户图
