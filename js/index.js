@@ -113,6 +113,7 @@
 	
 	function getweixinUserInfo(token,openid){
 
+
 		$.ajax({
 			type:"get",
 			url:api.getweixinUserinfo,
@@ -136,7 +137,6 @@
 		});		
 		
 	}
-
 	//微博登录,获取token
 	function getToken(){
 		//$('#code').text(code);
@@ -153,9 +153,8 @@
 				error:function(res){
 					mui.toast('获取用户token失败,请重试');
 				}
-			});			
+			});
 		}else if(qobj.type==='wx'){
-
 				$.ajax({
 					type:"get",
 					url:api.getweixinToken,
