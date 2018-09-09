@@ -52,7 +52,9 @@
 				userInfo = res;
 			},
 			error:function(res){
-				mui.toast('登录失败,请重试');
+				
+				mui.toast(opt.);
+				//mui.toast('登录失败,请重试');
 			}
 		});
 		
@@ -67,7 +69,7 @@
 					userType:5,
 					accessToken:thirdToken,
 				};
-				login(opt);			 	
+				login(opt.accessToken);			 	
         }
         function weixinCallbrack(data) {
 				var opt  = {
@@ -114,17 +116,16 @@
 		$.ajax({
 			type:"get",
 			url:api.getweixinUserinfo,
-			data:{access_token:token,openid:openid,lang:getLang()},
+			data:{accessToken:token,openid:openid,lang:getLang()},
 			async:true,
 			success:function(res){
-				alert(JSON.stringify(res));
 				var opt  = {
 					nickName:res.nickname,
-					accountId:res.openid,
+					accountId:res.unionid,
 					openid:res.openid,
 					avatar:res.headimgurl,
 					userType:4,
-					accessToken:thirdToken,
+					accessToken:token,
 				};
 				login(opt);
 			},
@@ -148,8 +149,6 @@
 				success:function(res){
 					thirdToken = res.accessToken;
 					getweiboUserInfo(res.accessToken,res.uid);
-					
-					
 				},
 				error:function(res){
 					mui.toast('获取用户token失败,请重试');
@@ -164,6 +163,8 @@
 					async:true,
 					success:function(res){	
 						thirdToken = res.accessToken;
+						
+						
 						getweixinUserInfo(res.access_token,res.openid);
 					},
 					error:function(res){

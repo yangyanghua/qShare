@@ -152,7 +152,7 @@
 				type:'wx',
 			}
 			localStorage.setItem('qobj',JSON.stringify(obj));
-			window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe684b9740115c7da&redirect_uri=http%3A%2F%2Fpred-h5.irenao.cn%2Findex.html&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
+			window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe684b9740115c7da&redirect_uri=http%3A%2F%2Fpred-h5.irenao.cn%2Findex.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
 		})		
 	
 });
