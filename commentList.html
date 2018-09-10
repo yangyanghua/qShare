@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>点赞</title>
+		<title>评论列表</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -16,6 +16,25 @@
 			.mui-content{
 				background: #FFFFFF;
 			}
+			.mui-popup{
+				border-radius:5px;
+			}
+			.mui-popup-inner{
+				border-radius:0;
+			}
+			.mui-popup-button{
+				font-size: 14px;
+				font-weight: normal;
+				color: #333333;
+			}
+			.mui-popup-button:first-child{
+				border-radius:0;
+				
+			}
+			.mui-popup-button:last-child{
+				border-radius:0;
+				color: #dd524d;
+			}			
 			body{
 				background: #FFFFFF;
 			}
@@ -159,7 +178,9 @@
 						callback: pulldownRefresh
 					},
 				}
-			});			
+			});
+			
+			var userInfo = getUserInfo();
 			//获取URL参数
 			var getUrlParam = function(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -261,37 +282,50 @@
 		    
 			/**
 			 * 下拉刷新具体业务实现
-			 */
-			function pulldownRefresh() {
-				
-			getCommentsList(id);
-				
+			 */function pulldownRefresh() {
 
-			}			
-			
+	getCommentsList(id);
 
-			mui('body').on('tap', '.userPortrait', function(){
-						var uid = $(this).attr('userid'); 				
-						window.location.href = 'list.html?id='+uid;
-				
+}
+
+	mui('body').on('tap', '.userPortrait', function() {
+		if(!userInfo) {
+			var btnArray = ['关闭', '去登陆'];
+			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
+				if(e.index == 1) {
+					window.location.href = 'login.html?id=' + id;
+				} else {
+					console.log('关闭提示');
+				}
 			})
-			
-			mui('body').on('tap','.userName',function(){
-				
-				var uid = $(this).attr('userid'); 				
-				window.location.href = 'list.html?id='+uid;
-				
-			})			
-			
-			
-			
-			
-			
-
+			return false;
+		}
+		var uid = $(this).attr('userid');
+		window.location.href = 'list.html?id=' + uid;
+	
+	})
+	
+	mui('body').on('tap', '.userName', function() {
+	
+	if(!userInfo) {
+		var btnArray = ['关闭', '去登陆'];
+		mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
+			if(e.index == 1) {
+				window.location.href = 'login.html?id=' + id;
+			} else {
+				console.log('关闭提示');
+			}
 		})
+		return false;
+	}
+	
+	var uid = $(this).attr('userid');
+	window.location.href = 'list.html?id=' + uid;
+	
+	})
 
-			
-
+})
+		
 		</script>
 	</body>
 

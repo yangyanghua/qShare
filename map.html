@@ -111,33 +111,42 @@
 		
 
 function getImageBuycountryCode(){
-	var opt = {};
+		var opt = {};
+
+		var bounds = map.getBounds();
 	if(countrycode){
-		opt={
+		 opt = {
+			minX:bounds.getSouthWest().lng,
+			maxX:bounds.getNorthEast().lng,
+			minY:bounds.getSouthWest().lat,
+			maxY:bounds.getNorthEast().lat,
 			isLeast:true,
 			userId:id,
 			countryCode:countrycode
-		};
+		}
 	}else if(citycode){
-		opt={
+		 opt = {
+			minX:bounds.getSouthWest().lng,
+			maxX:bounds.getNorthEast().lng,
+			minY:bounds.getSouthWest().lat,
+			maxY:bounds.getNorthEast().lat,
 			isLeast:true,
 			userId:id,
 			cityCode:citycode
-		};		
+		}
 	}
 	
 	$.ajax({
 		type:"get",
-		url:api.photoLocation,
+		url:api.photoLocationMap,
 		data:opt,
 		async:true,
 		success:function(res){
 				//$('title').text("所有照片（"+res.object.length+"）")
-				res.object.forEach(function(item){
+				res.forEach(function(item){
 
-						var point =  new BMap.Point(item.longitude,item.latitude);
-						
-						var params = {point:point,params:item};
+						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
+						var params = {point:point,params:item.t};
 						params.params.pnum = 1;
 						var myCompOverlay = new ComplexCustomOverlay(params);
 						map.addOverlay(myCompOverlay); 

@@ -53,7 +53,7 @@
 			},
 			error:function(res){
 				
-				mui.toast(opt.);
+				mui.toast(opt.accessToken);
 				//mui.toast('登录失败,请重试');
 			}
 		});
@@ -691,7 +691,19 @@ $('.ranking').on('click',function(){
 
 //排行榜==>查看详情
 
-$('.rankListUl').on('click','.rankItem',function(){	
+$('.rankListUl').on('click','.rankItem',function(){
+	
+		if(!userInfo){
+			var btnArray = ['关闭', '去登陆'];
+					mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
+						if (e.index == 1) {
+							window.location.href = 'login.html?id='+id;
+						} else {
+							console.log('关闭提示');	
+						}
+					})
+			return false;	
+	}
 	var id = $(this).attr('detaiId');	
 	if(id){
 		window.location.href = 'list.html?id='+id;

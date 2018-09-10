@@ -37,7 +37,8 @@ var api = {
 	countryList:httpService+'/api/v2/dynamic/country/list',//用户国家照片分类
 	scoreList:httpService + '/api/v1/user/rank/score',//用户评分榜
 	photoLocation:httpService + '/api/v2/dynamic/photo/location',//获得国家、市照片
-	
+	photoLocationMap:httpService + '/api/v2/dynamic/map/photo/location',//获得国家、市照片地图模式
+
 }
 
 	//获取用户信息
