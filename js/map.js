@@ -60,9 +60,10 @@
 //		    info.append(add);
 //		    info.append(infoColse);
 		    var div = $('<div></div>');
-		    if(this._params.pnum > 1) {
-		    	div.append(markerHtml);
-		    }
+//		    if(this._params.pnum > 1) {
+//		    	div.append(markerHtml);
+//		    }
+		    div.append(markerHtml);
 		    this._div = div[0];
 
 		    this._images = images[0];

@@ -17,40 +17,45 @@ $(function(){
 			var dynamicHtml2 = '';
 			res.object.forEach(function(item,index){
 			//	console.log(item.dynamics[0].firstUrl);
-			
-			if(index % 2 === 0 ){
 
-				dynamicHtml2+=`<li class="imageItem dynamics" id="${item.dynamics[0].id}">
-						<div class="image">
-							<img class="lazy" data-original="${item.dynamics[0].firstUrl}"    data-preview-src="" data-preview-group="1"/>
-						</div>
-						<h2 class="cname">${item.dynamics[0].locationName}</h2>
-						<div class="c_userInfo">
-							<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-							<div class="c_user">
-								<p class="c_userName">${thisUserInfo.nickName}</p>
-								<p>${new Date(item.dynamics[0].createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-								<p>${new Date(item.dynamics[0].updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-							</div>							
-						</div>
-					</li>`				
-			}else{
-				dynamicHtml1+=`<li class="imageItem dynamics" id="${item.dynamics[0].id}">
-						<div class="image">
-							<img class="lazy" data-original="${item.dynamics[0].firstUrl}"    data-preview-src="" data-preview-group="1" />
-						</div>
-						<h2 class="cname">${item.dynamics[0].locationName}</h2>
-						<div class="c_userInfo">
-							<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-							<div class="c_user">
-								<p class="c_userName">${thisUserInfo.nickName}</p>
-								<p>${new Date(item.dynamics[0].createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-								<p>${new Date(item.dynamics[0].updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-							</div>							
-						</div>
-					</li>`				
-			}
+					item.dynamics.forEach(function(item1,index1){
+						
 				
+							if(index1 % 2 === 0 ){
+				
+								dynamicHtml2+=`<li class="imageItem dynamics" id="${item1.id}">
+										<div class="image">
+											<img class="lazy" data-original="${item1.firstUrl}"    data-preview-src="" data-preview-group="1"/>
+										</div>
+										<h2 class="cname">${item1.title}</h2>
+										<div class="c_userInfo">
+											<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+											<div class="c_user">
+												<p class="c_userName">${thisUserInfo.nickName}</p>
+												<p>${new Date(item1.createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+											</div>							
+										</div>
+									</li>`				
+							}else{
+								dynamicHtml1+=`<li class="imageItem dynamics" id="${item1.id}">
+										<div class="image">
+											<img class="lazy" data-original="${item1.firstUrl}"    data-preview-src="" data-preview-group="1" />
+										</div>
+										<h2 class="cname">${item1.title}</h2>
+										<div class="c_userInfo">
+											<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+											<div class="c_user">
+												<p class="c_userName">${thisUserInfo.nickName}</p>
+												<p>${new Date(item1.createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+											</div>							
+										</div>
+									</li>`				
+							}
+										
+						
+					})
+
+
 
 			})
 			$('.imageList').empty();
@@ -140,6 +145,7 @@ $(function(){
 				var CountryListHtml1 = '';
 				var CountryListHtml2 = '';
 				res.forEach(function(item,index){
+
 					if(index % 2===0){
 						CountryListHtml2 += `<li class="imageItem country" countrycode="${item.code}">
 								<div class="image">
@@ -226,7 +232,7 @@ $(function(){
 			async:true,
 			success:function(res){
 			var leve = '';
-			$('.userId').text('ID：'+res.id);
+			$('.userId').text('ID：'+res.no);
 			thisUserInfo = res;
 			getDynamicList(id);
 //freshman	freshman	新手

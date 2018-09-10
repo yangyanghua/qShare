@@ -52,7 +52,7 @@ body{
 	border: none;
 	height: 0.8rem;
 	width: 0.8rem;
-	background:rgba(240,240,240,.4) url(../image/icon_map.png) no-repeat 50% 50%;
+	background: url(../image/icon_map_white.png) no-repeat 50% 50%;
 	background-size:0.6rem 0.6rem;
 }
 
@@ -239,10 +239,17 @@ body{
 .imageItem .image img{
 	width: 100%;
 }
+
+.imageItem.dynamics .cname{
+	font-size: 14px;
+	color: #333;
+}
+
+
  .imageItem .cname{
- 	font-size: 12px;
-/* 	font-weight: bold;*/
- 	color: #999;
+	font-weight: 700;
+	font-size: 14px;
+	color: #333;
  	padding-left: 0.2rem;
  }
 
@@ -285,6 +292,11 @@ body{
 	white-space: nowrap;
 
 }
+
+.dynamics .c_userInfo .c_user p.c_userName{
+	margin-bottom: 0.1rem;
+}
+
  .c_userInfo .c_user p.c_userName{
 	height: 0.6rem;
 	line-height: 0.6rem;
