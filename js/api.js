@@ -38,6 +38,9 @@ var api = {
 	scoreList:httpService + '/api/v1/user/rank/score',//用户评分榜
 	photoLocation:httpService + '/api/v2/dynamic/photo/location',//获得国家、市照片
 	photoLocationMap:httpService + '/api/v2/dynamic/map/photo/location',//获得国家、市照片地图模式
+	region:httpService + '/api/v1/user/follow/region',//关注区域
+
+
 
 }
 
@@ -111,22 +114,19 @@ $(function(){
 		//下载app
 		$('.downBtn').on('click',function(){
 			
-			//window.location.href = 'http://android.myapp.com/myapp/detail.htm?apkName=com.rightnoworld.globalview';
+			window.location.href = 'http://android.myapp.com/myapp/detail.htm?apkName=com.rightnoworld.globalview';
 
 	        //微信内置地图查看位置
-	        wx.ready(function() {
-	            wx.openLocation({
-	                latitude: 117.953314, // 纬度，浮点数，范围为90 ~ -90
-	                longitude: 44.356147, // 经度，浮点数，范围为180 ~ -180。
-	                name: '内蒙古', // 位置名
-	                address: '内蒙古自治区锡林郭勒盟西乌珠穆沁旗', // 地址详情说明
-	                scale: 14, // 地图缩放级别,整形值,范围从1~28。默认为最大
-	                infoUrl: 'http://weixin.qq.com' // 在查看位置界面底部显示的超链接,可点击跳转
-	            });
-	        })
-	    })
-		
-		
+
+//	            wx.openLocation({
+//	                latitude: 117.953314, 
+//	                longitude: 44.356147, 
+//	                name: '内蒙古',
+//	                address: '内蒙古自治区锡林郭勒盟西乌珠穆沁旗',
+//	                scale: 14, 
+//	                infoUrl: 'http://weixin.qq.com' 
+//	            });
+					
 		})
 	
 })

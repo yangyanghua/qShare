@@ -720,6 +720,19 @@ $('.rankListUl').on('click','.rankItem',function(){
 
 //查看当前
 $('.Dynpublisher').on('click',function(){
+	if(!userInfo){
+			var btnArray = ['关闭', '去登陆'];
+					mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
+						if (e.index == 1) {
+							window.location.href = 'login.html?id='+id;
+						} else {
+							console.log('关闭提示');	
+						}
+					})
+			return false;	
+	}	
+	
+	
 	if(uid){
 		window.location.href = 'list.html?id='+uid;
 	}
@@ -773,6 +786,18 @@ function getRankList(){
 				
 			})				
 			mui('body').on('tap','.userItem',function(){
+				if(!userInfo){
+					var btnArray = ['关闭', '去登陆'];
+							mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
+								if (e.index == 1) {
+									window.location.href = 'login.html?id='+id;
+								} else {
+									console.log('关闭提示');	
+								}
+							})
+					return false;	
+			}				
+				
 				
 				var uid = $(this).attr('userid'); 				
 				window.location.href = 'list.html?id='+uid;
