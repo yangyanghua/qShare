@@ -383,7 +383,8 @@
 .dynamicContent .dynamicList .dynamicItem .address{
 	font-size: 12px;
 	line-height: 18px;
-	color: #999999;
+	color: #4DA9E4;
+	
 }
 .dynamicContent .dynamicList .dynamicItem .address .addressIcon{
 	display: inline-block;
@@ -391,8 +392,8 @@
 	top: 5px;
 	width: 20px;
 	height: 20px;
-	background: url(../image/icon_position2x.png) no-repeat 50% 50%;
-	background-size:12px 18px ;
+	background: url(../image/icon_position2x.png?v=1.1) no-repeat 50% 50%;
+	background-size:17px 17px;
 }
 
 .dynamicContent .dynamicList .dynamicItem .dynamicTxt{
@@ -583,9 +584,16 @@
 }
 
 
-.footerLsit li.colTotality{
+.footerLsit li.colTotality.notCollection{
 	flex: 0 0 60px;
 	background: url(../image/icon_collect2x.png) no-repeat 50% 15%;
+	background-size:0.8rem 0.8rem;
+	
+}
+
+.footerLsit li.colTotality{
+	flex: 0 0 60px;
+	background: url(../image/collect_press.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;
 	
 }

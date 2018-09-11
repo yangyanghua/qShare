@@ -52,7 +52,7 @@ body{
 	border: none;
 	height: 0.8rem;
 	width: 0.8rem;
-	background: url(../image/icon_map.png) no-repeat 50% 50%;
+	background: url(../image/icon_map_white.png) no-repeat 50% 50%;
 	background-size:0.6rem 0.6rem;
 }
 
@@ -62,13 +62,14 @@ body{
 	z-index: 1;
 	height: 5.5rem;
 	width: 100%;
-
-	    filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
-	    -webkit-filter: blur(10px); /* Chrome, Opera */
+	background: url(../image/bg_personal2.png) no-repeat 50% 50%;
+	background-size:cover ;
+	    /*filter: url(blur.svg#blur); 
+	    -webkit-filter: blur(10px);
 	       -moz-filter: blur(10px);
 	        -ms-filter: blur(10px);   
 	            filter: blur(10px);
-	    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /
+	    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); */
 }
 
 .header .userInfo{
@@ -128,11 +129,12 @@ body{
 	font-size: 12px;
 	color: #666666;
 	display: -webkit-box;
-	-webkit-box-orient: vertical;
+	/*-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
-	overflow: hidden;
+	overflow: hidden;*/
 	padding-bottom: 0.1rem;
-	border-bottom:1px solid #CCCCCC;	
+	border-bottom:1px solid #CCCCCC;
+	text-align: justify;	
 }
 .header .navList{
 	display: flex;
@@ -237,10 +239,17 @@ body{
 .imageItem .image img{
 	width: 100%;
 }
+
+.imageItem.dynamics .cname{
+	font-size: 14px;
+	color: #333;
+}
+
+
  .imageItem .cname{
- 	font-size: 12px;
-/* 	font-weight: bold;*/
- 	color: #999;
+	font-weight: 700;
+	font-size: 14px;
+	color: #333;
  	padding-left: 0.2rem;
  }
 
@@ -283,6 +292,11 @@ body{
 	white-space: nowrap;
 
 }
+
+.dynamics .c_userInfo .c_user p.c_userName{
+	margin-bottom: 0.1rem;
+}
+
  .c_userInfo .c_user p.c_userName{
 	height: 0.6rem;
 	line-height: 0.6rem;

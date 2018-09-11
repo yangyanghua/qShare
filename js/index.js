@@ -39,7 +39,7 @@
 	var qobj = JSON.parse(localStorage.getItem('qobj'))||'';
 	var weiboToken = '';
 	var thirdToken = '';
-	
+	var uid = '';
 	//登录开始
 	var login = function(opt){
 		$.ajax({
@@ -53,7 +53,7 @@
 			},
 			error:function(res){
 				
-				mui.toast(opt.);
+				mui.toast(opt.accessToken);
 				//mui.toast('登录失败,请重试');
 			}
 		});
@@ -229,6 +229,7 @@
 				sessionStorage.setItem('id',res.id);
 				getGoodList(res.id);				
 				$banner.css("background-image","url("+res.firstUrl+")");
+				uid = res.uid;
 				res.userBases.forEach(function(item){
 					if(item.id==res.uid){
 						master = item;
@@ -257,6 +258,13 @@
 				}else{
 					$('.zanTotality').removeClass('isApplaud');
 				};
+				
+				if(res.isCollection){
+					$('.colTotality').removeClass('notCollection');					
+				}else{
+					$('.colTotality').addClass('notCollection');
+				}
+				
 				var createTime  = dateFtt('yyyy-MM-dd hh:mm',new Date(res.createTime));
 				$releaseTime.text('发布于'+createTime);
 				var phtml = '';
@@ -531,7 +539,7 @@ $('.sSubmitbtn').on('click',function(){
 })
 
 
-$('.colTotalityNumer').on('click',function(){
+$('.notCollection').on('click',function(){
 		if(!userInfo){
 			var btnArray = ['关闭', '去登陆'];
 					mui.confirm('登陆后才可以收藏', '提示', btnArray, function(e) {
@@ -691,11 +699,31 @@ $('.ranking').on('click',function(){
 
 //排行榜==>查看详情
 
-$('.rankListUl').on('click','.rankItem',function(){	
+$('.rankListUl').on('click','.rankItem',function(){
+	
+		if(!userInfo){
+			var btnArray = ['关闭', '去登陆'];
+					mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
+						if (e.index == 1) {
+							window.location.href = 'login.html?id='+id;
+						} else {
+							console.log('关闭提示');	
+						}
+					})
+			return false;	
+	}
 	var id = $(this).attr('detaiId');	
 	if(id){
 		window.location.href = 'list.html?id='+id;
 	}
+})
+
+//查看当前
+$('.Dynpublisher').on('click',function(){
+	if(uid){
+		window.location.href = 'list.html?id='+uid;
+	}
+
 })
 
 

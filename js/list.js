@@ -17,46 +17,54 @@ $(function(){
 			var dynamicHtml2 = '';
 			res.object.forEach(function(item,index){
 			//	console.log(item.dynamics[0].firstUrl);
-			
-			if(index % 2 === 0 ){
 
-				dynamicHtml2+=`<li class="imageItem dynamics" id="${item.dynamics[0].id}">
-						<div class="image">
-							<img src="${item.dynamics[0].firstUrl}"/>
-						</div>
-						<h2 class="cname">${item.dynamics[0].locationName}</h2>
-						<div class="c_userInfo">
-							<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-							<div class="c_user">
-								<p class="c_userName">${thisUserInfo.nickName}</p>
-								<p>${new Date(item.dynamics[0].createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-								<p>${new Date(item.dynamics[0].updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-							</div>							
-						</div>
-					</li>`				
-			}else{
-				dynamicHtml1+=`<li class="imageItem dynamics" id="${item.dynamics[0].id}">
-						<div class="image">
-							<img src="${item.dynamics[0].firstUrl}"/>
-						</div>
-						<h2 class="cname">${item.dynamics[0].locationName}</h2>
-						<div class="c_userInfo">
-							<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-							<div class="c_user">
-								<p class="c_userName">${thisUserInfo.nickName}</p>
-								<p>${new Date(item.dynamics[0].createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-								<p>${new Date(item.dynamics[0].updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-							</div>							
-						</div>
-					</li>`				
-			}
+					item.dynamics.forEach(function(item1,index1){
+						
 				
+							if(index1 % 2 === 0 ){
+				
+								dynamicHtml2+=`<li class="imageItem dynamics" id="${item1.id}">
+										<div class="image">
+											<img class="lazy" data-original="${item1.firstUrl}"    data-preview-src="" data-preview-group="1"/>
+										</div>
+										<h2 class="cname">${item1.title}</h2>
+										<div class="c_userInfo">
+											<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+											<div class="c_user">
+												<p class="c_userName">${thisUserInfo.nickName}</p>
+												<p>${new Date(item1.createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+											</div>							
+										</div>
+									</li>`				
+							}else{
+								dynamicHtml1+=`<li class="imageItem dynamics" id="${item1.id}">
+										<div class="image">
+											<img class="lazy" data-original="${item1.firstUrl}"    data-preview-src="" data-preview-group="1" />
+										</div>
+										<h2 class="cname">${item1.title}</h2>
+										<div class="c_userInfo">
+											<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
+											<div class="c_user">
+												<p class="c_userName">${thisUserInfo.nickName}</p>
+												<p>${new Date(item1.createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+											</div>							
+										</div>
+									</li>`				
+							}
+										
+						
+					})
+
+
 
 			})
 			$('.imageList').empty();
 			$('.imageList1').append(dynamicHtml1);
 			$('.imageList2').append(dynamicHtml2);
 			$('.loading').fadeOut();
+			//懒加载
+			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList1"), failurelimit : 10 });
+			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList2"), failurelimit : 10 });		
 			},
 			error:function(){
 				
@@ -80,7 +88,7 @@ $(function(){
 					if(index % 2 === 0){
 						cityListHtml2 += `<li class="imageItem city"  citycode="${item.code}">
 								<div class="image">
-									<img src="${item.url}"/>
+									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
 								</div>
 								<h2 class="cname">${item.title}</h2>
 								<div class="c_userInfo">
@@ -95,7 +103,7 @@ $(function(){
 					}else{
 						cityListHtml1 += `<li class="imageItem city"  citycode="${item.code}">
 								<div class="image">
-									<img src="${item.url}"/>
+									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
 								</div>
 								<h2 class="cname">${item.title}</h2>
 								<div class="c_userInfo">
@@ -113,13 +121,17 @@ $(function(){
 				$('.imageList').empty();
 				$('.imageList1').append(cityListHtml1);
 				$('.imageList2').append(cityListHtml2);
+			//懒加载			
+			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList1")});
+			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList2")});			
+			
 			},
 			error:function(){
 				
 			}
 		});		
 	}
-	
+
 	//国家列表
 	function getCountryList(id){
 		
@@ -133,10 +145,11 @@ $(function(){
 				var CountryListHtml1 = '';
 				var CountryListHtml2 = '';
 				res.forEach(function(item,index){
+
 					if(index % 2===0){
 						CountryListHtml2 += `<li class="imageItem country" countrycode="${item.code}">
 								<div class="image">
-									<img src="${item.url}"/>
+									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1" />
 								</div>
 								<h2 class="cname">${item.title}</h2>
 								<div class="c_userInfo">
@@ -151,7 +164,7 @@ $(function(){
 					}else{
 							CountryListHtml1 += `<li class="imageItem country" countrycode="${item.code}">
 									<div class="image">
-										<img src="${item.url}"/>
+										<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
 									</div>
 									<h2 class="cname">${item.title}</h2>
 									<div class="c_userInfo">
@@ -170,6 +183,9 @@ $(function(){
 				$('.imageList').empty();
 				$('.imageList1').append(CountryListHtml1);
 				$('.imageList2').append(CountryListHtml2);
+			//懒加载
+			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList1"), failurelimit : 10 });
+			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList2"), failurelimit : 10 });
 			},
 			error:function(){
 				
@@ -216,7 +232,7 @@ $(function(){
 			async:true,
 			success:function(res){
 			var leve = '';
-			$('.userId').text('ID：'+res.id);
+			$('.userId').text('ID：'+res.no);
 			thisUserInfo = res;
 			getDynamicList(id);
 //freshman	freshman	新手
@@ -233,10 +249,14 @@ $(function(){
 				leve = './image/btn_phontoer3x.png';
 			};
 			
-			$('.headerBg').css({
-				"background":"#CCCCCC url("+res.avatar+") no-repeat 50% 50%",
-				"backgroundSize":"cover"
-			})
+			if(res.background){
+				$('.headerBg').css({
+					"background":"#CCCCCC url("+res.background+") no-repeat 50% 50%",
+					"backgroundSize":"cover"
+				})				
+			}
+			
+
 			
 			
 			var infoHtml = 	`<div class="baseInfo">
