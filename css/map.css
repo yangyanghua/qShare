@@ -21,11 +21,11 @@
 		.image::after{
 			content: '';
 			position: absolute;
-			top: 0;
-			left: -2px;
-			z-index: 1;
-			width: 66px;
-			height: 66px;
+		    top: -1px;
+		    left: -2px;
+		    z-index: 1;
+		    width: 64px;
+		    height: 64px;
 			background: #FFFFFF;
 			transform: rotateZ(-7deg);
 			border:3px solid #FFFFFF;
