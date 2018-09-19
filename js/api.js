@@ -16,12 +16,15 @@ var api = {
 	getDynamicList:httpService	+ '/api/v1/dynamic/user/list',//用户动态列表
 	getUserDetail:httpService	+ '/api/v1/user/detail',//用户信息详情
 	getDetail:httpService +'/api/v1/dynamic/detail',//详情
+	getPhotoDetail:httpService +'/api/v1/dynamic/photo/detail',//详情
+	getPhotoStatus:httpService +'/api/v2/dynamic/region/photo/status',//获取照片关注状态
 	getGoods:httpService+'/api/v1/good/list',//赞列表
 	commentList:httpService +	'/api/v1/comment/list',//评论列表
 	phoneLogin:httpService+'/api/v1/user/login',//手机登陆
 	getCode:httpService+'/api/v1/user/send/sms',//获取验证码
 	otherLogin:httpService+'/api/v1/user/register',//第三方登陆
 	collection:httpService+'/api/v2/dynamic/collection',//收藏
+	collectionCancle:httpService+'/api/v2/dynamic/collection/cancle',//取消收藏
 	commentAdd:httpService+'/api/v1/comment/add',//评论
 	goodAdd:httpService+'/api/v1/good/add',//点赞
 	cancleAdd:httpService+'/api/v1/good/cancle',//取消赞
@@ -39,8 +42,6 @@ var api = {
 	photoLocation:httpService + '/api/v2/dynamic/photo/location',//获得国家、市照片
 	photoLocationMap:httpService + '/api/v2/dynamic/map/photo/location',//获得国家、市照片地图模式
 	region:httpService + '/api/v1/user/follow/region',//关注区域
-
-
 
 }
 

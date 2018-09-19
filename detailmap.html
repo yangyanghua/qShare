@@ -1,104 +1,120 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
-	<link rel="stylesheet" type="text/css" href="css/map.css?v=1.2"/>
-    <script src="js/lib/mui.min.js"></script>
-    <link href="css/mui/mui.min.css" rel="stylesheet"/>		
-	<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>
 
-	<title>所有照片（）</title>
-	<style type="text/css">
-		
-		.address{
-			position: fixed;
-			width: 90%;
-			bottom: 2%;
-			left: 50%;
-			margin-left: -45%;
-			z-index: 10000;
-			overflow: hidden;
-			border-radius:8px;
-			min-height: 0.8rem;
-			display: flex;
-			background: rgba(250,250,250,.5);			
-		}
-		
-		.address .addName{
-			flex: 5;
-			box-sizing: border-box;
-			padding:0 10px;
-			color: #007AFF;
-			font-size: 14px;
-		}
-		.address .navigation{
-			flex: 1.5;
-			background: #fe3545;
-			position: relative;
-			text-align: center;
-			padding: 0;
-			margin: 0;
-		}
-		.btn{
-			position: absolute;
-			top: 50%;
-			margin-top: -0.4rem;
-			display: block;
-			width: 100%;
-			height: 0.8rem;
-			line-height: 0.8rem;
-			font-size: 14px;
-			color: #fff;
-		}		
-		#allmap.singe{
-			height: 100%;
-		}
-		.header .reBtn{
-			position: absolute;
-			display: block;
-			height: 0.8rem;
-			width: 0.8rem;
-			top: 0;
-			right: 0.1rem;
-			background-image: url(image/icon_like.png);
-			background-size:cover ;
-		}
-	</style>
-</head>
-<body class="mui-scroll-wrapper">
-<div class="loading">
-	<img src="image/loading.gif"/>
-</div>	
-	
-	<div class="header">
-		<a class="brack" href="javascript:history.go(-1)"></a>
-		<p class="title">足迹地图</p>
-		<span class="reBtn"></span>
-	</div>
-	
-	
-	<div class="address">
-		<p class="addName">这是一个地址这是一个地址这是一</p>
-		<p class="navigation">
-			<span class="btn">导航</span>
-		</p>
-	</div>
-	
-	<div id="allmap" class="singe" ></div>
-	<div class="footer" style="display: none;" >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/map.css?v=1.2" />
+		<script src="js/lib/mui.min.js"></script>
+		<link href="css/mui/mui.min.css" rel="stylesheet" />
+		<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>
+
+		<title>所有照片（）</title>
+		<style type="text/css">
+			.addBox {
+				display: none;
+			}
+			
+			.address {
+				display: flex;
+				position: fixed;
+				width: 90%;
+				bottom: 2%;
+				left: 50%;
+				margin-left: -45%;
+				z-index: 10000;
+				overflow: hidden;
+				border-radius: 8px;
+				min-height: 0.8rem;
+				background: rgba(250, 250, 250, .5);
+			}
+			
+			.address .addName {
+				flex: 5;
+				box-sizing: border-box;
+				padding: 0 10px;
+				padding-top: 0.3rem;
+				color: #007AFF;
+				font-size: 12px;
+				line-height: 18px;
+			}
+			
+			.address .navigation {
+				flex: 1.5;
+				background: #fe3545;
+				position: relative;
+				text-align: center;
+				padding: 0;
+				margin: 0;
+			}
+			
+			.btn {
+				position: absolute;
+				top: 50%;
+				margin-top: -0.4rem;
+				display: block;
+				width: 100%;
+				box-sizing: border-box;
+				padding-left: 0.3rem;
+				background: url(image/icon_navigation.png) no-repeat 20% 46%;
+				background-size: 0.3rem 0.3rem;
+				height: 0.8rem;
+				line-height: 0.8rem;
+				font-size: 14px;
+				color: #fff;
+			}
+			
+			#allmap.singe {
+				height: 92.5%;
+			}
+			
+			.header .reBtn {
+				display: none;
+				position: absolute;
+				height: 0.8rem;
+				width: 0.8rem;
+				top: 0;
+				right: 0.1rem;
+				background-image: url(image/icon_like.png);
+				background-size: cover;
+			}
+		</style>
+	</head>
+
+	<body class="mui-scroll-wrapper">
+		<div class="loading">
+			<img src="image/loading.gif" />
+		</div>
+
+		<div class="header">
+			<a class="brack" href="javascript:()"></a>
+			<p class="title">足迹地图</p>
+			<span class="reBtn"></span>
+		</div>
+
+		<div class="addBox">
+			<div class="address">
+				<p class="addName"></p>
+				<p class="navigation">
+					<span class="btn">导航</span>
+				</p>
+			</div>
+		</div>
+
+		<div id="allmap" class="singe"></div>
+		<div class="footer">
 			<div class="headerCon">
 				<div class="applogo">
-					<img src="image/logo3.png"/>
+					<img src="image/logo3.png" />
 				</div>
 				<h2 class="appTitle">快看Quick-带你一起看世界</h2>
 				<div class="downApp">
 					<button type="button" class="downBtn mui-btn mui-btn-danger">下载app</button>
 				</div>
-			</div>		
-	</div>
-	<!--<div class="image" style="top: 530px;left: 40%;">
+			</div>
+		</div>
+		<!--<div class="image" style="top: 530px;left: 40%;">
 		<div class="images" style="background: #8A6DE9;"></div>
 		<span class="pnum">9</span>
 		<div class="info">
@@ -126,269 +142,249 @@
 			<p class="cosle cosleList">×</p>
 		</div>
 	</div>-->
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Gkp2kjITvhmTA0VYLa11Dvli9uRwwN6R"></script>
-	<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Gkp2kjITvhmTA0VYLa11Dvli9uRwwN6R"></script>
+		<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				var options = {
+					scrollY: true, //是否竖向滚动
+					scrollX: false, //是否横向滚动
+					startX: 0, //初始化时滚动至x
+					startY: 0, //初始化时滚动至y
+					indicators: true, //是否显示滚动条
+					deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+					bounce: true //是否启用回弹
+				}
+				mui('.mui-scroll-wrapper').scroll(options);
+				// 百度地图API功能
+				var fastLoad = true;
+				var mySwiper = {};
+				var map = new BMap.Map("allmap"); // 创建Map实例
+				var oldList = [];
+				//map.addControl(new BMap.NavigationControl({anchor:'BMAP_ANCHOR_BOTTOM_RIGHT',type:'BMAP_NAVIGATION_CONTROL_ZOOM',showZoomInfo:false,enableGeolocation:false}));
+				var fa_image = {};
+				var id = getUrlParam('id');
+				var userInfo = getUserInfo();
+				var geolocation = new BMap.Geolocation();
+				function ComplexCustomOverlay(point) {
+					this._point = point.point;
+					this._params = point.params;
 
-$(function(){
-var options = {
-			 scrollY: true, //是否竖向滚动
-			 scrollX: false, //是否横向滚动
-			 startX: 0, //初始化时滚动至x
-			 startY: 0, //初始化时滚动至y
-			 indicators: true, //是否显示滚动条
-			 deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
-			 bounce: true //是否启用回弹
-			}
-		mui('.mui-scroll-wrapper').scroll(options);
-	// 百度地图API功能
-	var fastLoad = true;
-	var mySwiper = {};
-	var map = new BMap.Map("allmap");    // 创建Map实例
-	var oldList = [];
- 	//map.addControl(new BMap.NavigationControl({anchor:'BMAP_ANCHOR_BOTTOM_RIGHT',type:'BMAP_NAVIGATION_CONTROL_ZOOM',showZoomInfo:false,enableGeolocation:false}));
-	var fa_image = {};
-	var id = getUrlParam('id'); 
-	var geolocation = new BMap.Geolocation();
+				}
+				ComplexCustomOverlay.prototype = new BMap.Overlay();
+				//  ComplexCustomOverlay.prototype = new BMap.Marker();
 
+				ComplexCustomOverlay.prototype.initialize = function(map) {
+					this._map = map;
 
-    function ComplexCustomOverlay(point){
-      this._point = point.point;
-      this._params = point.params;
+					var images = $('<div class="images" style="background: url(' + this._params.photoUrl + ') no-repeat 50% 50%;background-size:cover;	"></div>');
+					var userInfo = $('<div class="info"></div>');
 
-    }
-    ComplexCustomOverlay.prototype = new BMap.Overlay();
-  //  ComplexCustomOverlay.prototype = new BMap.Marker();
-    
+					var markerHtml = `<span class="pnum">${this._params.pnum}</span>`;
 
-    ComplexCustomOverlay.prototype.initialize = function(map){
-    this._map = map;
+					var div = $('<div></div>');
+					if(this._params.pnum > 1) {
+						div.append(markerHtml);
+					}
+					this._div = div[0];
 
-     var images = $('<div class="images" style="background: url('+this._params.photoUrl+') no-repeat 50% 50%;background-size:cover;	"></div>'); 
-     var userInfo = $('<div class="info"></div>');
+					this._images = images[0];
 
-   // var imageListCon = $('<div class="imageListCon"></div>');
+					var id = this._params.id;
+					var point = this._point;
+					this._images.addEventListener('touchstart', function() {
 
-		//	var cosleList  = $('<p class="cosle cosleList">×</p>');				
-		//    imageListCon.append();
-		//    imageListCon.append(cosleList);
-//									<p class="userImg"><span></span></p>
-//									<div class="nandt">
-//									<p class="name">霍元甲</p>
-//									<p class="tiem">2012-02-12 08:12:12</p>  									
-//									</div> 		
-		    var markerHtml = `<span class="pnum">${this._params.pnum}</span>`;
+						window.location.href = './index.html?id=' + getUrlParam('id');
 
-//			var info = $('<div class="info"></div>');
-//			var infoColse = $('<p class="cosle cosleimg">×</p>');
-//			var infoHtml  = `<div class="userInfo">
-//									<p class="haiba">altitude:${this._params.altitude}米</p>		
-//								</div>`;
-//			
-//			var bigimg = $('<img class="bigimg" src="'+this._params.photoUrl+'"/>');
-//			var add = $('<p class="adds">'+this._params.locationName+'</p>');
-//		    info.append(infoHtml);
-//		    info.append(bigimg);
-//		    info.append(add);
-//		    info.append(infoColse);
-	      var div =  $('<div></div>');
-		  if(this._params.pnum>1){
-		    	 div.append(markerHtml);
-		    }	      
-	      this._div = div[0];
-	      
-	      this._images = images[0];
-		//  this._cosleList = cosleList[0];
-//		  this._infoColse = infoColse[0];
-//		  this._bigImg = bigimg[0];
-//		  var a = 1;
-//		  this._bigImg.addEventListener('touchstart',function(){
-//					if(a==2){
-//						window.location.href  = './index.html?id='+getUrlParam('id');
-//					}
-//					setTimeout(function(){
-//						a = 1;
-//					},300)
-//				a++;
-//			});	
-//		  this._infoColse.addEventListener('touchstart',function(){
-//						//alert('touch started');
-//				$('.info').animate({bottom:'140%',opacity:'0'});
-//				setTimeout(function(){
-//					$('.info').hide();
-//				},800)						
-//			});	
+					});
+					div.addClass('image');
+					div.css('z-index', BMap.Overlay.getZIndex(this._point.lat)); //聚合功能?
+					div.append(images);
+					map.getPanes().labelPane.appendChild(div[0]); //getPanes(),返回值:MapPane,返回地图覆盖物容器列表  labelPane呢???
+					return div[0];
+				}
 
-		  
-//		  this._cosleList.addEventListener('touchstart',function(){
-//						//alert('touch started');
-//				$('.imageListCon').animate({bottom:'140%',opacity:'0'});
-//				setTimeout(function(){
-//					$('.imageListCon').hide();
-//				},800)						
-//			});		  		 
-		  var id = this._params.id;
-		  var point = this._point;
-		  this._images.addEventListener('touchstart',function(){
-						//alert('touch started');
-						//map.panTo(point,false);	
-						window.location.href  = './index.html?id='+getUrlParam('id');
-//						$('.info').css({bottom:'140%',opacity:'0',display:'none'});
-//						div.find('.imageListCon').show();
-//						div.find('.imageListCon').animate({bottom:'120%',opacity:'1'});									
-//						var $info = div.find('.info');								
-//						$info.show();
-//						$info.animate({bottom:'120%',opacity:'1',zIndex:'20000'});		
+				ComplexCustomOverlay.prototype.draw = function() {
+					var map = this._map;
+					var pixel = map.pointToOverlayPixel(this._point);
+					this._div.style.left = pixel.x - 35 + "px";
+					this._div.style.top = pixel.y - 30 + "px";
+				}
 
-						
-			});
-	      div.addClass('image');
-	    //  div.attr('id','picture'+this._params.id);
-	      div.css('z-index',BMap.Overlay.getZIndex(this._point.lat));//聚合功能?
-	      div.append(images);
-	     
-	    //  div.append(imageListCon);
-	    //  div.append(info);
-	      map.getPanes().labelPane.appendChild(div[0]);//getPanes(),返回值:MapPane,返回地图覆盖物容器列表  labelPane呢???
-	      return div[0];
-    }
-    
-    ComplexCustomOverlay.prototype.draw = function(){
-      var map = this._map;
-      var pixel = map.pointToOverlayPixel(this._point);
-      this._div.style.left = pixel.x - 35 + "px";
-      this._div.style.top  = pixel.y - 30 + "px";
-    }
+				map.addEventListener("tilesloaded", function(evt) {
+					$('.loading').fadeOut();
+				});
+				//	
 
+				getDetailImages();
 
-//	var point1 = new BMap.Point(116.404, 39.915);
-//	var marker1 = new BMap.Marker(point1);
-//	console.log(ComplexCustomOverlay.setAnimation());
-//	map.addEventListener("zoomend", function(evt){
-//		map.clearOverlays();
-//		oldList = [];
-//		getDetailImages();
-//	});
-	map.addEventListener("tilesloaded", function(evt){
-			$('.loading').fadeOut();
-	});	
-//	
-//	map.addEventListener("moveend", function(evt){
-//	
-//			getDetailImages();
-//
-//			});	
+				function getDetailImages() {
+					//2716
 
-getDetailImages();
+					var photoId = getUrlParam('photoId') || '';
+					
+					var accessToken  = '';
+					if(userInfo){
+						accessToken =  userInfo.accessToken
+					}
+					
+					
+					
+					if(photoId) {
+						$.ajax({
+							type: "get",
+							url: api.getPhotoDetail,
+							data: {
+								photoId: photoId,
+								accessToken:accessToken
+							},
+							async: true,
+							success: function(res) {
+										$('.reBtn').show();
+										$('.addBox').show();
+										$('.footer').hide();
+										$('#allmap').css('height', '100%');
+										$('title').text('拍摄位置');
+										$('.title').text('');
+										$('.addName').text(res.locationName);
+										var point = new BMap.Point(res.longitude, res.latitude);
+										map.centerAndZoom(point, 5); // 初始化地图,设置中心点坐标和地图级别  						
+										var params = {
+											point: point,
+											params: res
+										};
+										params.params.pnum = 1;
+										fa_image = res;
+										var myCompOverlay = new ComplexCustomOverlay(params);
+										map.addOverlay(myCompOverlay);
+										var point2 = new BMap.Point(res.longitude, res.latitude);
+										map.panTo(point2, false);
+							},
+							error: function(res) {
 
-function getDetailImages(){
-	//2716
-		
-		var index = getUrlParam('index')||'';
-//		var bounds = map.getBounds();
-//
-//		var opt = {
-//			minX:bounds.getSouthWest().lng,
-//			maxX:bounds.getNorthEast().lng,
-//			minY:bounds.getSouthWest().lat,
-//			maxY:bounds.getNorthEast().lat,
-//			userId:id,
-//		}
-		$.ajax({
-			type:"get",
-			url:api.getDetail,
-			data:{id:id},
-			async:true,
-			success:function(res){
-			if(res.photos.length==0){
-					$('title').text('所有照片（0）')
-					geolocation.getCurrentPosition(function(r){
-						if(this.getStatus() == BMAP_STATUS_SUCCESS){
-							var mk = new BMap.Marker(r.point);
-							map.addOverlay(mk);
-							//map.panTo(r.point);
-							map.centerAndZoom(r.point, 5);  // 初始化地图,设置中心点坐标和地图级别  	
-							//alert('您的位置：'+r.point.lng+','+r.point.lat);
-						}
-						else {
-							//alert('failed'+this.getStatus());
-						}        
-					},{enableHighAccuracy: true})	
-			}else{
-				if(index){					
-						$('title').text('所有照片（1）')
-						var point =  new BMap.Point(res.photos[index].longitude,res.photos[index].latitude);
-						map.centerAndZoom(point, 5);  // 初始化地图,设置中心点坐标和地图级别  						
-						var params = {point:point,params:res.photos[index]};
-						params.params.pnum = 1;
-						fa_image = res.photos[index];
-						var myCompOverlay = new ComplexCustomOverlay(params);
-						map.addOverlay(myCompOverlay); 	
-						var point2 =  new BMap.Point(res.photos[index].longitude,res.photos[index].latitude);
-						map.panTo(point2,false);							
-				}else{
-					$('title').text('所有照片（'+res.photos.length+'）')
-					var point1 =  new BMap.Point(res.photos[0].longitude,res.photos[0].latitude);
-					map.centerAndZoom(point1, 5);  // 初始化地图,设置中心点坐标和地图级别  					
-					res.photos.forEach(function(item){
-							var point =  new BMap.Point(item.longitude,item.latitude);
-							var params = {point:point,params:item};
-							params.params.pnum = 1;
-							var myCompOverlay = new ComplexCustomOverlay(params);
-							map.addOverlay(myCompOverlay); 
-					})				
-					map.panTo(point1,false);
-				}				
-			}
-			},
-			error:function(res){
-				
-			}
-		});	
-}
+							}
+						});
 
+					} else {
 
-
-	var userInfo = getUserInfo();
-	$('.reBtn').on('click',function(){
-				if(!userInfo){
-					var btnArray = ['关闭', '去登陆'];
-							mui.confirm('登陆后才可以关注图片', '提示', btnArray, function(e) {
-								if (e.index == 1) {
-									window.location.href = 'login.html?id='+id;
+						$.ajax({
+							type: "get",
+							url: api.getDetail,
+							data: {
+								id: id
+							},
+							async: true,
+							success: function(res) {
+								if(res.photos.length == 0) {
+									$('title').text('所有照片（0）')
+									geolocation.getCurrentPosition(function(r) {
+										if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+											var mk = new BMap.Marker(r.point);
+											map.addOverlay(mk);
+											//map.panTo(r.point);
+											map.centerAndZoom(r.point, 5); // 初始化地图,设置中心点坐标和地图级别 
+										} else {
+											//alert('failed'+this.getStatus());
+										}
+									}, {
+										enableHighAccuracy: true
+									})
 								} else {
-									console.log('关闭提示');	
+									if(index) {
+										$('.reBtn').show();
+										$('.addBox').show();
+										$('.footer').hide();
+										$('#allmap').css('height', '100%');
+										$('title').text('拍摄位置');
+										$('.title').text('');
+										$('.addName').text(res.photos[index].locationName);
+										var point = new BMap.Point(res.photos[index].longitude, res.photos[index].latitude);
+										map.centerAndZoom(point, 5); // 初始化地图,设置中心点坐标和地图级别  						
+										var params = {
+											point: point,
+											params: res.photos[index]
+										};
+										params.params.pnum = 1;
+										fa_image = res.photos[index];
+										var myCompOverlay = new ComplexCustomOverlay(params);
+										map.addOverlay(myCompOverlay);
+										var point2 = new BMap.Point(res.photos[index].longitude, res.photos[index].latitude);
+										map.panTo(point2, false);
+									} else {
+										$('.footer').show();
+										$('title').text('所有照片（' + res.photos.length + '）')
+										var point1 = new BMap.Point(res.photos[0].longitude, res.photos[0].latitude);
+										map.centerAndZoom(point1, 4); // 初始化地图,设置中心点坐标和地图级别  					
+										res.photos.forEach(function(item) {
+											var point = new BMap.Point(item.longitude, item.latitude);
+											var params = {
+												point: point,
+												params: item
+											};
+											params.params.pnum = 1;
+											var myCompOverlay = new ComplexCustomOverlay(params);
+											map.addOverlay(myCompOverlay);
+										})
+										map.panTo(point1, false);
+									}
 								}
-							})
-					return false;	
-			}		
-		var opt = {
-				accessToken:userInfo.accessToken,//	是	String	token
-				photoId:fa_image.id,//	是	Integer	照片id
-				radius:3000,//	是	Double	距离 单位 m
-				name:fa_image.locationName//	是	String	自定义名
+							},
+							error: function(res) {
 
-		}
-		$.ajax({
-			type:"post",
-			data:opt,
-			url:api.region,
-			async:true,
-			success:function(res){
+							}
+						});
+
+					}
+
+				}
+
 				
-				mui.toast('关注成功');
-				
-			}
-		});
-	})
-	
-})
+				$('.reBtn').on('click', function() {
+					if(!userInfo) {
+						var btnArray = ['关闭', '去登陆'];
+						mui.confirm('登陆后才可以关注图片', '提示', btnArray, function(e) {
+							if(e.index == 1) {
+								window.location.href = 'login.html?id=' + id;
+							} else {
+								console.log('关闭提示');
+							}
+						})
+						return false;
+					}
+					var opt = {
+						accessToken: userInfo.accessToken, //	是	String	token
+						photoId: fa_image.id, //	是	Integer	照片id
+						radius: 3000, //	是	Double	距离 单位 m
+						name: fa_image.locationName //	是	String	自定义名
 
+					}
+					$.ajax({
+						type: "post",
+						data: opt,
+						url: api.region,
+						async: true,
+						success: function(res) {
 
+							mui.toast('关注成功');
 
-</script>
-</body>
+						}
+					});
+				})
+
+				$('.brack').on('click', function() {
+					var index = getUrlParam('index') || '';
+					if(index) {
+						window.location.href = './index.html?id=' + id + '&index=' + index;
+					} else {
+						window.location.href = './index.html?id=' + id;
+					}
+
+				})
+
+			})
+		</script>
+	</body>
+
 </html>
-
