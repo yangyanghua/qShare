@@ -76,9 +76,15 @@
 				width: 0.8rem;
 				top: 0;
 				right: 0.1rem;
-				background-image: url(image/icon_like.png);
-				background-size: cover;
+				background: url(image/icon_like.png) no-repeat 50% 50%;
+				background-size: 0.6rem 0.6rem;
 			}
+			
+			.header .reBtn.active{
+				background: url(image/heart.png) no-repeat 50% 50%;
+				background-size: 0.5rem 0.5rem;
+			}
+			
 		</style>
 	</head>
 
@@ -229,9 +235,6 @@
 					if(userInfo){
 						accessToken =  userInfo.accessToken
 					}
-					
-					
-					
 					if(photoId) {
 						$.ajax({
 							type: "get",
@@ -261,6 +264,7 @@
 										map.addOverlay(myCompOverlay);
 										var point2 = new BMap.Point(res.longitude, res.latitude);
 										map.panTo(point2, false);
+										checkImgStatus(photoId);
 							},
 							error: function(res) {
 
@@ -339,8 +343,28 @@
 					}
 
 				}
-
 				
+				function checkImgStatus(id){
+					var accessToken  = '';
+					if(userInfo){
+						accessToken =  userInfo.accessToken
+					}
+					if(accessToken){
+						$.ajax({
+							type:"get",
+							url:api.getPhotoStatus,
+							data:{photoId:id,accessToken:accessToken},
+							async:true,
+							success:function(res){
+								if(res){
+									$('.reBtn').addClass('active');
+								}
+
+							}
+						});						
+					}
+				};
+
 				$('.reBtn').on('click', function() {
 					if(!userInfo) {
 						var btnArray = ['关闭', '去登陆'];
@@ -360,17 +384,24 @@
 						name: fa_image.locationName //	是	String	自定义名
 
 					}
-					$.ajax({
-						type: "post",
-						data: opt,
-						url: api.region,
-						async: true,
-						success: function(res) {
+					
+					if($(this).attr('class').indexOf('active')==-1){
+						$.ajax({
+							type: "post",
+							data: opt,
+							url: api.region,
+							async: true,
+							success: function(res) {
+								$('.reBtn').addClass('active');
+								mui.toast('关注成功');
+								checkImgStatus(fa_image.id);
+							}
+						});						
+					}else{
+						mui.toast('您已关注');
+					}
+					
 
-							mui.toast('关注成功');
-
-						}
-					});
 				})
 
 				$('.brack').on('click', function() {

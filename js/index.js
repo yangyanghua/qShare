@@ -377,7 +377,7 @@ $(function() {
 				$commentsList.empty();
 				$commentsList.append(comhtml);
 				$('.loading').fadeOut();
-				var index = getUrlParam('index') || '';
+				var index = sessionStorage.getItem('historyIndex');
 				if(index) {
 					$("html,body").animate({
 						scrollTop: $(".dynamicItem").eq(index).offset().top
@@ -720,7 +720,8 @@ $(function() {
 	})
 
 	$('.dynamicList').on('click', '.address', function() {
-			
+		
+		sessionStorage.setItem('historyIndex',$(this).attr('index'));
 		window.location.href = 'detailmap.html?id=' + id + '&index=' + $(this).attr('index')+'&photoId='+ $(this).attr('id');
 	
 	})
@@ -733,6 +734,8 @@ $(function() {
 
 	//查看赞列表
 	$('#loadmoreZan').on('click', function() {
+		sessionStorage.removeItem('historyIndex');
+		
 		window.location.href = 'likeList.html?id=' + id;
 
 	})
@@ -775,6 +778,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
+					sessionStorage.removeItem('historyIndex');
 					window.location.href = 'login.html?id=' + id;
 				} else {
 					console.log('关闭提示');
@@ -784,6 +788,7 @@ $(function() {
 		}
 		var id = $(this).attr('detaiId');
 		if(id) {
+			sessionStorage.removeItem('historyIndex');
 			window.location.href = 'list.html?id=' + id;
 		}
 	})
@@ -794,6 +799,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
+					sessionStorage.removeItem('historyIndex');
 					window.location.href = 'login.html?id=' + id;
 				} else {
 					console.log('关闭提示');
@@ -803,6 +809,7 @@ $(function() {
 		}
 
 		if(uid) {
+			sessionStorage.removeItem('historyIndex');
 			window.location.href = 'list.html?id=' + uid;
 		}
 
@@ -842,23 +849,48 @@ $(function() {
 
 	}
 
-//	mui('body').on('tap', '.userPortrait', function() {
-//		var uid = $(this).attr('userid');
-//		window.location.href = 'list.html?id=' + uid;
-//
-//	})
+	mui('body').on('tap', '.userPortrait', function() {
+		
+		if(!userInfo) {
+			var btnArray = ['关闭', '去登陆'];
+			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
+				if(e.index == 1) {
+					window.location.href = 'login.html?id=' + id;
+				} else {
+					console.log('关闭提示');
+				}
+			})
+			return false;
+		}		
+		var uid = $(this).attr('userid');
+		window.location.href = 'list.html?id=' + uid;
+
+	})
 
 	mui('body').on('tap', '.userName', function() {
-
+		sessionStorage.removeItem('historyIndex');
+		if(!userInfo) {
+			var btnArray = ['关闭', '去登陆'];
+			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
+				if(e.index == 1) {
+					window.location.href = 'login.html?id=' + id;
+				} else {
+					console.log('关闭提示');
+				}
+			})
+			return false;
+		}		
 		var uid = $(this).attr('userid');
 		window.location.href = 'list.html?id=' + uid;
 
 	})
 	mui('body').on('tap', '.userItem', function() {
+		sessionStorage.removeItem('historyIndex');
 		if(!userInfo) {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
+					
 					window.location.href = 'login.html?id=' + id;
 				} else {
 					console.log('关闭提示');
