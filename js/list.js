@@ -19,8 +19,6 @@ $(function(){
 			//	console.log(item.dynamics[0].firstUrl);
 
 					item.dynamics.forEach(function(item1,index1){
-						
-				
 							if(index1 % 2 === 0 ){
 				
 								dynamicHtml2+=`<li class="imageItem dynamics" id="${item1.id}">
@@ -35,6 +33,7 @@ $(function(){
 												<p>${new Date(item1.createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
 											</div>							
 										</div>
+										<span class="photoCount">${item1.photoCount}<span>
 									</li>`				
 							}else{
 								dynamicHtml1+=`<li class="imageItem dynamics" id="${item1.id}">
@@ -49,6 +48,7 @@ $(function(){
 												<p>${new Date(item1.createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
 											</div>							
 										</div>
+										<span class="photoCount">${item1.photoCount}<span>
 									</li>`				
 							}
 										
@@ -85,18 +85,21 @@ $(function(){
 				var cityListHtml2 = '';
 				
 				res.forEach(function(item,index){
+					var title = item.title || item.code ;
+
 					if(index % 2 === 0){
+						
 						cityListHtml2 += `<li class="imageItem city"  citycode="${item.code}">
 								<div class="image">
 									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
 								</div>
-								<h2 class="cname">${item.title}</h2>
+								<h2 class="cname">${title}</h2>
 								<div class="c_userInfo">
 									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 									<div class="c_user">
 										<p class="c_userName">${thisUserInfo.nickName}</p>
-										<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-										<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+										<p><span class="timeLabel">From</span>${new Date(item.startTime).Format('yyyy-MM-dd')}</p>
+										<p><span class="timeLabel">To</span>${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
 									</div>							
 								</div>
 							</li>`							
@@ -105,13 +108,13 @@ $(function(){
 								<div class="image">
 									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
 								</div>
-								<h2 class="cname">${item.title}</h2>
+								<h2 class="cname">${title}</h2>
 								<div class="c_userInfo">
 									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 									<div class="c_user">
 										<p class="c_userName">${thisUserInfo.nickName}</p>
-										<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-										<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+										<p><span class="timeLabel">From</span>${new Date(item.startTime).Format('yyyy-MM-dd')}</p>
+										<p><span class="timeLabel">To</span>${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
 									</div>							
 								</div>
 							</li>`						
@@ -145,19 +148,19 @@ $(function(){
 				var CountryListHtml1 = '';
 				var CountryListHtml2 = '';
 				res.forEach(function(item,index){
-
+					var title = item.title || item.code ;
 					if(index % 2===0){
 						CountryListHtml2 += `<li class="imageItem country" countrycode="${item.code}">
 								<div class="image">
 									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1" />
 								</div>
-								<h2 class="cname">${item.title}</h2>
+								<h2 class="cname">${title}</h2>
 								<div class="c_userInfo">
 									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 									<div class="c_user">
 										<p class="c_userName">${thisUserInfo.nickName}</p>
-										<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-										<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+										<p><span class="timeLabel">From</span>  ${new Date(item.startTime).Format('yyyy-MM-dd')}</p>
+										<p><span class="timeLabel">To</span> ${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
 									</div>							
 								</div>
 							</li>`							
@@ -166,13 +169,13 @@ $(function(){
 									<div class="image">
 										<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
 									</div>
-									<h2 class="cname">${item.title}</h2>
+									<h2 class="cname">${title}</h2>
 									<div class="c_userInfo">
 										<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 										<div class="c_user">
 											<p class="c_userName">${thisUserInfo.nickName}</p>
-											<p>${new Date(item.startTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-											<p>${new Date(item.endTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
+											<p><span class="timeLabel">From</span>${new Date(item.startTime).Format('yyyy-MM-dd')}</p>
+											<p><span class="timeLabel">To</span>${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
 										</div>							
 									</div>
 								</li>`							
@@ -209,7 +212,7 @@ $(function(){
 						<div class="fansImage"><span style="background:#CCCCCC url(${item.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 						<div class="fansInfo">
 							<p class="fansName">${item.nickName}</p>
-							<p>景观ID:${item.id}</p>
+							<p>景观ID:${item.no}</p>
 							<p>上次登录：${new Date(item.updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
 						</div>
 					</li>`				
@@ -249,6 +252,17 @@ $(function(){
 				leve = './image/btn_phontoer3x.png';
 			};
 			
+			
+			var sexImage = ''
+			if(res.genderType == 'male') {
+					sexImage = './image/icon_boy2x.png'
+			} else if(res.genderType == 'female') {
+					sexImage = './image/icon_girlx.png'
+			}else{
+				sexImage = './image/icon_navigation.png'
+			}
+			
+			
 			if(res.background){
 				$('.headerBg').css({
 					"background":"#CCCCCC url("+res.background+") no-repeat 50% 50%",
@@ -262,7 +276,7 @@ $(function(){
 			var infoHtml = 	`<div class="baseInfo">
 								<div class="userImg"><span class="image" style="background:#CCCCCC url(${res.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 								<div class="userName">
-									<p class="name">${res.nickName}</p>
+									<p class="name">${res.nickName}<img class="sexImage" src="${sexImage}" /></p>
 									<p class="lv"><img src="${leve}" /></p>
 								</div>
 							</div>

@@ -2,14 +2,14 @@ var httpService = '';
 var currentHost = location.host;
 
 
-if (currentHost == '127.0.0.1:8020' || currentHost == '172.16.0.59:8080' ) {
+if (currentHost == '127.0.0.1:8020' || currentHost == '172.16.1.6:8080' ) {
   
   httpService = 'http://pred-api.irenao.cn'; //測試/預生產
   
 }else if(currentHost == 'pred-h5.irenao.cn'){
 	 httpService = 'http://pred-api.irenao.cn'; //測試/預生產
 }else{
-	 httpService = 'http://pred-api.irenao.cn'; //測試/預生產
+	 httpService = 'http://sit-api.irenao.cn'; //測試/預生產
 }
 
 var api = {

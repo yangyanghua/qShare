@@ -11,7 +11,7 @@
 				var mk = new BMap.Marker(r.point);
 				map.addOverlay(mk);
 				//map.panTo(r.point);
-				map.centerAndZoom(r.point, 8);  // 初始化地图,设置中心点坐标和地图级别  	
+				map.centerAndZoom(r.point, 5);  // 初始化地图,设置中心点坐标和地图级别  	
 				//alert('您的位置：'+r.point.lng+','+r.point.lat);
 			}
 			else {

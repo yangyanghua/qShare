@@ -120,34 +120,7 @@
 				</div>
 			</div>
 		</div>
-		<!--<div class="image" style="top: 530px;left: 40%;">
-		<div class="images" style="background: #8A6DE9;"></div>
-		<span class="pnum">9</span>
-		<div class="info">
-			<div class="userInfo">
-				<p class="userImg"><span></span></p>
-				<div class="nandt">
-					<p class="name">霍元甲</p>
-					<p class="tiem">2012-02-12 08:12:12</p>
-				</div>
-				<p class="haiba">altitude:3314.5米</p>		
-			</div>
-			<img src="image/bg.jpg"/>
-			<p class="adds">中国.云南省.迪庆藏族自治州.香格里拉市.241国道</p>
-			<p class="cosle cosleimg">×</p>
-		</div>
-		<div class="imageListCon">
-			<div class="swiper-container">
-			  <div class="swiper-wrapper">
-			    <div class="swiper-slide"></div>
-			    <div class="swiper-slide"></div>
-			    <div class="swiper-slide"></div>
-			    <div class="swiper-slide"></div>
-			  </div>
-			</div>			
-			<p class="cosle cosleList">×</p>
-		</div>
-	</div>-->
+
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Gkp2kjITvhmTA0VYLa11Dvli9uRwwN6R"></script>
 		<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
@@ -296,27 +269,7 @@
 										enableHighAccuracy: true
 									})
 								} else {
-									if(index) {
-										$('.reBtn').show();
-										$('.addBox').show();
-										$('.footer').hide();
-										$('#allmap').css('height', '100%');
-										$('title').text('拍摄位置');
-										$('.title').text('');
-										$('.addName').text(res.photos[index].locationName);
-										var point = new BMap.Point(res.photos[index].longitude, res.photos[index].latitude);
-										map.centerAndZoom(point, 5); // 初始化地图,设置中心点坐标和地图级别  						
-										var params = {
-											point: point,
-											params: res.photos[index]
-										};
-										params.params.pnum = 1;
-										fa_image = res.photos[index];
-										var myCompOverlay = new ComplexCustomOverlay(params);
-										map.addOverlay(myCompOverlay);
-										var point2 = new BMap.Point(res.photos[index].longitude, res.photos[index].latitude);
-										map.panTo(point2, false);
-									} else {
+
 										$('.footer').show();
 										$('title').text('所有照片（' + res.photos.length + '）')
 										var point1 = new BMap.Point(res.photos[0].longitude, res.photos[0].latitude);
@@ -332,7 +285,6 @@
 											map.addOverlay(myCompOverlay);
 										})
 										map.panTo(point1, false);
-									}
 								}
 							},
 							error: function(res) {
@@ -405,14 +357,18 @@
 				})
 
 				$('.brack').on('click', function() {
-					var index = getUrlParam('index') || '';
-					if(index) {
-						window.location.href = './index.html?id=' + id + '&index=' + index;
-					} else {
+
 						window.location.href = './index.html?id=' + id;
-					}
 
 				})
+				
+				$('.btn').on('click',function(){
+					mui.toast('体验更多功能请下载快看app');
+				})
+				
+				
+				
+				
 
 			})
 		</script>

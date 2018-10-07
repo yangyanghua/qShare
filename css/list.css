@@ -92,6 +92,14 @@ body{
 	display: flex;
 	height: 1.3rem;
 }
+
+.header .userInfo .sexImage{
+	width: 0.6rem;
+	height: 0.6rem !important;
+	margin: 0 !important;
+	
+}
+
 .header .userInfo .baseInfo .userImg{
 	flex: 0 0 1.3rem;
 	text-align: center;
@@ -224,6 +232,7 @@ body{
 }
 
 .imageItem{
+	position: relative;
 	width: 100%;
 	box-sizing: border-box;
 	background: #FFFFFF;
@@ -231,6 +240,21 @@ body{
 	margin-bottom: 0.2rem;
 	overflow: hidden;
 	box-shadow: 0 4px 9px -2px #CCCCCC;
+}
+
+.imageItem  .photoCount{
+	position:absolute;
+	background: rgba(0,0,0,0.5);
+	display: block;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	width: 0.8rem;
+	border-radius:50%;
+	z-index: 10;
+	bottom: 3rem;
+	right: 0.2rem;
+	color: #fff;
+	text-align: center;
 }
 
 .imageItem .image{
@@ -243,6 +267,7 @@ body{
 .imageItem.dynamics .cname{
 	font-size: 14px;
 	color: #333;
+	line-height: 21px;
 }
 
 
@@ -264,6 +289,13 @@ body{
  .c_userInfo .c_userImage{
 	flex: 0 0 1rem;
 }
+
+.c_userInfo .c_user p .timeLabel{
+	display: inline-block;
+	width: 40px;
+	text-align: left;
+}
+
  .c_userInfo .c_userImage span{
 	display: block;
 	margin-top: 0.2rem;

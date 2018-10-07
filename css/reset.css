@@ -22,7 +22,10 @@ time, mark, audio, video {
     vertical-align:baseline;
     background:transparent;
 }
-
+body,html{
+	width: 100%;
+	overflow-x: hidden;
+}
 body {
     line-height:1;
 }

@@ -382,6 +382,8 @@ $(function() {
 					$("html,body").animate({
 						scrollTop: $(".dynamicItem").eq(index).offset().top
 					}, 30);
+					sessionStorage.removeItem('historyIndex');
+					
 				}
 
 			},
@@ -734,8 +736,7 @@ $(function() {
 
 	//查看赞列表
 	$('#loadmoreZan').on('click', function() {
-		sessionStorage.removeItem('historyIndex');
-		
+
 		window.location.href = 'likeList.html?id=' + id;
 
 	})
@@ -778,7 +779,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					sessionStorage.removeItem('historyIndex');
+
 					window.location.href = 'login.html?id=' + id;
 				} else {
 					console.log('关闭提示');
@@ -788,7 +789,7 @@ $(function() {
 		}
 		var id = $(this).attr('detaiId');
 		if(id) {
-			sessionStorage.removeItem('historyIndex');
+
 			window.location.href = 'list.html?id=' + id;
 		}
 	})
@@ -799,7 +800,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					sessionStorage.removeItem('historyIndex');
+
 					window.location.href = 'login.html?id=' + id;
 				} else {
 					console.log('关闭提示');
@@ -809,7 +810,6 @@ $(function() {
 		}
 
 		if(uid) {
-			sessionStorage.removeItem('historyIndex');
 			window.location.href = 'list.html?id=' + uid;
 		}
 
@@ -868,7 +868,6 @@ $(function() {
 	})
 
 	mui('body').on('tap', '.userName', function() {
-		sessionStorage.removeItem('historyIndex');
 		if(!userInfo) {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
@@ -885,7 +884,6 @@ $(function() {
 
 	})
 	mui('body').on('tap', '.userItem', function() {
-		sessionStorage.removeItem('historyIndex');
 		if(!userInfo) {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
