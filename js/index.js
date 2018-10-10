@@ -12,6 +12,7 @@ $(function() {
 	mui('.mui-scroll-wrapper').scroll(options);
 	mui.previewImage();
 	var mySwiper = {};
+	var isScore = false;
 	//变量
 	var id = '',
 		uid = '',
@@ -244,6 +245,7 @@ $(function() {
 				getGoodList(res.id);
 				$banner.css("background-image", "url(" + res.firstUrl + ")");
 				uid = res.uid;
+				isScore = res.isScore;
 				res.userBases.forEach(function(item) {
 					if(item.id == res.uid) {
 						master = item;
@@ -519,6 +521,14 @@ $(function() {
 			})
 			return false;
 		} else {
+			console.log(userInfo);
+			if(isScore){
+				mui.toast('您已经评过分了');
+				return false;
+			}else if(uid=userInfo.id){
+				mui.toast('您不能给自己评分');
+				return false;				
+			}	
 			$('.stars').css('height', '9.8rem');
 			mask.show(); //显示遮罩
 			$('.mui-backdrop').css('bottom', '9.8rem');
