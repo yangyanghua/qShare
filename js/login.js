@@ -143,7 +143,7 @@
 				type:'wb',
 			}
 			localStorage.setItem('qobj',JSON.stringify(obj));
-			window.location.href ="https://api.weibo.com/oauth2/authorize?client_id=3668054464&redirect_uri=http://pred-h5.irenao.cn/index.html&response_type=code";
+			window.location.href ="https://api.weibo.com/oauth2/authorize?client_id=3668054464&redirect_uri=http://h5.irenao.cn/index.html&response_type=code";
 		})
 		//微信登录
 		$('#weixin').on('click',function(){
@@ -152,7 +152,7 @@
 				type:'wx',
 			}
 			localStorage.setItem('qobj',JSON.stringify(obj));
-			window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe684b9740115c7da&redirect_uri=http%3A%2F%2Fpred-h5.irenao.cn%2Findex.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
+			window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe684b9740115c7da&redirect_uri=http%3A%2F%2Fh5.irenao.cn%2Findex.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
 		})		
 	
 });

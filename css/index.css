@@ -126,7 +126,7 @@
 	background: rgba(240,240,240,.8);
 	top: 3.7rem;
 	height: 1.42rem;
-	width: 5rem;
+	width: 5.8rem;
 	border-bottom-right-radius: 100px;
 	border-top-right-radius: 100px;
 }
@@ -148,21 +148,26 @@
   .banner .Dynpublisher .nameInfo .DynpublisherName{
   	font-size: 14px;
   	color: #333333;
+  	height: 19px;
+  	line-height: 21px;
   	margin-bottom: 0.1rem;
-  	position: relative;
-  	width:3.1rem ;
-  	padding-right: 20px;
+  }	
+  #DynpublisherName{
+  	max-width:3.9rem;
+  	width: auto;
+  	float: left;	
     overflow:hidden;
     text-overflow:ellipsis;
-    white-space:nowrap  	
-  }	
+    white-space:nowrap;
+    margin-right: 10px;	
+  }
+  
   .banner .Dynpublisher .nameInfo .DynpublisherName .sex{	
-  	display: none;
+   display: none;
+ 	float: left;
   	width: 20px;
   	height: 20px;
-  	position: absolute;
-  	right: 0;
-  	top: 0;  	
+  	
   }
    .banner .Dynpublisher .nameInfo .DynpublisherName .boy{
 		display: none;
@@ -385,6 +390,15 @@
 	color: #4DA9E4;
 	
 }
+.dynamicContent .dynamicList .dynamicItem .address.disableds{
+	color: #CECECE;
+}
+
+.dynamicContent .dynamicList .dynamicItem .address.disableds .addressIcon{
+	background: url(../image/address.png) no-repeat 50% 50%;
+	background-size:22px 21px;
+}
+
 .dynamicContent .dynamicList .dynamicItem .address .addressIcon{
 	display: inline-block;
 	position: relative;

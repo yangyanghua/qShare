@@ -243,7 +243,7 @@ $(function() {
 				var master = {};
 				sessionStorage.setItem('id', res.id);
 				getGoodList(res.id);
-				$banner.css("background-image", "url(" + res.firstUrl + ")");
+				$banner.css("backgroundImage", "url(" + res.firstUrl + ")");
 				uid = res.uid;
 				isScore = res.isScore;
 				res.userBases.forEach(function(item) {
@@ -314,6 +314,15 @@ $(function() {
 					$('.swiper-button-black').hide();
 				}
 				res.photos.forEach(function(item, index) {
+					
+					var disabled = '';
+					
+					if(item.longitude && item.latitude){
+						disabled = '';
+					}else{
+						disabled = 'disableds';
+					}
+					
 					phtml +=
 						'<li class="dynamicItem" id="image' + index + '" >' +
 						'<a  href="javascript:;" imgurl="' + item.photoUrl + '" class="downImage down_btn_a" download  ></a>' +
@@ -323,7 +332,7 @@ $(function() {
 						'<div class="dynamicImg">' +
 						'<img class="lazy" data-original="' + item.photoUrl + '"    data-preview-src="" data-preview-group="1"/>' +
 						'</div>' +
-						'<p class="address" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + item.locationName + '</p>' +
+						'<p class="address '+disabled+'" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + item.countryName + item.stateName + item.cityName + item.locationName + '</p>' +
 						'</p>' +
 						'<p class="dynamicTxt">' + (item.txt ? item.txt : '') + '</p>' +
 						'</li>'
@@ -676,7 +685,7 @@ $(function() {
 		} else {
 			var opt = {
 				dynamicId: id,
-				toUid: id,
+				toUid: uid,
 				accessToken: userInfo.accessToken,
 			};
 			var isApplaud = $('.zanTotality').attr('class').indexOf('isApplaud') != -1;
@@ -733,6 +742,10 @@ $(function() {
 
 	$('.dynamicList').on('click', '.address', function() {
 		
+		let className = $(this).attr('class');
+		if(className.indexOf('disableds')!=-1){
+			return false;
+		}
 		sessionStorage.setItem('historyIndex',$(this).attr('index'));
 		window.location.href = 'detailmap.html?id=' + id + '&index=' + $(this).attr('index')+'&photoId='+ $(this).attr('id');
 	
@@ -784,23 +797,21 @@ $(function() {
 	//排行榜==>查看详情
 
 	$('.rankListUl').on('click', '.rankItem', function() {
-
 		if(!userInfo) {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-
 					window.location.href = 'login.html?id=' + id;
+					
 				} else {
 					console.log('关闭提示');
 				}
 			})
 			return false;
 		}
-		var id = $(this).attr('detaiId');
-		if(id) {
-
-			window.location.href = 'list.html?id=' + id;
+		var thisUid = $(this).attr('uid');
+		if(thisUid) {
+			window.location.href = 'list.html?id=' + thisUid;
 		}
 	})
 
@@ -840,7 +851,7 @@ $(function() {
 				//		if(res.object.length>7){res.object.length = 7};
 				var c = '';
 				res.forEach(function(item, index) {
-					c += `<li class="rankItem" detaiId = "${item.id}">
+					c += `<li class="rankItem" uid = "${item.id}">
 							<p class="rankIndex">${index+1}</p>
 							<p class="rankimage"><span style="background: url(${item.avatar}) no-repeat 50% 50%;background-size:cover;"></span></p>
 							<p class="rankName">${item.nickName}</p>
@@ -872,8 +883,8 @@ $(function() {
 			})
 			return false;
 		}		
-		var uid = $(this).attr('userid');
-		window.location.href = 'list.html?id=' + uid;
+		var thisUid = $(this).attr('userid');
+		window.location.href = 'list.html?id=' + thisUid;
 
 	})
 
@@ -889,8 +900,8 @@ $(function() {
 			})
 			return false;
 		}		
-		var uid = $(this).attr('userid');
-		window.location.href = 'list.html?id=' + uid;
+		var thisUid = $(this).attr('userid');
+		window.location.href = 'list.html?id=' + thisUid;
 
 	})
 	mui('body').on('tap', '.userItem', function() {
@@ -907,8 +918,8 @@ $(function() {
 			return false;
 		}
 
-		var uid = $(this).attr('userid');
-		window.location.href = 'list.html?id=' + uid;
+		var thisUid = $(this).attr('userid');
+		window.location.href = 'list.html?id=' + thisUid;
 
 	})
 
