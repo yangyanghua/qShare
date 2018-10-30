@@ -222,8 +222,7 @@
 										$('.addBox').show();
 										$('.footer').hide();
 										$('#allmap').css('height', '100%');
-										$('title').text('拍摄位置');
-										$('.title').text('');
+										$('.title').text('拍摄位置');
 										$('.addName').text(res.locationName);
 										var point = new BMap.Point(res.longitude, res.latitude);
 										map.centerAndZoom(point, 5); // 初始化地图,设置中心点坐标和地图级别  						
@@ -350,7 +349,18 @@
 							}
 						});						
 					}else{
-						mui.toast('您已关注');
+						
+						$.ajax({
+							type: "post",
+							data: opt,
+							url: api.cancleRegion,
+							async: true,
+							success: function(res) {
+								$('.reBtn').removeClass('active');
+								mui.toast('取消成功');
+								checkImgStatus(fa_image.id);
+							}
+						});						
 					}
 					
 

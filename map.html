@@ -15,7 +15,7 @@
 		</div>		
 	<div class="header">
 		<a class="brack" href="javascript:history.go(-1)"></a>
-		<p>足迹地图</p>
+		<p class="title" ></p>
 	</div>
 	<div id="allmap"></div>
 	<div class="footer">
@@ -143,6 +143,12 @@ function getImageBuycountryCode(){
 		async:true,
 		success:function(res){
 				//$('title').text("所有照片（"+res.object.length+"）")
+				if(citycode){
+					$('.title').text(res[0].t.cityName);
+				}else if(countrycode){
+					$('.title').text(res[0].t.countryName);
+				}				
+				
 				res.forEach(function(item){
 
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
@@ -185,7 +191,9 @@ function getImages(){
 			data:opt,
 			async:true,
 			success:function(res){
-				//$('title').text("所有照片（"+res.length+"）")
+				
+				
+				
 				res.forEach(function(item){
 					if(oldList.indexOf(item.t.id)==-1){
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);

@@ -9,7 +9,7 @@ $(function(){
 		$.ajax({
 			type:"get",
 			url:api.getDynamicList,
-			data:{isLeast:true,userId:id},
+			data:{isLeast:true,userId:id,accessToken:user.accessToken,pageNum:2},
 			async:true,
 			success:function(res){
 				console.log(res);
@@ -85,7 +85,8 @@ $(function(){
 				var cityListHtml2 = '';
 				
 				res.forEach(function(item,index){
-					var title = item.title || item.code ;
+
+					var title = item.title || '' ;
 
 					if(index % 2 === 0){
 						
@@ -148,7 +149,7 @@ $(function(){
 				var CountryListHtml1 = '';
 				var CountryListHtml2 = '';
 				res.forEach(function(item,index){
-					var title = item.title || item.code ;
+					var title = item.title || '' ;
 					if(index % 2===0){
 						CountryListHtml2 += `<li class="imageItem country" countrycode="${item.code}">
 								<div class="image">
@@ -359,7 +360,8 @@ $(function(){
 	
 			mui('body').on('tap','.city',function(){				
 				var code = $(this).attr('citycode'); 				
-				window.location.href = 'map.html?id='+id+'&citycode='+code;				
+				window.location.href = 'map.html?id='+id+'&citycode='+code;	
+				
 			})	
 			mui('body').on('tap','.fansItem',function(){
 				

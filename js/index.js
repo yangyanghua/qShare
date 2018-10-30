@@ -271,7 +271,7 @@ $(function() {
 				uid = res.uid;
 				$score.text(res.score);
 				$viewed.text(res.readCount);
-				$traveltitle.text(res.content);
+				$traveltitle.text(res.title);
 				$comTotalityNumer.text(res.commentCount);
 				$zanTotalityNumer.text(res.likeCount);
 				$colTotalityNumer.text(res.collectionCount);

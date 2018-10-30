@@ -2,7 +2,7 @@ var httpService = '';
 var currentHost = location.host;
 
 
-if (currentHost == '127.0.0.1:8020' || currentHost == '172.16.1.6:8080' ) {
+if (currentHost == '127.0.0.1:8020' || currentHost == '172.16.1.6:8080'  ) {
   
   httpService = 'http://pred-api.irenao.cn'; //測試/預生產
   
@@ -42,6 +42,7 @@ var api = {
 	photoLocation:httpService + '/api/v2/dynamic/photo/location',//获得国家、市照片
 	photoLocationMap:httpService + '/api/v2/dynamic/map/photo/location',//获得国家、市照片地图模式
 	region:httpService + '/api/v1/user/follow/region',//关注区域
+	cancleRegion:httpService + '/api/v1/user/follow/region/cancle',//取消关注区域
 
 }
 
