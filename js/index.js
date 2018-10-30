@@ -314,15 +314,15 @@ $(function() {
 					$('.swiper-button-black').hide();
 				}
 				res.photos.forEach(function(item, index) {
-					
+
 					var disabled = '';
-					
-					if(item.longitude && item.latitude){
+
+					if(item.longitude && item.latitude) {
 						disabled = '';
-					}else{
+					} else {
 						disabled = 'disableds';
 					}
-					
+
 					phtml +=
 						'<li class="dynamicItem" id="image' + index + '" >' +
 						'<a  href="javascript:;" imgurl="' + item.photoUrl + '" class="downImage down_btn_a" download  ></a>' +
@@ -332,7 +332,7 @@ $(function() {
 						'<div class="dynamicImg">' +
 						'<img class="lazy" data-original="' + item.photoUrl + '"    data-preview-src="" data-preview-group="1"/>' +
 						'</div>' +
-						'<p class="address '+disabled+'" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + item.countryName + item.stateName + item.cityName + item.locationName + '</p>' +
+						'<p class="address ' + disabled + '" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + item.countryName + item.stateName + item.cityName + item.locationName + '</p>' +
 						'</p>' +
 						'<p class="dynamicTxt">' + (item.txt ? item.txt : '') + '</p>' +
 						'</li>'
@@ -394,7 +394,7 @@ $(function() {
 						scrollTop: $(".dynamicItem").eq(index).offset().top
 					}, 30);
 					sessionStorage.removeItem('historyIndex');
-					
+
 				}
 
 			},
@@ -531,13 +531,13 @@ $(function() {
 			return false;
 		} else {
 			console.log(userInfo);
-			if(isScore){
+			if(isScore) {
 				mui.toast('您已经评过分了');
 				return false;
-			}else if(uid=userInfo.id){
+			} else if(uid == userInfo.id) {
 				mui.toast('您不能给自己评分');
-				return false;				
-			}	
+				return false;
+			}
 			$('.stars').css('height', '9.8rem');
 			mask.show(); //显示遮罩
 			$('.mui-backdrop').css('bottom', '9.8rem');
@@ -741,20 +741,20 @@ $(function() {
 	})
 
 	$('.dynamicList').on('click', '.address', function() {
-		
+
 		let className = $(this).attr('class');
-		if(className.indexOf('disableds')!=-1){
+		if(className.indexOf('disableds') != -1) {
 			return false;
 		}
-		sessionStorage.setItem('historyIndex',$(this).attr('index'));
-		window.location.href = 'detailmap.html?id=' + id + '&index=' + $(this).attr('index')+'&photoId='+ $(this).attr('id');
-	
+		sessionStorage.setItem('historyIndex', $(this).attr('index'));
+		window.location.href = 'detailmap.html?id=' + id + '&index=' + $(this).attr('index') + '&photoId=' + $(this).attr('id');
+
 	})
 
 	$('.toMap').on('click', function() {
-		
+
 		window.location.href = 'detailmap.html?id=' + id;
-	
+
 	})
 
 	//查看赞列表
@@ -802,7 +802,7 @@ $(function() {
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
 					window.location.href = 'login.html?id=' + id;
-					
+
 				} else {
 					console.log('关闭提示');
 				}
@@ -871,7 +871,7 @@ $(function() {
 	}
 
 	mui('body').on('tap', '.userPortrait', function() {
-		
+
 		if(!userInfo) {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
@@ -882,7 +882,7 @@ $(function() {
 				}
 			})
 			return false;
-		}		
+		}
 		var thisUid = $(this).attr('userid');
 		window.location.href = 'list.html?id=' + thisUid;
 
@@ -899,7 +899,7 @@ $(function() {
 				}
 			})
 			return false;
-		}		
+		}
 		var thisUid = $(this).attr('userid');
 		window.location.href = 'list.html?id=' + thisUid;
 
@@ -909,7 +909,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					
+
 					window.location.href = 'login.html?id=' + id;
 				} else {
 					console.log('关闭提示');
