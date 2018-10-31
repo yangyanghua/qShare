@@ -169,7 +169,7 @@ $(function(){
 						<div class="fansImage"><span style="background:#CCCCCC url(${item.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 						<div class="fansInfo">
 							<p class="fansName">${item.nickName}</p>
-							<p>景观ID:${item.no}</p>
+							<p>快看ID:${item.no}</p>
 							<p>上次登录：${new Date(item.updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
 						</div>
 					</li>`				

@@ -93,6 +93,41 @@ body{
 	top: 60%;
 	box-shadow: 0 4px 11px -1px #CCCCCC;
 }
+.userInfo .foll-btn{
+	position: absolute;
+	top: 10px;
+	background: #FD5B42;
+	color: #fff;
+	padding-top: 0;
+	padding-bottom: 0;
+	height: 26px;
+	line-height: 26px;
+	border-color:#FD5B42;
+	font-size: 12px;
+	right: 10px;
+	width: 80px;
+	z-index: 100;
+}
+.userInfo .foll-btn .icon{
+	height: 26px;
+	width: 20px;
+	float: left;
+}
+.userInfo .foll-btn .icon.jia{
+
+}
+
+.userInfo .foll-btn.fllowed{
+	background: #fcf0f3;
+	border-color:#fcf0f3 ;
+	color: #FD5B42;
+}
+
+
+
+
+
+
 .header .userInfo .baseInfo{
 	display: flex;
 	height: 1.3rem;
@@ -223,6 +258,10 @@ body{
 	line-height: 0.6rem;
 	font-weight: bold;
 	color: #333333;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 
@@ -277,7 +316,12 @@ body{
 .imageItem.dynamics .cname{
 	font-size: 14px;
 	color: #333;
-	line-height: 21px;
+	height: 24px;
+	line-height: 24px;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 
