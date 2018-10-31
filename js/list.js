@@ -4,41 +4,41 @@ $(function(){
 	//var  id = 2716; 
 	var user = getUserInfo();
 	var thisUserInfo = {};
+	var lastId = '';
+	var nowNav = 'dynamicList';
+	var nomore = false;
 	//用户足迹列表
-	function getDynamicList(id){
+	function getDynamicList(id,empty,dynamicId){
+		var dyId = dynamicId || '';
 		$.ajax({
 			type:"get",
 			url:api.getDynamicList,
-			data:{isLeast:true,userId:id,accessToken:user.accessToken,pageNum:2},
+			data:{isLeast:true,userId:id,accessToken:user.accessToken,dynamicId:dyId},
 			async:true,
 			success:function(res){
 				console.log(res);
 			var dynamicHtml1 = '';
 			var dynamicHtml2 = '';
+			if(res.object.length>0){
+				if(res.object[0].dynamics.length > 0){
+					lastId = res.object[0].dynamics[res.object[0].dynamics.length-1].id;
+					nomore = false
+				}else if(res.object[0].dynamics.length == 0){				
+					nomore = true;			
+				};				
+			}else{
+				nomore = true;			
+			}
+
+
 			res.object.forEach(function(item,index){
 			//	console.log(item.dynamics[0].firstUrl);
-
-					item.dynamics.forEach(function(item1,index1){
-							if(index1 % 2 === 0 ){
 				
-								dynamicHtml2+=`<li class="imageItem dynamics" id="${item1.id}">
-										<div class="image">
-											<img class="lazy" data-original="${item1.firstUrl}"    data-preview-src="" data-preview-group="1"/>
-										</div>
-										<h2 class="cname">${item1.title}</h2>
-										<div class="c_userInfo">
-											<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-											<div class="c_user">
-												<p class="c_userName">${thisUserInfo.nickName}</p>
-												<p>${new Date(item1.createTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
-											</div>							
-										</div>
-										<span class="photoCount">${item1.photoCount}<span>
-									</li>`				
-							}else{
+				
+					item.dynamics.forEach(function(item1,index1){
 								dynamicHtml1+=`<li class="imageItem dynamics" id="${item1.id}">
 										<div class="image">
-											<img class="lazy" data-original="${item1.firstUrl}"    data-preview-src="" data-preview-group="1" />
+											<img class="lazy"  src="${item1.firstUrl}" />
 										</div>
 										<h2 class="cname">${item1.title}</h2>
 										<div class="c_userInfo">
@@ -50,21 +50,17 @@ $(function(){
 										</div>
 										<span class="photoCount">${item1.photoCount}<span>
 									</li>`				
-							}
-										
-						
 					})
 
 
 
 			})
-			$('.imageList').empty();
-			$('.imageList1').append(dynamicHtml1);
-			$('.imageList2').append(dynamicHtml2);
-			$('.loading').fadeOut();
-			//懒加载
-			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList1"), failurelimit : 10 });
-			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList2"), failurelimit : 10 });		
+			if(empty){
+				$('.imageList').empty();
+			}
+			$('.imageList').append(dynamicHtml1);
+			setPsition();
+			$('.loading').fadeOut();	
 			},
 			error:function(){
 				
@@ -82,29 +78,8 @@ $(function(){
 			success:function(res){
 				console.log(res);
 				var cityListHtml1 = '';
-				var cityListHtml2 = '';
-				
 				res.forEach(function(item,index){
-
 					var title = item.title || '' ;
-
-					if(index % 2 === 0){
-						
-						cityListHtml2 += `<li class="imageItem city"  citycode="${item.code}">
-								<div class="image">
-									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
-								</div>
-								<h2 class="cname">${title}</h2>
-								<div class="c_userInfo">
-									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-									<div class="c_user">
-										<p class="c_userName">${thisUserInfo.nickName}</p>
-										<p><span class="timeLabel">From</span>${new Date(item.startTime).Format('yyyy-MM-dd')}</p>
-										<p><span class="timeLabel">To</span>${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
-									</div>							
-								</div>
-							</li>`							
-					}else{
 						cityListHtml1 += `<li class="imageItem city"  citycode="${item.code}">
 								<div class="image">
 									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
@@ -118,16 +93,16 @@ $(function(){
 										<p><span class="timeLabel">To</span>${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
 									</div>							
 								</div>
-							</li>`						
-					}
+							</li>`							
+
 
 				});
 				$('.imageList').empty();
-				$('.imageList1').append(cityListHtml1);
-				$('.imageList2').append(cityListHtml2);
+				$('.imageList').append(cityListHtml1);
+				setPsition();
 			//懒加载			
-			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList1")});
-			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList2")});			
+			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList"), failurelimit : 2 });
+			
 			
 			},
 			error:function(){
@@ -145,13 +120,10 @@ $(function(){
 			data:{isLeast:true,userId:id},
 			async:true,
 			success:function(res){
-				console.log(res);
 				var CountryListHtml1 = '';
-				var CountryListHtml2 = '';
 				res.forEach(function(item,index){
 					var title = item.title || '' ;
-					if(index % 2===0){
-						CountryListHtml2 += `<li class="imageItem country" countrycode="${item.code}">
+						CountryListHtml1 += `<li class="imageItem country" countrycode="${item.code}">
 								<div class="image">
 									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1" />
 								</div>
@@ -165,31 +137,15 @@ $(function(){
 									</div>							
 								</div>
 							</li>`							
-					}else{
-							CountryListHtml1 += `<li class="imageItem country" countrycode="${item.code}">
-									<div class="image">
-										<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
-									</div>
-									<h2 class="cname">${title}</h2>
-									<div class="c_userInfo">
-										<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
-										<div class="c_user">
-											<p class="c_userName">${thisUserInfo.nickName}</p>
-											<p><span class="timeLabel">From</span>${new Date(item.startTime).Format('yyyy-MM-dd')}</p>
-											<p><span class="timeLabel">To</span>${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
-										</div>							
-									</div>
-								</li>`							
-					}
+
 					
 				
 				});
 				$('.imageList').empty();
-				$('.imageList1').append(CountryListHtml1);
-				$('.imageList2').append(CountryListHtml2);
+				$('.imageList').append(CountryListHtml1);
+				setPsition();
 			//懒加载
-			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList1"), failurelimit : 10 });
-			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList2"), failurelimit : 10 });
+			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList"), failurelimit : 2 });
 			},
 			error:function(){
 				
@@ -238,7 +194,7 @@ $(function(){
 			var leve = '';
 			$('.userId').text('ID：'+res.no);
 			thisUserInfo = res;
-			getDynamicList(id);
+			getDynamicList(id,true);
 //freshman	freshman	新手
 //junior	junior	初级
 //medium	medium	中级
@@ -331,19 +287,26 @@ $(function(){
 			$('.navItem').removeClass('active');
 			$(this).addClass('active');
 			var thisId = $(this).attr('id');
+			if(nowNav == thisId ){
+				return false;
+			}
 			if(thisId==='fansList'){
+				nowNav = 'fansList';
 				$('.images').hide();
 				$('.fans').show();
 				getFansList(id);
 			}else if(thisId==='dynamicList'){
+				nowNav = 'dynamicList';
 				$('.images').show();
 				$('.fans').hide();				
-				getDynamicList(id);
+				getDynamicList(id,true);
 			}else if(thisId==='countryList'){
+				nowNav = 'countryList';
 				$('.images').show();
 				$('.fans').hide();						
 				getCountryList(id);
 			}else if(thisId==='cityList'){
+				nowNav = 'cityList';
 				$('.images').show();
 				$('.fans').hide();						
 				getCityList(id);
@@ -369,5 +332,98 @@ $(function(){
 				window.location.href = './list.html?id='+userid;
 				
 			})		
-	
+
+
+
+		$(window).scroll(function(){
+			
+		　　var scrollTop = $(this).scrollTop();
+		　　var scrollHeight = $(document).height();
+		　　var windowHeight = $(this).height();
+			　　if(scrollTop + windowHeight == scrollHeight){
+			　　　　if(nowNav=='dynamicList'){
+						if(nomore){
+							return false;			
+						}else{		
+							getDynamicList(id,false,lastId);			
+						}							
+					}
+
+			}
+		});
+
+
+
+var setPsition = function(){
+
+		$('img').load(function(){
+			var box = $('.imageList').find('.imageItem');
+			var boxHeight = {
+				leftBox:[],
+				centerBox:[],
+				rightBox:[]
+			}
+			for(var i=0;i<box.length;i++){
+				var now = i%2;		//now的值为0，1，2
+				switch(now){
+					case 0:
+						box.eq(i).css('left','0');
+						boxHeight.leftBox.push(box.eq(i).height());
+						var now2 = Math.floor(i/2);
+	 
+						if(now2==0){
+							box.eq(i).css('top',0);
+						}else{
+							var total = 0;
+							for(var j=0;j<now2;j++){
+								total += boxHeight.leftBox[j]+10;
+							}
+							box.eq(i).css('top',total+'px')
+						}
+					break;
+					case 1:
+						box.eq(i).css('left','51%');
+						boxHeight.centerBox.push(box.eq(i).height());
+						var now2 = Math.floor(i/2);
+	 
+						if(now2==0){
+							box.eq(i).css('top',0);
+						}else{
+							var total = 0;
+							for(var j=0;j<now2;j++){
+								total += boxHeight.centerBox[j]+10;
+							}
+							box.eq(i).css('top',total+'px')
+						}
+					break;
+				}
+			}
+			
+			var height1 = box.eq(box.length-1).height();
+			var height2 = box.eq(box.length-2).height();
+			var height = 0;
+			console.log(height1,height2);
+			if(height1>height2){
+				height = height1;
+			}else{
+				height = height2;
+			}
+			var top1 = box[box.length-1].style.top;
+				top1 = top1.replace('px','');
+			var top2 = box[box.length-2].style.top;	
+				top2 = top2.replace('px','');
+			var top = 0;
+			if(top1>top2){
+				top = top1;
+			}else{
+				top = top2;
+			}			
+			var boxHeight = height + Number(top) + 'px';
+			$('.imageList').css('height',boxHeight);
+			
+			
+		});
+
+}
+
 })

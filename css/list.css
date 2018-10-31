@@ -1,6 +1,11 @@
 body{
 	background: #F1EFEF;
 }
+/*html,body{
+	height: 100%;
+	overflow: auto;
+}*/
+
 .header{
 	position: relative;
 	height: auto;
@@ -222,18 +227,23 @@ body{
 
 
 .imageList{
-	width: 49%;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+	
 }
-.imageList.imageList1{
+ /*.imageList.imageList1{
 	float: left;
 }
 .imageList.imageList2{
 	float: right;
-}
+}*/
 
 .imageItem{
-	position: relative;
-	width: 100%;
+	position:absolute;
+	top: 0;
+	left: 0;
+	width: 49%;
 	box-sizing: border-box;
 	background: #FFFFFF;
 	border-radius:4px ;
