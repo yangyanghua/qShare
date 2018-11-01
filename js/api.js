@@ -43,6 +43,9 @@ var api = {
 	photoLocationMap:httpService + '/api/v2/dynamic/map/photo/location',//获得国家、市照片地图模式
 	region:httpService + '/api/v1/user/follow/region',//关注区域
 	cancleRegion:httpService + '/api/v1/user/follow/region/cancle',//取消关注区域
+	addFriend:httpService + '/api/v1/friend/add',//添加朋友
+	cancleFriend:httpService + '/api/v1/friend/cancle',//取消朋友
+
 
 }
 

@@ -93,9 +93,13 @@ body{
 	top: 60%;
 	box-shadow: 0 4px 11px -1px #CCCCCC;
 }
-.userInfo .foll-btn{
+.header .userInfo .foll-btn{
+	display: none;
+}
+
+ .foll-btn{
 	position: absolute;
-	top: 10px;
+	top: 20px;
 	background: #FD5B42;
 	color: #fff;
 	padding-top: 0;
@@ -105,19 +109,32 @@ body{
 	border-color:#FD5B42;
 	font-size: 12px;
 	right: 10px;
-	width: 80px;
+	min-width: 80px;
 	z-index: 100;
 }
-.userInfo .foll-btn .icon{
+ .foll-btn .icon{
 	height: 26px;
-	width: 20px;
-	float: left;
+	padding-left: 15px;
+	display: inline-block;
+	width: auto;
 }
-.userInfo .foll-btn .icon.jia{
-
+ .foll-btn .icon.gou{
+	background: url(../image/gou.png) no-repeat 0 50%;
+	background-size:12px 9px;
+}
+ .foll-btn .icon.xianghu{
+	background: url(../image/xianghu.png) no-repeat 0 50%;
+	background-size:12px 11px;
+}
+ .foll-btn .icon.jia{
+	background: url(../image/jia.png) no-repeat 0 45%;
+	background-size:12px 11px;
+	padding-left: 16px;
 }
 
-.userInfo .foll-btn.fllowed{
+
+
+ .foll-btn.fllowed{
 	background: #fcf0f3;
 	border-color:#fcf0f3 ;
 	color: #FD5B42;
@@ -222,6 +239,7 @@ body{
 	padding: 0.2rem;
 }
 .fansList .fansItem{
+	position: relative;
 	display: flex;
 	height: 2.2rem;
 	background: #FFFFFF;

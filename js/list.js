@@ -36,11 +36,13 @@ $(function(){
 				
 				
 					item.dynamics.forEach(function(item1,index1){
+						
+						var title = item1.title || '';
 								dynamicHtml1+=`<li class="imageItem dynamics" id="${item1.id}">
 										<div class="image">
 											<img class="lazy"  src="${item1.firstUrl}" />
 										</div>
-										<h2 class="cname">${item1.title}</h2>
+										<h2 class="cname">${title}</h2>
 										<div class="c_userInfo">
 											<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 											<div class="c_user">
@@ -153,18 +155,33 @@ $(function(){
 		});		
 	}	
 	
-	
+	//粉丝列表
 	function getFansList(id){
 
 		$.ajax({
 			type:"get",
 			url:api.fansList,
-			data:{userId:id},
+			data:{userId:id,accessToken:user.accessToken},
 			async:true,
 			success:function(res){
 				console.log(res);
 				var fansListHtml = '';
+				
+				var btn = '';
+				console.log(user.id);
 				res.forEach(function(item){
+					if(res.userFollowState == 'to'){
+						btn  = `<button class="foll-btn fllowed isfllowed" id="${item.id}" ><span class="icon gou">已关注</span></button>`;	
+					}else if(res.userFollowState == 'two'){
+						btn  = `<button class="foll-btn fllowed fllowedAll" id="${item.id}" ><span class="icon xianghu">相互关注</span></button>	`;	
+					}else{
+						btn  = `<button class="foll-btn jiaBtn listAdd" id="${item.id}" ><span class="icon jia">关注</span></button>		`;	
+					}
+					if(user.id == item.id){
+						btn = '';
+					}
+					
+					
 					fansListHtml += `<li class="fansItem" userid="${item.id}" >
 						<div class="fansImage"><span style="background:#CCCCCC url(${item.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 						<div class="fansInfo">
@@ -172,6 +189,7 @@ $(function(){
 							<p>快看ID:${item.no}</p>
 							<p>上次登录：${new Date(item.updateTime).Format('yyyy-MM-dd hh:mm:ss')}</p>
 						</div>
+						${btn}
 					</li>`				
 				});
 				$('.fansList').empty();
@@ -200,7 +218,21 @@ $(function(){
 //medium	medium	中级
 //senior	senior	高级
 //highest	highest	摄影家
-
+			if(res.id == user.id){
+				$('.btn-box').hide();
+			}else{
+				if(res.userFollowState == 'to'){
+					
+					$('.btn-box').find('.isfllowed').show();
+					
+				}else if(res.userFollowState == 'two'){
+					$('.btn-box').find('.fllowedAll').show();
+				}else{
+					$('.btn-box').find('.jiaBtn').show();
+	
+				}				
+			}
+		
 			if(res.level=='freshman'||res.level=='junior'){
 				leve = './image/btnphontoer12x.png';
 			}else if(res.level=='medium'){
@@ -226,9 +258,6 @@ $(function(){
 					"backgroundSize":"cover"
 				})				
 			}
-			
-
-			
 			
 			var infoHtml = 	`<div class="baseInfo">
 								<div class="userImg"><span class="image" style="background:#CCCCCC url(${res.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
@@ -327,12 +356,53 @@ $(function(){
 				
 			})	
 			mui('body').on('tap','.fansItem',function(){
-				
 				var userid = $(this).attr('userid'); 				
 				window.location.href = './list.html?id='+userid;
 				
 			})		
 
+			mui('body').on('tap','.headerAdd',function(){
+				let opt = {
+					followedUserId:thisUserInfo.id,
+					accessToken:user.accessToken
+				};
+				$.ajax({
+					type:"post",
+					url:api.addFriend,
+					data:opt,
+					async:true,
+					success:function(res){
+						mui.toast('关注成功！');
+						getUserDetail(id);
+					},
+					error:function(){
+						mui.toast('操作失败，请重试！');
+					}
+				});
+			});
+
+			mui('body').on('tap','.listAdd',function(e){
+				 var e = e || window.event;	 
+				 e.stopPropagation();
+				let opt = {
+					followedUserId:$(this).attr('id'),
+					accessToken:user.accessToken
+				};
+				$.ajax({
+					type:"post",
+					url:api.addFriend,
+					data:opt,
+					async:true,
+					success:function(res){
+						mui.toast('关注成功！');
+						getFansList(id);
+					},
+					error:function(){
+						mui.toast('操作失败，请重试！');
+					}
+				});				 
+
+			})	
 
 
 		$(window).scroll(function(){
