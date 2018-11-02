@@ -218,17 +218,20 @@ $(function(){
 //medium	medium	中级
 //senior	senior	高级
 //highest	highest	摄影家
+			
+			var btn = '';
+			
 			if(res.id == user.id){
-				$('.btn-box').hide();
+				btn = '';
 			}else{
 				if(res.userFollowState == 'to'){
 					
-					$('.btn-box').find('.isfllowed').show();
+					btn = `<button class="foll-btn fllowed isfllowed" ><span class="icon gou">已关注</span></button>`;
 					
 				}else if(res.userFollowState == 'two'){
-					$('.btn-box').find('.fllowedAll').show();
+					btn = `<button class="foll-btn fllowed fllowedAll" ><span class="icon xianghu">相互关注</span></button>`;
 				}else{
-					$('.btn-box').find('.jiaBtn').show();
+					btn = `<button class="foll-btn jiaBtn headerAdd" ><span class="icon jia">关注</span></button>`;
 	
 				}				
 			}
@@ -284,7 +287,15 @@ $(function(){
 									<p>${res.cityCount}</p>
 									<p>城市</p>							
 								</li>
-							</ul>`;
+							</ul>
+							<div class="btn-box">
+								${btn}
+							</div>`;
+							
+							
+							
+							
+			$('.userInfo').empty();			
 			$('.userInfo').append(infoHtml);		
 			},
 			error:function(res){
@@ -363,7 +374,7 @@ $(function(){
 
 			mui('body').on('tap','.headerAdd',function(){
 				let opt = {
-					followedUserId:thisUserInfo.id,
+					applicantUserid:thisUserInfo.id,
 					accessToken:user.accessToken
 				};
 				$.ajax({
@@ -385,7 +396,7 @@ $(function(){
 				 var e = e || window.event;	 
 				 e.stopPropagation();
 				let opt = {
-					followedUserId:$(this).attr('id'),
+					applicantUserid:$(this).attr('id'),
 					accessToken:user.accessToken
 				};
 				$.ajax({

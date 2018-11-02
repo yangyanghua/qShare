@@ -93,9 +93,6 @@ body{
 	top: 60%;
 	box-shadow: 0 4px 11px -1px #CCCCCC;
 }
-.header .userInfo .foll-btn{
-	display: none;
-}
 
  .foll-btn{
 	position: absolute;
