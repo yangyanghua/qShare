@@ -66,6 +66,7 @@
 	
 	var countrycode = getUrlParam('countrycode')||'';
 	var citycode = getUrlParam('citycode')||'';
+	var dynamicId = getUrlParam('dynamicId')||'';
 	var id = getUrlParam('id'); 
 
 	map.addEventListener("tilesloaded", function(evt){
@@ -112,7 +113,6 @@
 
 function getImageBuycountryCode(){
 		var opt = {};
-
 		var bounds = map.getBounds();
 	if(countrycode){
 		 opt = {
@@ -183,16 +183,15 @@ function getImages(){
 			maxX:bounds.getNorthEast().lng,
 			minY:bounds.getSouthWest().lat,
 			maxY:bounds.getNorthEast().lat,
-			userId:id,
+			dynamicId:dynamicId,
 		}
 		$.ajax({
 			type:"get",
-			url:api.dynamicList,
+			url:api.dynamicMpa,
 			data:opt,
 			async:true,
 			success:function(res){
-				
-				
+				$('.title').text('足迹地图');
 				
 				res.forEach(function(item){
 					if(oldList.indexOf(item.t.id)==-1){

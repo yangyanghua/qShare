@@ -16,6 +16,8 @@ $(function() {
 	//变量
 	var id = '',
 		uid = '',
+		longitude = '',
+		latitude = '',
 		$banner = $('.banner'),
 		$portrait = $('.portrait'),
 		$DynpublisherName = $('#DynpublisherName'),
@@ -35,6 +37,7 @@ $(function() {
 		$girl = $('.girl'),
 		$passCity = $('.passCity'),
 		$usDay = $('.usDay');
+		
 	//获取用户信息
 	var userInfo = getUserInfo();
 	var code = getUrlParam('code');
@@ -313,6 +316,11 @@ $(function() {
 				if(res.cityVos.length < 4) {
 					$('.swiper-button-black').hide();
 				}
+				
+				longitude = res.photos[0].longitude;
+				latitude = res.photos[0].latitude;
+				
+				
 				res.photos.forEach(function(item, index) {
 
 					var disabled = '';
@@ -346,6 +354,7 @@ $(function() {
 				var comhtml = '';
 				var uiduser = {};
 				var touser = {};
+				
 				res.comments.forEach(function(item) {
 					res.userBases.forEach(function(item1) {
 						if(item.uid == item1.id) {
@@ -751,9 +760,11 @@ $(function() {
 
 	})
 
+
+
 	$('.toMap').on('click', function() {
 
-		window.location.href = 'detailmap.html?id=' + id;
+		window.location.href = 'map.html?dynamicId=' + id +'&longitude='+longitude + '&latitude=' + latitude;
 
 	})
 

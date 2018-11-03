@@ -3,21 +3,33 @@
 	var mySwiper = {};
 	var map = new BMap.Map("allmap");    // 创建Map实例
 	var oldList = [];
+
+	var longitude = getUrlParam('longitude')||'';
+	var latitude = getUrlParam('latitude')||'';
+
  	map.addControl(new BMap.NavigationControl({anchor:'BMAP_ANCHOR_BOTTOM_RIGHT',type:'BMAP_NAVIGATION_CONTROL_ZOOM',showZoomInfo:false,enableGeolocation:false}));
 
 		var geolocation = new BMap.Geolocation();
-		geolocation.getCurrentPosition(function(r){
-			if(this.getStatus() == BMAP_STATUS_SUCCESS){
-				var mk = new BMap.Marker(r.point);
-				map.addOverlay(mk);
-				//map.panTo(r.point);
-				map.centerAndZoom(r.point, 5);  // 初始化地图,设置中心点坐标和地图级别  	
-				//alert('您的位置：'+r.point.lng+','+r.point.lat);
-			}
-			else {
-				//alert('failed'+this.getStatus());
-			}        
-		},{enableHighAccuracy: true})
+
+			geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					var mk = new BMap.Marker(r.point);
+					map.addOverlay(mk);
+					//map.panTo(r.point);
+				if(longitude){
+					var ContentPoint =  new BMap.Point(longitude,latitude);
+					map.centerAndZoom(ContentPoint, 7);
+				}else{
+					map.centerAndZoom(r.point, 6);  // 初始化地图,设置中心点坐标和地图级别  	
+				}
+					
+					
+					//alert('您的位置：'+r.point.lng+','+r.point.lat);
+				}
+				else {
+					//alert('failed'+this.getStatus());
+				}        
+			},{enableHighAccuracy: true})			
 
 	
 

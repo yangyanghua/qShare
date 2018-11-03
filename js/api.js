@@ -45,7 +45,7 @@ var api = {
 	cancleRegion:httpService + '/api/v1/user/follow/region/cancle',//取消关注区域
 	addFriend:httpService + '/api/v1/friend/add',//添加朋友
 	cancleFriend:httpService + '/api/v1/friend/cancle',//取消朋友
-
+  dynamicMpa:httpService + '/api/v2/dynamic/map/dynamic/list',//动态详情，地图模式
 
 }
 
