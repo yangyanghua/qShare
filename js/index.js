@@ -36,7 +36,8 @@ $(function() {
 		$boy = $('.boy'),
 		$girl = $('.girl'),
 		$passCity = $('.passCity'),
-		$usDay = $('.usDay');
+		$usDay = $('.usDay'),
+		$dect = $('.dect');
 		
 	//获取用户信息
 	var userInfo = getUserInfo();
@@ -275,6 +276,7 @@ $(function() {
 				$score.text(res.score);
 				$viewed.text(res.readCount);
 				$traveltitle.text(res.title);
+				$dect.text(res.content);
 				$comTotalityNumer.text(res.commentCount);
 				$zanTotalityNumer.text(res.likeCount);
 				$colTotalityNumer.text(res.collectionCount);
@@ -764,7 +766,7 @@ $(function() {
 
 	$('.toMap').on('click', function() {
 
-		window.location.href = 'map.html?dynamicId=' + id +'&longitude='+longitude + '&latitude=' + latitude;
+		window.location.href = 'map.html?id=' + id +'&longitude='+longitude + '&latitude=' + latitude;
 
 	})
 

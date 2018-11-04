@@ -66,7 +66,7 @@
 	
 	var countrycode = getUrlParam('countrycode')||'';
 	var citycode = getUrlParam('citycode')||'';
-	var dynamicId = getUrlParam('dynamicId')||'';
+//	var dynamicId = getUrlParam('dynamicId')||'';
 	var id = getUrlParam('id'); 
 
 	map.addEventListener("tilesloaded", function(evt){
@@ -183,7 +183,7 @@ function getImages(){
 			maxX:bounds.getNorthEast().lng,
 			minY:bounds.getSouthWest().lat,
 			maxY:bounds.getNorthEast().lat,
-			dynamicId:dynamicId,
+			dynamicId:id,
 		}
 		$.ajax({
 			type:"get",
