@@ -85,10 +85,6 @@
 		
 		
 	});	
-	
-
-
-		
 	map.addEventListener("zoomend", function(evt){
 		map.clearOverlays();
 		oldList = [];
@@ -177,22 +173,29 @@ function getImages(){
 	//2716
 		
 		var bounds = map.getBounds();
-
+		var urlstr = ''; 
 		var opt = {
 			minX:bounds.getSouthWest().lng,
 			maxX:bounds.getNorthEast().lng,
 			minY:bounds.getSouthWest().lat,
 			maxY:bounds.getNorthEast().lat,
-			dynamicId:dynamicId,
 		}
+		if(id){
+			$('.title').text('全部照片');
+			opt.userId = id;
+			urlstr = api.dynamicList;
+		}else if(dynamicId){
+			$('.title').text('足迹地图');
+			opt.dynamicId = dynamicId;
+			urlstr = api.dynamicMpa;
+		}
+		
 		$.ajax({
 			type:"get",
-			url:api.dynamicMpa,
+			url:urlstr,
 			data:opt,
 			async:true,
 			success:function(res){
-				$('.title').text('足迹地图');
-				
 				res.forEach(function(item){
 					if(oldList.indexOf(item.t.id)==-1){
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
