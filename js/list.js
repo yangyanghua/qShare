@@ -3,6 +3,12 @@ $(function(){
 	var id =  getUrlParam('id');
 	//var  id = 2716; 
 	var user = getUserInfo();
+	var token  = '';
+	if(user){
+		token = user.accessToken;
+	};
+	
+	
 	var thisUserInfo = {};
 	var lastId = '';
 	var nowNav = 'dynamicList';
@@ -13,7 +19,7 @@ $(function(){
 		$.ajax({
 			type:"get",
 			url:api.getDynamicList,
-			data:{isLeast:true,userId:id,accessToken:user.accessToken,dynamicId:dyId},
+			data:{isLeast:true,userId:id,accessToken:token,dynamicId:dyId},
 			async:true,
 			success:function(res){
 			var dynamicHtml1 = '';
@@ -167,7 +173,7 @@ $(function(){
 		$.ajax({
 			type:"get",
 			url:api.fansList,
-			data:{userId:id,accessToken:user.accessToken},
+			data:{userId:id,accessToken:token},
 			async:true,
 			success:function(res){
 				console.log(res);
@@ -209,9 +215,10 @@ $(function(){
 	}
 	
 	function getUserDetail(id){
+		
 		$.ajax({
 			type:"get",
-			data:{toUid:id,accessToken:user.accessToken},
+			data:{toUid:id,accessToken:token},
 			url:api.getUserDetail,
 			async:true,
 			success:function(res){
@@ -219,12 +226,7 @@ $(function(){
 			$('.userId').text('ID：'+res.no);
 			thisUserInfo = res;
 			getDynamicList(id,true);
-//freshman	freshman	新手
-//junior	junior	初级
-//medium	medium	中级
-//senior	senior	高级
-//highest	highest	摄影家
-			
+	
 			var btn = '';
 			
 			if(res.id == user.id){
@@ -384,9 +386,13 @@ $(function(){
 			})		
 
 			mui('body').on('tap','.headerAdd',function(){
+				if(!token){
+					mui.toast('登录后才可添加关注');
+					return false;
+				}
 				let opt = {
 					applicantUserid:thisUserInfo.id,
-					accessToken:user.accessToken
+					accessToken:token
 				};
 				$.ajax({
 					type:"post",
@@ -404,11 +410,15 @@ $(function(){
 			});
 
 			mui('body').on('tap','.listAdd',function(e){
+				if(!token){
+					mui.toast('登录后才可添加关注');
+					return false;
+				}				
 				 var e = e || window.event;	 
 				 e.stopPropagation();
 				let opt = {
 					applicantUserid:$(this).attr('id'),
-					accessToken:user.accessToken
+					accessToken:token
 				};
 				$.ajax({
 					type:"post",

@@ -36,7 +36,8 @@ $(function() {
 		$boy = $('.boy'),
 		$girl = $('.girl'),
 		$passCity = $('.passCity'),
-		$usDay = $('.usDay');
+		$usDay = $('.usDay'),
+		$dect = $('.dect');
 		
 	//获取用户信息
 	var userInfo = getUserInfo();
@@ -273,8 +274,10 @@ $(function() {
 				id = res.id;
 				uid = res.uid;
 				$score.text(res.score);
+				
 				$viewed.text(res.readCount);
 				$traveltitle.text(res.title);
+				$dect.text(res.content);
 				$comTotalityNumer.text(res.commentCount);
 				$zanTotalityNumer.text(res.likeCount);
 				$colTotalityNumer.text(res.collectionCount);
@@ -584,6 +587,7 @@ $(function() {
 				data: opt,
 				async: true,
 				success: function(res) {
+					$('.score').text(res.score.toFixed(1));
 					mui.toast('评分成功');
 					$('.stars').css('height', '0');
 					mask.close(); //关闭遮罩					

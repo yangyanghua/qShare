@@ -230,6 +230,12 @@
 	color: #333333;
 	line-height: 0.7rem;
 }
+.travelContent .dect{
+	font-size: 13px;
+	color: #333;
+	line-height: 20px;
+}
+
 .travelContent .secondary span{
 	margin-right: 0.5rem;
 	font-size: 12px;
