@@ -14,7 +14,11 @@
 			<img src="image/loading.gif"/>
 		</div>		
 	<div class="header">
-		<a class="brack" href="javascript:history.go(-1)"></a>
+		<div class="brack">
+			<span class="userImg"></span>
+			<span class="userName"></span>
+		</div>
+		
 		<p class="title" ></p>
 	</div>
 	<div id="allmap"></div>
@@ -29,34 +33,6 @@
 				</div>
 			</div>		
 	</div>
-	<!--<div class="image" style="top: 530px;left: 40%;">
-		<div class="images" style="background: #8A6DE9;"></div>
-		<span class="pnum">9</span>
-		<div class="info">
-			<div class="userInfo">
-				<p class="userImg"><span></span></p>
-				<div class="nandt">
-					<p class="name">霍元甲</p>
-					<p class="tiem">2012-02-12 08:12:12</p>
-				</div>
-				<p class="haiba">altitude:3314.5米</p>		
-			</div>
-			<img src="image/bg.jpg"/>
-			<p class="adds">中国.云南省.迪庆藏族自治州.香格里拉市.241国道</p>
-			<p class="cosle cosleimg">×</p>
-		</div>
-		<div class="imageListCon">
-			<div class="swiper-container">
-			  <div class="swiper-wrapper">
-			    <div class="swiper-slide"></div>
-			    <div class="swiper-slide"></div>
-			    <div class="swiper-slide"></div>
-			    <div class="swiper-slide"></div>
-			  </div>
-			</div>			
-			<p class="cosle cosleList">×</p>
-		</div>
-	</div>-->
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Gkp2kjITvhmTA0VYLa11Dvli9uRwwN6R"></script>
 	<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
@@ -66,7 +42,7 @@
 	
 	var countrycode = getUrlParam('countrycode')||'';
 	var citycode = getUrlParam('citycode')||'';
-//	var dynamicId = getUrlParam('dynamicId')||'';
+	var dynamicId = getUrlParam('dynamicId')||'';
 	var id = getUrlParam('id'); 
 
 	map.addEventListener("tilesloaded", function(evt){
@@ -85,10 +61,6 @@
 		
 		
 	});	
-	
-
-
-		
 	map.addEventListener("zoomend", function(evt){
 		map.clearOverlays();
 		oldList = [];
@@ -143,12 +115,15 @@ function getImageBuycountryCode(){
 		async:true,
 		success:function(res){
 				//$('title').text("所有照片（"+res.object.length+"）")
-				if(citycode){
-					$('.title').text(res[0].t.cityName);
-				}else if(countrycode){
-					$('.title').text(res[0].t.countryName);
-				}				
+				if(res.length>0){
+					if(citycode){
+						$('.title').text(res[0].t.cityName);
+					}else if(countrycode){
+						$('.title').text(res[0].t.countryName);
+					}									
+				}
 				
+
 				res.forEach(function(item){
 
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
@@ -177,22 +152,29 @@ function getImages(){
 	//2716
 		
 		var bounds = map.getBounds();
-
+		var urlstr = ''; 
 		var opt = {
 			minX:bounds.getSouthWest().lng,
 			maxX:bounds.getNorthEast().lng,
 			minY:bounds.getSouthWest().lat,
 			maxY:bounds.getNorthEast().lat,
-			dynamicId:id,
 		}
+		if(id){
+			$('.title').text('全部照片');
+			opt.userId = id;
+			urlstr = api.dynamicList;
+		}else if(dynamicId){
+			$('.title').text('足迹地图');
+			opt.dynamicId = dynamicId;
+			urlstr = api.dynamicMpa;
+		}
+		
 		$.ajax({
 			type:"get",
-			url:api.dynamicMpa,
+			url:urlstr,
 			data:opt,
 			async:true,
 			success:function(res){
-				$('.title').text('足迹地图');
-				
 				res.forEach(function(item){
 					if(oldList.indexOf(item.t.id)==-1){
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
@@ -212,6 +194,46 @@ function getImages(){
 		});	
 }
 
+
+	function getUserDetail(id){
+		$.ajax({
+			type:"get",
+			data:{toUid:id},
+			url:api.getUserDetail,
+			async:true,
+			success:function(res){
+				$('.userImg').css({'backgroundImage':'url('+res.avatar+')'});
+				$('.userName').text(res.nickName);
+			},
+			error:function(res){
+			}
+		});
+		
+	}
+if(id){
+	getUserDetail(id);
+}
+	
+
+
+
+
+
+
+
+$(function(){
+	
+	$('.brack').on('click',function(){
+		if(id){
+			window.location.href = './list.html?id='+id;
+		}else if(dynamicId){
+			window.location.href = './index.html?id='+dynamicId;
+		}
+		
+	})
+	
+	
+})
 
 
 

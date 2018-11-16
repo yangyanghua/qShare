@@ -11,8 +11,8 @@
 		.image .images{
 			position: relative;
 			z-index: 10;
-			height: 66px;
-			width: 66px;
+			height: 40px;
+			width: 40px;
 			border:2px solid #fff;
 			box-shadow: 0 0 3px -1px #000;		
 			background: url(../image/bg.jpg) no-repeat 50% 50%;
@@ -24,11 +24,10 @@
 		    top: -2px;
 		    left: -2px;
 		    z-index: 1;
-		    width: 62px;
-		    height: 62px;
+		    width: 40px;
+		    height: 40px;
 			background: #FFFFFF;
 			transform: rotateZ(-7deg);
-			border:3px solid #FFFFFF;
 			box-shadow: 0 0 3px -1px #000;	
 		}		
 		.image .pnum{
@@ -160,22 +159,7 @@
 			border-style: solid;
 			border-color: transparent #fff #fff transparent;
 			transform: rotateZ(-166deg);			
-		}
-		
-		.swiper-container{
-			position: relative;
-			z-index: 30;
-			height: 3rem;
-			margin-top: 0.35rem;
-			padding:5px;
-		}
-		.swiper-container .swiper-slide{
-			box-sizing: border-box;
-			border: 2px solid #FFFFFF;
-			box-shadow: 0 0 8px 1px #CCCCCC;
-			background: url(../image/bg.jpg);
-			background-size:cover;	
-		}
+		}		
 		.header{
 			position: fixed;
 			top: 0;
@@ -186,6 +170,7 @@
 			z-index: 10000;
 			box-shadow: 0 0 6px 2px #CCCCCC;
 		}
+
 		.header p{
 			margin: 0;
 			padding: 0;
@@ -205,6 +190,30 @@
 			background: url(../image/icon_back.png) no-repeat 50% 50%;
 			background-size:0.4rem 0.4rem;
 		}
+		.userImg{
+			position: absolute;
+			height: 0.6rem;
+			background-repeat:no-repeat ;
+			background-position:50% 50%;
+			background-size:cover;
+			width:0.6rem;
+			z-index: 100;
+			border-radius:50%;
+			top: 0.1rem;
+			right: -71%;
+		}
+		.userName{
+			position: absolute;
+			display: inline-block;
+			top: 0;
+			right: -393%;
+			height: 0.8rem;
+			line-height: 0.8rem;
+			width: 2.5rem;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}		
 		.footer{
 			height: 8%;
 			width: 100%;

@@ -2,7 +2,8 @@ var httpService = '';
 var currentHost = location.host;
 
 
-if (currentHost == '192.168.1.4:8081' || currentHost == '172.16.1.4:8081'  ) {
+if (currentHost == '172.16.0.59:8080' || currentHost == '172.16.1.6:8080'  ) {
+
   
   httpService = 'http://pred-api.irenao.cn'; //測試/預生產
   

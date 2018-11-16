@@ -274,6 +274,7 @@ $(function() {
 				id = res.id;
 				uid = res.uid;
 				$score.text(res.score);
+				
 				$viewed.text(res.readCount);
 				$traveltitle.text(res.title);
 				$dect.text(res.content);
@@ -586,6 +587,7 @@ $(function() {
 				data: opt,
 				async: true,
 				success: function(res) {
+					$('.score').text(res.score.toFixed(1));
 					mui.toast('评分成功');
 					$('.stars').css('height', '0');
 					mask.close(); //关闭遮罩					
@@ -766,7 +768,7 @@ $(function() {
 
 	$('.toMap').on('click', function() {
 
-		window.location.href = 'map.html?id=' + id +'&longitude='+longitude + '&latitude=' + latitude;
+		window.location.href = 'map.html?dynamicId=' + id +'&longitude='+longitude + '&latitude=' + latitude;
 
 	})
 

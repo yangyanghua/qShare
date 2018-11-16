@@ -3,6 +3,12 @@ $(function(){
 	var id =  getUrlParam('id');
 	//var  id = 2716; 
 	var user = getUserInfo();
+	var token  = '';
+	if(user){
+		token = user.accessToken;
+	};
+	
+	
 	var thisUserInfo = {};
 	var lastId = '';
 	var nowNav = 'dynamicList';
@@ -13,15 +19,15 @@ $(function(){
 		$.ajax({
 			type:"get",
 			url:api.getDynamicList,
-			data:{isLeast:true,userId:id,accessToken:user.accessToken,dynamicId:dyId},
+			data:{isLeast:true,userId:id,accessToken:token,dynamicId:dyId},
 			async:true,
 			success:function(res){
-				console.log(res);
 			var dynamicHtml1 = '';
 			var dynamicHtml2 = '';
 			if(res.object.length>0){
-				if(res.object[0].dynamics.length > 0){
-					lastId = res.object[0].dynamics[res.object[0].dynamics.length-1].id;
+				var obj =  res.object[res.object.length-1];
+				if(obj.dynamics.length > 0){
+					lastId = obj.dynamics[obj.dynamics.length-1].id;
 					nomore = false
 				}else if(res.object[0].dynamics.length == 0){				
 					nomore = true;			
@@ -29,8 +35,6 @@ $(function(){
 			}else{
 				nomore = true;			
 			}
-
-
 			res.object.forEach(function(item,index){
 			//	console.log(item.dynamics[0].firstUrl);
 				
@@ -42,6 +46,7 @@ $(function(){
 										<div class="image">
 											<img class="lazy"  src="${item1.firstUrl}" />
 										</div>
+										<div class="info" >
 										<h2 class="cname">${title}</h2>
 										<div class="c_userInfo">
 											<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
@@ -51,6 +56,7 @@ $(function(){
 											</div>							
 										</div>
 										<span class="photoCount">${item1.photoCount}<span>
+										</div>
 									</li>`				
 					})
 
@@ -86,6 +92,7 @@ $(function(){
 								<div class="image">
 									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
 								</div>
+								<div class="info">
 								<h2 class="cname">${title}</h2>
 								<div class="c_userInfo">
 									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
@@ -94,6 +101,8 @@ $(function(){
 										<p><span class="timeLabel">From</span>${new Date(item.startTime).Format('yyyy-MM-dd')}</p>
 										<p><span class="timeLabel">To</span>${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
 									</div>							
+								</div>
+								<span class="photoCount">${item.photoCount}<span>
 								</div>
 							</li>`							
 
@@ -129,6 +138,7 @@ $(function(){
 								<div class="image">
 									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1" />
 								</div>
+								<div class="info">
 								<h2 class="cname">${title}</h2>
 								<div class="c_userInfo">
 									<div class="c_userImage"><span style="background:#CCCCCC url(${thisUserInfo.avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
@@ -138,6 +148,8 @@ $(function(){
 										<p><span class="timeLabel">To</span> ${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
 									</div>							
 								</div>
+								<span class="photoCount">${item.photoCount}<span>
+								</div>								
 							</li>`							
 
 					
@@ -161,7 +173,7 @@ $(function(){
 		$.ajax({
 			type:"get",
 			url:api.fansList,
-			data:{userId:id,accessToken:user.accessToken},
+			data:{userId:id,accessToken:token},
 			async:true,
 			success:function(res){
 				console.log(res);
@@ -203,9 +215,10 @@ $(function(){
 	}
 	
 	function getUserDetail(id){
+		
 		$.ajax({
 			type:"get",
-			data:{toUid:id,accessToken:user.accessToken},
+			data:{toUid:id,accessToken:token},
 			url:api.getUserDetail,
 			async:true,
 			success:function(res){
@@ -213,12 +226,7 @@ $(function(){
 			$('.userId').text('ID：'+res.no);
 			thisUserInfo = res;
 			getDynamicList(id,true);
-//freshman	freshman	新手
-//junior	junior	初级
-//medium	medium	中级
-//senior	senior	高级
-//highest	highest	摄影家
-			
+	
 			var btn = '';
 			
 			if(res.id == user.id){
@@ -287,6 +295,10 @@ $(function(){
 									<p>${res.cityCount}</p>
 									<p>城市</p>							
 								</li>
+								<li id="photoCount" class="navItem ">
+									<p>${res.photoCount}</p>
+									<p>照片</p>							
+								</li>								
 							</ul>
 							<div class="btn-box">
 								${btn}
@@ -313,7 +325,8 @@ $(function(){
 //		$(this).addClass('active');			
 //			
 //			})
-	$('.toMap').on('click',function(){
+
+	$('.userInfo').on('click','#photoCount',function(){
 		window.location.href = 'map.html?id='+id;
 	})
 	
@@ -373,9 +386,13 @@ $(function(){
 			})		
 
 			mui('body').on('tap','.headerAdd',function(){
+				if(!token){
+					mui.toast('登录后才可添加关注');
+					return false;
+				}
 				let opt = {
 					applicantUserid:thisUserInfo.id,
-					accessToken:user.accessToken
+					accessToken:token
 				};
 				$.ajax({
 					type:"post",
@@ -393,11 +410,15 @@ $(function(){
 			});
 
 			mui('body').on('tap','.listAdd',function(e){
+				if(!token){
+					mui.toast('登录后才可添加关注');
+					return false;
+				}				
 				 var e = e || window.event;	 
 				 e.stopPropagation();
 				let opt = {
 					applicantUserid:$(this).attr('id'),
-					accessToken:user.accessToken
+					accessToken:token
 				};
 				$.ajax({
 					type:"post",
@@ -483,7 +504,6 @@ var setPsition = function(){
 			var height1 = box.eq(box.length-1).height();
 			var height2 = box.eq(box.length-2).height();
 			var height = 0;
-			console.log(height1,height2);
 			if(height1>height2){
 				height = height1;
 			}else{
