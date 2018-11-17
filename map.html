@@ -42,8 +42,12 @@
 	var countrycode = getUrlParam('countrycode')||'';
 	var citycode = getUrlParam('citycode')||'';
 	var dynamicId = getUrlParam('dynamicId')||'';
+	var name = getUrlParam('name')||'';
+	var photoCount = getUrlParam('photoCount')||'';
 	var id = getUrlParam('id'); 
-
+	if(name){
+		$('.title').text(name+'('+photoCount+')');
+	}
 	map.addEventListener("tilesloaded", function(evt){
 		
 		if(fastLoad){
@@ -113,21 +117,11 @@ function getImageBuycountryCode(){
 		data:opt,
 		async:true,
 		success:function(res){
-				//$('title').text("所有照片（"+res.object.length+"）")
-				if(res.length>0){
-					if(citycode){
-						$('.title').text(res[0].t.cityName);
-					}else if(countrycode){
-						$('.title').text(res[0].t.countryName);
-					}									
-				}
-				
-
 				res.forEach(function(item){
 
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
 						var params = {point:point,params:item.t};
-						params.params.pnum = 1;
+						params.params.pnum = item.size;
 						var myCompOverlay = new ComplexCustomOverlay(params);
 						map.addOverlay(myCompOverlay); 
 

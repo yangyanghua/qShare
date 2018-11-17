@@ -368,15 +368,18 @@ $(function(){
 		
 
 			mui('body').on('tap','.country',function(){
-				
+				var name = $(this).find('.cname').text();
+				var allImage = $(this).find('.photoCount').text();
 				var code = $(this).attr('countrycode'); 				
-				window.location.href = 'map.html?id='+id+'&countrycode='+code;
+				window.location.href = 'map.html?id='+id+'&countrycode='+code+'&name='+name+'&photoCount='+allImage;
 				
 			})	
 	
 			mui('body').on('tap','.city',function(){				
-				var code = $(this).attr('citycode'); 				
-				window.location.href = 'map.html?id='+id+'&citycode='+code;	
+				var code = $(this).attr('citycode'); 
+				var name = $(this).find('.cname').text();
+				var allImage = $(this).find('.photoCount').text();
+				window.location.href = 'map.html?id='+id+'&citycode='+code+'&name='+name+'&photoCount='+allImage;
 				
 			})	
 			mui('body').on('tap','.fansItem',function(){
