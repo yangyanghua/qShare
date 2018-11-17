@@ -351,7 +351,7 @@ $(function() {
 						'<div class="dynamicImg">' +
 						'<img class="lazy" data-original="' + item.photoUrl + '"    data-preview-src="" data-preview-group="1"/>' +
 						'</div>' +
-						'<p class="address ' + disabled + '" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + item.countryName + item.stateName + item.cityName + item.locationName + '</p>' +
+						'<p class="address ' + disabled + '" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + item.countryName + item.stateName + item.cityName + item.locationName + item.town+ '</p>' +
 						'</p>' +
 						'<p class="dynamicTxt">' + (item.txt ? item.txt : '') + '</p>' +
 						'</li>'
