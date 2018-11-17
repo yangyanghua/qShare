@@ -274,7 +274,6 @@ $(function() {
 				id = res.id;
 				uid = res.uid;
 				$score.text(res.score);
-				
 				$viewed.text(res.readCount);
 				$traveltitle.text(res.title);
 				$dect.text(res.content);
@@ -284,6 +283,13 @@ $(function() {
 				$numberOfscores.text(res.scoreCount);
 				$passCity.text(res.cityCount);
 				$usDay.text(res.days);
+				var urls =  location.host;
+				var metaHtml = `<meta property="og:url"  content="http://${urls}?id=${res.id}" />
+											<meta property="og:type"   content="article" />
+											<meta property="og:title"  content="【快看】${res.title ? res.title : '我的旅行足迹地图和照片' }" />
+											<meta property="og:description" content="${res.content ? res.content : ''}" />
+											<meta property="og:image" content="${res.photos[0].photoUrl}" />`;			
+				$('head').append(metaHtml);
 				if(res.isApplaud) {
 					$('.zanTotality').addClass('isApplaud');
 				} else {
@@ -322,8 +328,10 @@ $(function() {
 				
 				longitude = res.photos[0].longitude;
 				latitude = res.photos[0].latitude;
-				
-				
+
+
+
+
 				res.photos.forEach(function(item, index) {
 
 					var disabled = '';
