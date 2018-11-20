@@ -56,11 +56,15 @@
 		}else if(phone.length!=11){
 			mui.toast('请输入正确手机号');
 			return false;
-		}	
+		}
+		var lang = getLang();
+		if(lang.indexOf('zh')!=-1){
+			lang = 'zh';
+		};
 		$.ajax({
 			type:"post",
 			url:api.getCode,
-			data:{mobile:phone,smsCountryCode:phoneType,lang:getLang()},
+			data:{mobile:phone,smsCountryCode:phoneType,lang:lang},
 			async:true,
 			success:function(res){		
 				$getCodeBtn.attr('disabled','disabled');

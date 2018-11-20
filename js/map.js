@@ -3,10 +3,11 @@
 	var mySwiper = {};
 	var map = new BMap.Map("allmap");    // 创建Map实例
 	var oldList = [];
-
+	var id = getUrlParam('id'); 
 	var longitude = getUrlParam('longitude')||'';
 	var latitude = getUrlParam('latitude')||'';
-
+	var countrycode = getUrlParam('countrycode')||'';
+	var citycode = getUrlParam('citycode')||'';
  	map.addControl(new BMap.NavigationControl({anchor:'BMAP_ANCHOR_BOTTOM_RIGHT',type:'BMAP_NAVIGATION_CONTROL_ZOOM',showZoomInfo:false,enableGeolocation:false}));
 
 		var geolocation = new BMap.Geolocation();
@@ -18,9 +19,50 @@
 					//map.panTo(r.point);
 				if(longitude){
 					var ContentPoint =  new BMap.Point(longitude,latitude);
-					map.centerAndZoom(ContentPoint, 7);
+					map.centerAndZoom(ContentPoint, 9);
 				}else{
-					map.centerAndZoom(r.point, 6);  // 初始化地图,设置中心点坐标和地图级别  	
+					 // 初始化地图,设置中心点坐标和地图级别  
+					var zoom =  5;
+					var opt = {};
+					if(countrycode){
+						 zoom = 5;
+						 opt = {
+							isLeast:true,
+							userId:id,
+							countryCode:countrycode
+						}
+					}else if(citycode){
+						 opt = {
+							isLeast:true,
+							userId:id,
+							cityCode:citycode
+						}
+						zoom = 10;
+					}else{
+						map.centerAndZoom(r.point, 3); 
+						return false;
+					}
+					
+					$.ajax({
+						type:"get",
+						url:api.photoLocationMap,
+						data:opt,
+						async:true,
+						success:function(res){
+							if(res.length > 0){
+								var ContentPoint =  new BMap.Point(res[0].mCenter.longitude,res[0].mCenter.latitude);
+								map.centerAndZoom(ContentPoint, zoom);
+
+							}else{
+								map.centerAndZoom(r.point, 6); 		
+							}
+						},
+						error:function(res){
+							
+						}
+					});					
+					
+					
 				}
 					
 					
@@ -32,7 +74,6 @@
 			},{enableHighAccuracy: true})			
 
 	
-
     function ComplexCustomOverlay(point){
       this._point = point.point;
       this._params = point.params;

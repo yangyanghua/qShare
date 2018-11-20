@@ -36,17 +36,19 @@
 	<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/map.js?v=1.2" type="text/javascript" charset="utf-8"></script>
+	<script src="js/map.js?v=4.2" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	
-	var countrycode = getUrlParam('countrycode')||'';
-	var citycode = getUrlParam('citycode')||'';
+
 	var dynamicId = getUrlParam('dynamicId')||'';
 	var name = getUrlParam('name')||'';
 	var photoCount = getUrlParam('photoCount')||'';
-	var id = getUrlParam('id'); 
 	if(name){
 		$('.title').text(name+'('+photoCount+')');
+	}else if(id){
+		$('.title').text('全部照片（'+photoCount+'）');
+	}else if(dynamicId){
+		$('.title').text('足迹地图');
 	}
 	map.addEventListener("tilesloaded", function(evt){
 		
@@ -59,10 +61,6 @@
 			fastLoad = false;
 			$('.loading').fadeOut();
 		}
-
-		
-		
-		
 	});	
 	map.addEventListener("zoomend", function(evt){
 		map.clearOverlays();
@@ -153,11 +151,12 @@ function getImages(){
 			maxY:bounds.getNorthEast().lat,
 		}
 		if(id){
-			$('.title').text('全部照片');
+			
 			opt.userId = id;
+			
 			urlstr = api.dynamicList;
 		}else if(dynamicId){
-			$('.title').text('足迹地图');
+			
 			opt.dynamicId = dynamicId;
 			urlstr = api.dynamicMpa;
 		}

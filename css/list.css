@@ -281,10 +281,21 @@ body{
 
 
 .imageList{
+	transition: all 0.4s;
 	width: 100%;
 	overflow: hidden;
 	position: relative;
 	
+}
+
+.loadingTxt{
+	display: none;
+	font-size: 14px;
+	width: 100%;
+	text-align: center;
+	height: 100px;
+	line-height: 100px;
+	color: #999;
 }
  /*.imageList.imageList1{
 	float: left;
