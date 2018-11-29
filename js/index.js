@@ -341,7 +341,7 @@ $(function() {
 					} else {
 						disabled = 'disableds';
 					}
-					var town =  item.town ? item.town : '';
+					var town =  item.town ? '.'+ item.town : '';
 					phtml +=
 						'<li class="dynamicItem" id="image' + index + '" >' +
 						'<a  href="javascript:;" imgurl="' + item.photoUrl + '" class="downImage down_btn_a" download  ></a>' +
@@ -351,7 +351,7 @@ $(function() {
 						'<div class="dynamicImg">' +
 						'<img class="lazy" data-original="' + item.photoUrl + '"    data-preview-src="" data-preview-group="1"/>' +
 						'</div>' +
-						'<p class="address ' + disabled + '" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + item.countryName + item.stateName + item.cityName + item.locationName + town + '</p>' +
+						'<p class="address ' + disabled + '" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + item.countryName +'.'+ item.stateName +'.'+ item.cityName + town  + item.locationName + '<br/>（海拔：'+ String(item.altitude)+'米）</p>' +
 						'</p>' +
 						'<p class="dynamicTxt">' + (item.txt ? item.txt : '') + '</p>' +
 						'</li>'

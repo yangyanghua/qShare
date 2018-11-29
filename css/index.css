@@ -333,16 +333,19 @@
 }
 
 .dynamicContent{
-margin-top: 8px;	
+margin-top: 8px;
+background: #fff;	
 }
  .dect{
+ 	width: 95%;
+ 	margin: auto;
  	background: #fff;
-	font-size: 13px;
-	color: #333;
+	font-size: 14px;
+	color: #000;
 	line-height: 20px;
-	padding: 10px;
+	padding:20px 0;
 	margin-bottom: 0;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid #333;
 }	
 .dynamicContent .dynamicList{
 	border-top:1px solid #FFFFFF ;

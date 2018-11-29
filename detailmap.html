@@ -208,7 +208,6 @@
 					if(userInfo){
 						accessToken =  userInfo.accessToken
 					}
-					if(photoId) {
 						$.ajax({
 							type: "get",
 							url: api.getPhotoDetail,
@@ -218,14 +217,15 @@
 							},
 							async: true,
 							success: function(res) {
+										var town =  res.town ? '.' + res.town : '';							
 										$('.reBtn').show();
 										$('.addBox').show();
 										$('.footer').hide();
 										$('#allmap').css('height', '100%');
 										$('.title').text('拍摄位置');
-										$('.addName').text(res.locationName);
+										$('.addName').text(res.countryName+'.' + res.stateName +'.' + res.cityName  +  town + '.' + res.locationName);
 										var point = new BMap.Point(res.longitude, res.latitude);
-										map.centerAndZoom(point, 5); // 初始化地图,设置中心点坐标和地图级别  						
+										map.centerAndZoom(point, 14); // 初始化地图,设置中心点坐标和地图级别  						
 										var params = {
 											point: point,
 											params: res
@@ -242,57 +242,6 @@
 
 							}
 						});
-
-					} else {
-
-						$.ajax({
-							type: "get",
-							url: api.getDetail,
-							data: {
-								id: id
-							},
-							async: true,
-							success: function(res) {
-								if(res.photos.length == 0) {
-									$('title').text('所有照片（0）')
-									geolocation.getCurrentPosition(function(r) {
-										if(this.getStatus() == BMAP_STATUS_SUCCESS) {
-											var mk = new BMap.Marker(r.point);
-											map.addOverlay(mk);
-											//map.panTo(r.point);
-											map.centerAndZoom(r.point, 5); // 初始化地图,设置中心点坐标和地图级别 
-										} else {
-											//alert('failed'+this.getStatus());
-										}
-									}, {
-										enableHighAccuracy: true
-									})
-								} else {
-
-										$('.footer').show();
-										$('title').text('所有照片（' + res.photos.length + '）')
-										var point1 = new BMap.Point(res.photos[0].longitude, res.photos[0].latitude);
-										map.centerAndZoom(point1, 4); // 初始化地图,设置中心点坐标和地图级别  					
-										res.photos.forEach(function(item) {
-											var point = new BMap.Point(item.longitude, item.latitude);
-											var params = {
-												point: point,
-												params: item
-											};
-											params.params.pnum = 1;
-											var myCompOverlay = new ComplexCustomOverlay(params);
-											map.addOverlay(myCompOverlay);
-										})
-										map.panTo(point1, false);
-								}
-							},
-							error: function(res) {
-
-							}
-						});
-
-					}
-
 				}
 				
 				function checkImgStatus(id){
