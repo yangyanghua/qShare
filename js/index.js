@@ -337,9 +337,14 @@ $(function() {
 					var disabled = '';
 					var locationName = '';
 					var town =  item.town ? '.'+ item.town : '';
+					var countryName =  item.countryName ? item.countryName : '';
+					var stateName =  item.stateName ? '.' + item.stateName : '';
+					var cityName =  item.cityName ? '.' + item.cityName : '';
+					var loca =  item.locationName ? '.' + item.locationName : '';
+					
 					if(item.longitude && item.latitude ) {
 						disabled = '';
-						locationName = item.countryName +'.'+ item.stateName +'.'+ item.cityName + town  + item.locationName + '<br/>（海拔：'+ String(item.altitude)+'米）'
+						locationName = countryName + stateName + cityName + town  + loca + '<br/>（海拔：'+ String(item.altitude)+'米）';
 					} else {
 						disabled = 'disableds';
 						locationName = '未知地名'
