@@ -381,14 +381,14 @@
 	z-index: 5;
 	overflow: hidden;
 	width: 100%;
-	height: 4.7rem;
+	height:auto;
 	overflow: hidden;
-	border-radius:6px ;
 	background-position:50% 50%;
 	background-repeat:no-repeat ;	
 }
 .dynamicContent .dynamicList .dynamicItem  .dynamicImg img{
-	width: 100%;	
+	width: 100%;
+	border-radius:6px ;	
 }
 .dynamicContent .dynamicList .dynamicItem .address{
 	font-size: 12px;
