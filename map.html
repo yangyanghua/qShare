@@ -6,7 +6,6 @@
 	<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css/map.css"/>
 	<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>
-
 	<title>快看Quick-带你一起看世界</title>
 </head>
 <body>
@@ -37,14 +36,20 @@
 	<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/map.js?v=1.2" type="text/javascript" charset="utf-8"></script>
+	<script src="js/map.js?v=4.2" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	
-	var countrycode = getUrlParam('countrycode')||'';
-	var citycode = getUrlParam('citycode')||'';
-	var dynamicId = getUrlParam('dynamicId')||'';
-	var id = getUrlParam('id'); 
 
+	var dynamicId = getUrlParam('dynamicId')||'';
+	var name = getUrlParam('name')||'';
+	var photoCount = getUrlParam('photoCount')||'';
+	if(name){
+		$('.title').text(name+'('+photoCount+')');
+	}else if(id){
+		$('.title').text('全部照片（'+photoCount+'）');
+	}else if(dynamicId){
+		$('.title').text('足迹地图');
+	}
 	map.addEventListener("tilesloaded", function(evt){
 		
 		if(fastLoad){
@@ -56,10 +61,6 @@
 			fastLoad = false;
 			$('.loading').fadeOut();
 		}
-
-		
-		
-		
 	});	
 	map.addEventListener("zoomend", function(evt){
 		map.clearOverlays();
@@ -114,21 +115,11 @@ function getImageBuycountryCode(){
 		data:opt,
 		async:true,
 		success:function(res){
-				//$('title').text("所有照片（"+res.object.length+"）")
-				if(res.length>0){
-					if(citycode){
-						$('.title').text(res[0].t.cityName);
-					}else if(countrycode){
-						$('.title').text(res[0].t.countryName);
-					}									
-				}
-				
-
 				res.forEach(function(item){
 
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
 						var params = {point:point,params:item.t};
-						params.params.pnum = 1;
+						params.params.pnum = item.size;
 						var myCompOverlay = new ComplexCustomOverlay(params);
 						map.addOverlay(myCompOverlay); 
 
@@ -160,11 +151,12 @@ function getImages(){
 			maxY:bounds.getNorthEast().lat,
 		}
 		if(id){
-			$('.title').text('全部照片');
+			
 			opt.userId = id;
+			
 			urlstr = api.dynamicList;
 		}else if(dynamicId){
-			$('.title').text('足迹地图');
+			
 			opt.dynamicId = dynamicId;
 			urlstr = api.dynamicMpa;
 		}

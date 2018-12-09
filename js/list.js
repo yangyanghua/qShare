@@ -16,10 +16,15 @@ $(function(){
 	//用户足迹列表
 	function getDynamicList(id,empty,dynamicId){
 		var dyId = dynamicId || '';
+		var isLeast = true;
+		if(dyId){
+			isLeast = false;
+		}
+		
 		$.ajax({
 			type:"get",
 			url:api.getDynamicList,
-			data:{isLeast:true,userId:id,accessToken:token,dynamicId:dyId},
+			data:{isLeast:isLeast,userId:id,accessToken:token,dynamicId:dyId},
 			async:true,
 			success:function(res){
 			var dynamicHtml1 = '';
@@ -77,7 +82,8 @@ $(function(){
 	}
 	//城市列表
 	function getCityList(id){
-		
+		$('.imageList').css('opacity','0');
+		$('.loadingTxt').show();
 		$.ajax({
 			type:"get",
 			url:api.cityList,
@@ -124,7 +130,8 @@ $(function(){
 
 	//国家列表
 	function getCountryList(id){
-		
+		$('.imageList').css('opacity','0');
+		$('.loadingTxt').show();
 		$.ajax({
 			type:"get",
 			url:api.countryList,
@@ -296,7 +303,7 @@ $(function(){
 									<p>城市</p>							
 								</li>
 								<li id="photoCount" class="navItem ">
-									<p>${res.photoCount}</p>
+									<p class="photoCount" >${res.photoCount}</p>
 									<p>照片</p>							
 								</li>								
 							</ul>
@@ -327,7 +334,8 @@ $(function(){
 //			})
 
 	$('.userInfo').on('click','#photoCount',function(){
-		window.location.href = 'map.html?id='+id;
+		var allImage = $(this).find('.photoCount').text();
+		window.location.href = 'map.html?id='+id+'&photoCount='+allImage;
 	})
 	
 	$('.imageList').on('click','.dynamics',function(){
@@ -368,15 +376,18 @@ $(function(){
 		
 
 			mui('body').on('tap','.country',function(){
-				
+				var name = $(this).find('.cname').text();
+				var allImage = $(this).find('.photoCount').text();
 				var code = $(this).attr('countrycode'); 				
-				window.location.href = 'map.html?id='+id+'&countrycode='+code;
+				window.location.href = 'map.html?id='+id+'&countrycode='+code+'&name='+name+'&photoCount='+allImage;
 				
 			})	
 	
 			mui('body').on('tap','.city',function(){				
-				var code = $(this).attr('citycode'); 				
-				window.location.href = 'map.html?id='+id+'&citycode='+code;	
+				var code = $(this).attr('citycode'); 
+				var name = $(this).find('.cname').text();
+				var allImage = $(this).find('.photoCount').text();
+				window.location.href = 'map.html?id='+id+'&citycode='+code+'&name='+name+'&photoCount='+allImage;
 				
 			})	
 			mui('body').on('tap','.fansItem',function(){
@@ -521,10 +532,9 @@ var setPsition = function(){
 			}			
 			var boxHeight = height + Number(top) + 'px';
 			$('.imageList').css('height',boxHeight);
-			
-			
 		});
-
+		$('.imageList').css('opacity','1');
+		$('.loadingTxt').hide();
 }
 
 })

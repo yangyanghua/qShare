@@ -230,11 +230,7 @@
 	color: #333333;
 	line-height: 0.7rem;
 }
-.travelContent .dect{
-	font-size: 13px;
-	color: #333;
-	line-height: 20px;
-}
+
 
 .travelContent .secondary span{
 	margin-right: 0.5rem;
@@ -335,9 +331,24 @@
 	border-radius:100%;
 	background: #ff3843;
 }
+
+.dynamicContent{
+margin-top: 8px;
+background: #fff;	
+}
+ .dect{
+ 	width: 95%;
+ 	margin: auto;
+ 	background: #fff;
+	font-size: 14px;
+	color: #000;
+	line-height: 20px;
+	padding:20px 0;
+	margin-bottom: 0;
+	border-bottom: 1px solid #999999;
+}	
 .dynamicContent .dynamicList{
 	border-top:1px solid #FFFFFF ;
-	margin-top: 8px;
 	padding: 0 0.3rem;
 	background: #FFFFFF;
 }
