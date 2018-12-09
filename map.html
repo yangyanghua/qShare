@@ -46,7 +46,12 @@
 	if(name){
 		$('.title').text(name+'('+photoCount+')');
 	}else if(id){
-		$('.title').text('全部照片（'+photoCount+'）');
+		if(photoCount){
+			$('.title').text('全部照片（'+photoCount+'）');
+		}else{
+			$('.title').text('足迹地图');
+		}
+
 	}else if(dynamicId){
 		$('.title').text('足迹地图');
 	}
