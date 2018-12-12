@@ -351,12 +351,12 @@ $(function() {
 					}		
 					phtml +=
 						'<li class="dynamicItem" id="image' + index + '" >' +
-						'<a  href="javascript:;" imgurl="' + item.photoUrl + '" class="downImage down_btn_a" download  ></a>' +
 						'<p class="dateInfo">' +
 						'<span class="itemIndex">' + (index + 1) + '/' + res.photos.length + '</span>' +
 						'<span class="tiem">拍摄于' + dateFtt('yyyy-MM-dd hh:mm', new Date(item.photographTime)) + '</span>' +
 						'<div class="dynamicImg">' +
 						'<img class="lazy" data-original="' + item.photoUrl + '"    data-preview-src="" data-preview-group="1"/>' +
+						'<a  href="javascript:;" imgurl="' + item.photoUrl + '" class="downImage down_btn_a" download  ></a>' +
 						'</div>' +
 						'<p class="address ' + disabled + '" id="' + item.id + '" index="' + index + '" ><span class="addressIcon"></span>' + locationName + '</p>' +
 						'</p>' +
