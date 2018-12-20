@@ -340,11 +340,19 @@ $(function() {
 					var countryName =  item.countryName ? item.countryName : '';
 					var stateName =  item.stateName ? '.' + item.stateName : '';
 					var cityName =  item.cityName ? '.' + item.cityName : '';
-					var loca =  item.locationName ? '.' + item.locationName : '';
+					var loca =  item.locationName ? '.' + item.locationName : '';			
+					var altitude = '';
+					if(item.altitude){
+						altitude = '（海拔：'+ String(item.altitude)+'米）';
+					}else if(item.altitude==0){
+						altitude = '（海拔：'+ String(item.altitude)+'米）';
+					}else{
+						altitude = '';
+					}
 					
 					if(item.longitude && item.latitude ) {
 						disabled = '';
-						locationName = countryName + stateName + cityName + town  + loca + '<br/>（海拔：'+ String(item.altitude)+'米）';
+						locationName = countryName + stateName + cityName + town  + loca + '<br/>' + altitude;
 					} else {
 						disabled = 'disableds';
 						locationName = '未知地名'
@@ -952,5 +960,11 @@ $(function() {
 		window.location.href = 'list.html?id=' + thisUid;
 
 	})
+
+
+
+
+
+
 
 });
