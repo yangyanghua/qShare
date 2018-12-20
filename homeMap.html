@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>	
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/map.css"/>
+	<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		
+		.header-bar{
+			position: fixed;
+			background: #fff;
+			top: 0;
+			left: 0;
+			height: 0.9rem;
+			width: 100%;
+			box-shadow: 0 1px 3px -3px #000;
+			z-index: 100;
+		}
+		.header-bar .bar-nav{
+			width: 4rem;
+			height: 0.9rem;
+			display: flex;
+			margin: auto;
+		}
+		.header-bar .bar-nav li{
+			flex: 1;
+			text-align: center;
+			line-height: 0.9rem;
+			font-size: 14px;
+		}
+		.header-bar .bar-nav li.active{		
+			position: relative;
+			color: #FD5B42;
+		}
+		.header-bar .bar-nav li.active::after{
+			position: absolute;
+			content: '';
+			height: 2px;
+			width: 60%;
+			background: #FD5B42;
+			bottom: 0;
+			left: 50%;
+			margin-left: -30%;
+			
+		}
+		#follow{
+			display: none;
+		}
+		
+		.header-bar .toMap{
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 0.9rem;
+			width: 1rem;
+			border: none;
+			outline: none;
+			background: url(image/list.png) no-repeat 50% 50%;
+			background-size:0.7rem 0.7rem;
+		}
+				
+	</style>
+	<title>快看Quick-带你一起看世界</title>
+</head>
+<body>
+		<div class="loading">
+			<img src="image/loading.gif"/>
+		</div>	
+		
+		
+		
+		<div class="header-bar">
+			<ul class="bar-nav">
+				<li class="bar-nav-item" id="follow" >关注</li>
+				<li class="bar-nav-item" id="find" >发现</li>
+				<li class="bar-nav-item active" id="hot" >热门</li>
+			</ul>
+			
+			<button class="toMap">
+				
+			</button>
+			
+		</div>
+	
+	
+	
+	
+	<div id="allmap"></div>
+	<div class="footer">
+			<div class="headerCon">
+				<div class="applogo">
+					<img src="image/logo3.png"/>
+				</div>
+				<h2 class="appTitle">快看Quick-带你一起看世界</h2>
+				<div class="downApp">
+					<button type="button" class="downBtn mui-btn mui-btn-danger">下载app</button>
+				</div>
+			</div>		
+	</div>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Gkp2kjITvhmTA0VYLa11Dvli9uRwwN6R"></script>
+	<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/map.js?v=4.2" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+
+	var dynamicId = getUrlParam('dynamicId')||'';
+	var name = getUrlParam('name')||'';
+	var photoCount = getUrlParam('photoCount')||'';
+	
+	var user = getUserInfo();
+	var token  = '';
+	if(user){
+		token = user.accessToken;
+		$('#follow').show();
+	};	
+	
+	if(name){
+		$('.title').text(name+'('+photoCount+')');
+	}else if(id){
+		if(photoCount){
+			$('.title').text('全部照片（'+photoCount+'）');
+		}else{
+			$('.title').text('足迹地图');
+		}
+
+	}else if(dynamicId){
+		$('.title').text('足迹地图');
+	}
+	map.addEventListener("tilesloaded", function(evt){
+		
+		if(fastLoad){
+			if(countrycode || citycode){
+				getImageBuycountryCode()
+			}else{
+				getImages();
+			};
+			fastLoad = false;
+			$('.loading').fadeOut();
+		}
+	});	
+	map.addEventListener("zoomend", function(evt){
+		map.clearOverlays();
+		oldList = [];
+			if(countrycode || citycode){
+				getImageBuycountryCode()
+			}else{
+				getImages();
+			};
+	});		
+		
+	map.addEventListener("moveend", function(evt){
+
+			if(countrycode || citycode){
+				getImageBuycountryCode()
+			}else{
+				getImages();
+			};
+			//	var bounds = map.getBounds();
+
+			});			
+		
+
+function getImageBuycountryCode(){
+		var opt = {};
+		var bounds = map.getBounds();
+	if(countrycode){
+		 opt = {
+			minX:bounds.getSouthWest().lng,
+			maxX:bounds.getNorthEast().lng,
+			minY:bounds.getSouthWest().lat,
+			maxY:bounds.getNorthEast().lat,
+			isLeast:true,
+			userId:id,
+			countryCode:countrycode
+		}
+	}else if(citycode){
+		 opt = {
+			minX:bounds.getSouthWest().lng,
+			maxX:bounds.getNorthEast().lng,
+			minY:bounds.getSouthWest().lat,
+			maxY:bounds.getNorthEast().lat,
+			isLeast:true,
+			userId:id,
+			cityCode:citycode
+		}
+	}
+	
+	$.ajax({
+		type:"get",
+		url:api.photoLocationMap,
+		data:opt,
+		async:true,
+		success:function(res){
+				res.forEach(function(item){
+
+						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
+						var params = {point:point,params:item.t};
+						params.params.pnum = item.size;
+						var myCompOverlay = new ComplexCustomOverlay(params);
+						map.addOverlay(myCompOverlay); 
+
+				})				
+			
+			
+		},
+		error:function(res){
+			
+		}
+	});
+	
+	
+	
+	
+}
+
+
+
+function getImages(){
+	//2716
+		
+		var bounds = map.getBounds();
+		var urlstr = ''; 
+		var opt = {
+			minX:bounds.getSouthWest().lng,
+			maxX:bounds.getNorthEast().lng,
+			minY:bounds.getSouthWest().lat,
+			maxY:bounds.getNorthEast().lat,
+		}
+		if(id){
+			
+			opt.userId = id;
+			
+			urlstr = api.dynamicList;
+		}else if(dynamicId){
+			
+			opt.dynamicId = dynamicId;
+			urlstr = api.dynamicMpa;
+		}
+		
+		$.ajax({
+			type:"get",
+			url:urlstr,
+			data:opt,
+			async:true,
+			success:function(res){
+				res.forEach(function(item){
+					if(oldList.indexOf(item.t.id)==-1){
+						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
+						var params = {point:point,params:item.t};
+						params.params.pnum = item.size;
+						var myCompOverlay = new ComplexCustomOverlay(params);
+						map.addOverlay(myCompOverlay); 
+						oldList.push(item.t.id);
+					}
+					
+				})				
+
+			},
+			error:function(res){
+				
+			}
+		});	
+}
+
+
+	function getUserDetail(id){
+		$.ajax({
+			type:"get",
+			data:{toUid:id},
+			url:api.getUserDetail,
+			async:true,
+			success:function(res){
+				$('.userImg').css({'backgroundImage':'url('+res.avatar+')'});
+				$('.userName').text(res.nickName);
+			},
+			error:function(res){
+			}
+		});
+		
+	}
+if(id){
+	getUserDetail(id);
+}
+	
+
+
+
+
+
+
+
+$(function(){
+	
+	$('.brack').on('click',function(){
+		if(id){
+			window.location.href = './list.html?id='+id;
+		}else if(dynamicId){
+			window.location.href = './index.html?id='+dynamicId;
+		}
+		
+	})
+	
+	
+})
+
+
+
+</script>
+
+<script src="js/statistical.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>
+

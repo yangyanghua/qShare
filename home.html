@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>快看Quick-带你一起看世界</title>
+	<script src="js/lib/flexible.js" type="text/javascript" charset="utf-8"></script>	
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <script src="js/lib/mui.min.js"></script>
+    <link href="css/mui/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+	<link rel="stylesheet" type="text/css" href="css/list.css?v=6.2"/>
+	<style type="text/css">
+		
+		.header-bar{
+			position: fixed;
+			background: #fff;
+			top: 0;
+			left: 0;
+			height: 0.9rem;
+			width: 100%;
+			box-shadow: 0 1px 3px -3px #000;
+			z-index: 100;
+		}
+		.header-bar .bar-nav{
+			width: 4rem;
+			height: 0.9rem;
+			display: flex;
+			margin: auto;
+		}
+		.header-bar .bar-nav li{
+			flex: 1;
+			text-align: center;
+			line-height: 0.9rem;
+			font-size: 14px;
+		}
+		.header-bar .bar-nav li.active{		
+			position: relative;
+			color: #FD5B42;
+		}
+		.header-bar .bar-nav li.active::after{
+			position: absolute;
+			content: '';
+			height: 2px;
+			width: 60%;
+			background: #FD5B42;
+			bottom: 0;
+			left: 50%;
+			margin-left: -30%;
+			
+		}
+		#follow{
+			display: none;
+		}
+		
+		.header-bar .toMap{
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 0.9rem;
+			width: 1rem;
+			border: none;
+			outline: none;
+			background: url(image/icon_map.png) no-repeat 50% 50%;
+			background-size:0.5rem 0.5rem;
+		}
+		
+		.main{
+			padding-top: 0.9rem;
+			position: relative;
+			padding-bottom: 0.9rem;
+		}
+		.footer{
+			background: #fff;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			height: 1.4rem;
+			width: 100%;
+			z-index: 100;
+		}
+		.footer .headerCon{
+			border-top:1px solid #F5F5F5;
+			width: 100%;
+			height: 1.4rem;
+			display: flex;
+		}
+		.footer .headerCon .applogo{
+			flex: 0 0 2.5rem;
+		}
+		.footer .headerCon .applogo img{
+			margin-top: 0.2rem;
+			margin-left: 0.1rem;
+			width: 2.2rem;
+		}
+		
+		.footer .headerCon .appTitle{
+			flex: 1;
+			line-height:1.4rem;
+			color: #666666;
+			font-size: 12px;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+		.footer .headerCon .downApp{
+			flex: 0 0 2.5rem;
+			text-align: right;
+			font-size: 12px;	
+			padding-top: 0.25rem;
+		}
+		
+		.footer .headerCon .downApp .downBtn{
+			outline: none;
+			border-radius:100px;
+			margin: 0;
+			padding: 0;
+			margin-right: 0.1rem;
+			width: 1.8rem;
+			height: 0.8rem;
+			top: 0;
+		    color: #fff;
+		    border: 1px solid #dd524d;
+		    background-color: #dd524d;			
+		}			
+	</style>
+	</head>
+	<body id="mainBody">
+		<div class="loading">
+			<img src="image/loading.gif"/>
+		</div>			
+	<div class="main">
+		<div class="header-bar">
+			<ul class="bar-nav">
+				<li class="bar-nav-item" id="follow" >关注</li>
+				<li class="bar-nav-item" id="find" >发现</li>
+				<li class="bar-nav-item active" id="hot" >热门</li>
+			</ul>
+			
+			<button class="toMap">
+				
+			</button>
+			
+		</div>
+		
+		<div class="listContent">
+			<div class="images">
+				<ul class="imageList imageList1"></ul>
+				<p class="loadingTxt">努力加载中...</p>
+			</div>
+			
+		</div>
+
+	<div class="footer">
+			<div class="headerCon">
+				<div class="applogo">
+					<img src="image/logo3.png"/>
+				</div>
+				<h2 class="appTitle">快看Quick-带你一起看世界</h2>
+				<div class="downApp">
+					<button type="button" class="downBtn mui-btn mui-btn-danger">下载app</button>
+				</div>
+			</div>		
+	</div>
+
+	</div>	
+
+		<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lib/jquery.lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/home.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/statistical.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
