@@ -79,9 +79,7 @@
 				<li class="bar-nav-item active" id="hot" >热门</li>
 			</ul>
 			
-			<button class="toMap">
-				
-			</button>
+			<button class="toMap"></button>
 			
 		</div>
 	
@@ -108,95 +106,90 @@
 <script type="text/javascript">
 	
 
-	var dynamicId = getUrlParam('dynamicId')||'';
-	var name = getUrlParam('name')||'';
 	var photoCount = getUrlParam('photoCount')||'';
-	
+	var type =  getUrlParam('type')||'hot';	
 	var user = getUserInfo();
 	var token  = '';
+	var fastLoad = true;
 	if(user){
 		token = user.accessToken;
 		$('#follow').show();
 	};	
 	
-	if(name){
-		$('.title').text(name+'('+photoCount+')');
-	}else if(id){
-		if(photoCount){
-			$('.title').text('全部照片（'+photoCount+'）');
-		}else{
-			$('.title').text('足迹地图');
-		}
-
-	}else if(dynamicId){
-		$('.title').text('足迹地图');
-	}
 	map.addEventListener("tilesloaded", function(evt){
 		
 		if(fastLoad){
-			if(countrycode || citycode){
-				getImageBuycountryCode()
-			}else{
-				getImages();
-			};
+			
+			$('.bar-nav-item').removeClass('active');
+			if(type==='follow'){
+				
+				$('#follow').addClass('active');
+				getFollowListMap();
+			}else if(type==='find'){
+
+				$('#find').addClass('active');
+				getFindListMap();
+			}else if(type==='hot'){
+
+				$('#hot').addClass('active');
+				getHotListMap();
+				
+			}
 			fastLoad = false;
-			$('.loading').fadeOut();
+
 		}
 	});	
 	map.addEventListener("zoomend", function(evt){
 		map.clearOverlays();
-		oldList = [];
-			if(countrycode || citycode){
-				getImageBuycountryCode()
-			}else{
-				getImages();
-			};
+
+			if(type==='follow'){
+				
+				getFollowListMap();
+			}else if(type==='find'){
+
+				getFindListMap();
+			}else if(type==='hot'){
+
+				getHotListMap();
+				
+			}
+
 	});		
 		
 	map.addEventListener("moveend", function(evt){
 
-			if(countrycode || citycode){
-				getImageBuycountryCode()
-			}else{
-				getImages();
-			};
-			//	var bounds = map.getBounds();
+			if(type==='follow'){
+				
+				getFollowListMap();
+			}else if(type==='find'){
+
+				getFindListMap();
+			}else if(type==='hot'){
+
+				getHotListMap();
+				
+			}
+
 
 			});			
 		
 
-function getImageBuycountryCode(){
+function getHotListMap(){
 		var opt = {};
 		var bounds = map.getBounds();
-	if(countrycode){
 		 opt = {
 			minX:bounds.getSouthWest().lng,
 			maxX:bounds.getNorthEast().lng,
 			minY:bounds.getSouthWest().lat,
 			maxY:bounds.getNorthEast().lat,
-			isLeast:true,
-			userId:id,
-			countryCode:countrycode
 		}
-	}else if(citycode){
-		 opt = {
-			minX:bounds.getSouthWest().lng,
-			maxX:bounds.getNorthEast().lng,
-			minY:bounds.getSouthWest().lat,
-			maxY:bounds.getNorthEast().lat,
-			isLeast:true,
-			userId:id,
-			cityCode:citycode
-		}
-	}
-	
 	$.ajax({
 		type:"get",
-		url:api.photoLocationMap,
+		url:api.hotListMap,
 		data:opt,
 		async:true,
 		success:function(res){
-				res.forEach(function(item){
+				res.object.forEach(function(item){
 
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
 						var params = {point:point,params:item.t};
@@ -206,105 +199,119 @@ function getImageBuycountryCode(){
 
 				})				
 			
-			
+				$('.loading').fadeOut();
 		},
 		error:function(res){
 			
 		}
 	});
 	
-	
-	
-	
 }
 
 
-
-function getImages(){
-	//2716
-		
+function getFindListMap(){
+		var opt = {};
 		var bounds = map.getBounds();
-		var urlstr = ''; 
-		var opt = {
+		 opt = {
 			minX:bounds.getSouthWest().lng,
 			maxX:bounds.getNorthEast().lng,
 			minY:bounds.getSouthWest().lat,
 			maxY:bounds.getNorthEast().lat,
 		}
-		if(id){
-			
-			opt.userId = id;
-			
-			urlstr = api.dynamicList;
-		}else if(dynamicId){
-			
-			opt.dynamicId = dynamicId;
-			urlstr = api.dynamicMpa;
-		}
-		
-		$.ajax({
-			type:"get",
-			url:urlstr,
-			data:opt,
-			async:true,
-			success:function(res){
-				res.forEach(function(item){
-					if(oldList.indexOf(item.t.id)==-1){
+	$.ajax({
+		type:"get",
+		url:api.findListMap,
+		data:opt,
+		async:true,
+		success:function(res){
+				res.object.forEach(function(item){
+
 						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
 						var params = {point:point,params:item.t};
 						params.params.pnum = item.size;
 						var myCompOverlay = new ComplexCustomOverlay(params);
 						map.addOverlay(myCompOverlay); 
-						oldList.push(item.t.id);
-					}
-					
+
 				})				
-
-			},
-			error:function(res){
-				
-			}
-		});	
-}
-
-
-	function getUserDetail(id){
-		$.ajax({
-			type:"get",
-			data:{toUid:id},
-			url:api.getUserDetail,
-			async:true,
-			success:function(res){
-				$('.userImg').css({'backgroundImage':'url('+res.avatar+')'});
-				$('.userName').text(res.nickName);
-			},
-			error:function(res){
-			}
-		});
-		
-	}
-if(id){
-	getUserDetail(id);
-}
+			
+				$('.loading').fadeOut();
+		},
+		error:function(res){
+			
+		}
+	});
 	
+}
 
 
 
 
 
+function getFollowListMap(){
+		var opt = {};
+		var bounds = map.getBounds();
+		 opt = {
+			minX:bounds.getSouthWest().lng,
+			maxX:bounds.getNorthEast().lng,
+			minY:bounds.getSouthWest().lat,
+			maxY:bounds.getNorthEast().lat,
+			accessToken:token
+		}
+	$.ajax({
+		type:"get",
+		url:api.followListMap,
+		data:opt,
+		async:true,
+		success:function(res){
+			if(res){
+				res.forEach(function(item){
+						var point =  new BMap.Point(item.position.longitude,item.position.latitude);
+						var params = {point:point,params:item.t};
+						params.params.pnum = item.size;
+						var myCompOverlay = new ComplexCustomOverlay(params);
+						map.addOverlay(myCompOverlay); 
+
+				})						
+			}
+		
+			
+				$('.loading').fadeOut();			
+		},
+		error:function(res){
+			
+		}
+	});
+	
+}
 
 
 $(function(){
-	
-	$('.brack').on('click',function(){
-		if(id){
-			window.location.href = './list.html?id='+id;
-		}else if(dynamicId){
-			window.location.href = './index.html?id='+dynamicId;
+	$('.toMap').on('click',function(){
+		window.location.href = './home.html?type='+type;
+	});
+
+	$('.bar-nav').on('click','.bar-nav-item',function(){	
+		var className = $(this).attr('class');
+		id =  $(this).attr('id');
+		if(className.indexOf('active') != -1 ){
+			return false;
+		}else{
+			
+			$('.bar-nav-item').removeClass('active');
+			map.clearOverlays();
+			$(this).addClass('active');
+			
+			if(id==='follow'){
+				getFollowListMap();
+			}else if(id==='find'){
+				getFindListMap();
+			}else if(id==='hot'){
+				getHotListMap();
+			}
+			
 		}
-		
 	})
-	
+
 	
 })
 

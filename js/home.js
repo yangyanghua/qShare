@@ -8,8 +8,7 @@ $(function(){
 		token = user.accessToken;
 		$('#follow').show();
 	};
-	
-	
+	var type =  getUrlParam('type')||'hot';		
 	var thisUserInfo = {};
 	var lastId = '';
 	var count = '';
@@ -71,7 +70,7 @@ $(function(){
 		});
 	}
 	
-	//getFindList(true);
+	
 	
 	//关注列表
 	function getFollowList(empty,dynamicId){
@@ -96,7 +95,7 @@ $(function(){
 					var title = item.title || '' ;
 						cityListHtml1 += `<li class="imageItem dynamics" id="${item.id}">
 								<div class="image">
-									<img class="lazy" data-original="${item.url}"    data-preview-src="" data-preview-group="1"/>
+									<img class="lazy" src="${item.firstUrl}" />
 								</div>
 								<div class="info">
 								<h2 class="cname">${title}</h2>
@@ -104,8 +103,7 @@ $(function(){
 									<div class="c_userImage"><span style="background:#CCCCCC url(${item.userBases[0].avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 									<div class="c_user">
 										<p class="c_userName">${item.userBases[0].nickName}</p>
-										<p><span class="timeLabel">From</span>${new Date(item.startTime).Format('yyyy-MM-dd')}</p>
-										<p><span class="timeLabel">To</span>${new Date(item.endTime).Format('yyyy-MM-dd')}</p>
+										<p><span class="timeLabel">发表于</span>${new Date(item.createTime).Format('yyyy-MM-dd')}</p>
 									</div>							
 								</div>
 								<span class="photoCount">${item.photoCount}<span>
@@ -117,8 +115,6 @@ $(function(){
 				}
 				$('.imageList').append(cityListHtml1);
 				setPsition();
-			//懒加载			
-			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList"), failurelimit : 2 });
 			$('.loading').fadeOut();	
 			
 			},
@@ -128,7 +124,7 @@ $(function(){
 		});		
 	}
 	
-	//getFollowList();
+	
 	
 	//热门列表
 	function getHotList(empty,lastCount){
@@ -187,14 +183,26 @@ $(function(){
 		});		
 	}	
 	
-	getHotList();
 	
+	
+	if(type=='hot'){
+		$('.bar-nav-item').removeClass('active');
+		$('#hot').addClass('active');
+		getHotList(true);		
+	}else if(type=='follow'){
+		$('.bar-nav-item').removeClass('active');
+		$('#follow').addClass('active');
+		getFollowList(true);
+	}else if(type=='find'){
+		$('.bar-nav-item').removeClass('active');
+		$('#find').addClass('active');
+		getFindList(true);		
+	}
 
+	$('.toMap').on('click',function(){
+		window.location.href = './homeMap.html?type='+type;
+	});
 
-	$('.userInfo').on('click','#photoCount',function(){
-		var allImage = $(this).find('.photoCount').text();
-		window.location.href = 'map.html?id='+id+'&photoCount='+allImage;
-	})
 	
 	$('.imageList').on('click','.dynamics',function(){
 		var dyId = $(this).attr('id');
@@ -202,29 +210,29 @@ $(function(){
 			window.location.href = 'index.html?id='+dyId;
 		}	
 	})
-	var id =  'hot';
+	
 	$('.bar-nav').on('click','.bar-nav-item',function(){
 		
 		var className = $(this).attr('class');
-		id =  $(this).attr('id');
+		type =  $(this).attr('id');
 		
 		if(className.indexOf('active') != -1 ){
 			return false;
 		}else{
 			$('.bar-nav-item').removeClass('active');
 			$(this).addClass('active');
-			if(id==='follow'){
+			if(type==='follow'){
 			
 				getFollowList(true);
 				lastId = '';
 				nomore = false;
 				
-			}else if(id==='find'){
+			}else if(type==='find'){
 				getFindList(true);
 				lastId = '';
 				nomore = false;
 				
-			}else if(id==='hot'){
+			}else if(type==='hot'){
 				getHotList(true);
 				count = '';
 			}
@@ -235,12 +243,6 @@ $(function(){
 	})
 	
 	
-			mui('body').on('tap','.fansItem',function(){
-				var userid = $(this).attr('userid'); 				
-				window.location.href = './list.html?id='+userid;
-				
-			})		
-
 		$(window).scroll(function(){
 			
 		　　var scrollTop = $(this).scrollTop();
@@ -250,16 +252,15 @@ $(function(){
 						if(nomore){
 							return false;			
 						}else{		
-
-								if(id==='follow'){
+								if(type==='follow'){
 								
 									getFollowList(false,lastId);
 								
-								}else if(id==='find'){
+								}else if(type==='find'){
 									
 									getFindList(false,lastId);
 									
-								}else if(id==='hot'){
+								}else if(type==='hot'){
 									
 									getHotList(false,count);
 									

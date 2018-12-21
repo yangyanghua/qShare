@@ -962,7 +962,11 @@ $(function() {
 	})
 
 
+	mui('body').on('tap', '.toHome', function() {
 
+		window.location.href = './home.html?type=hot';
+
+	})
 
 
 
