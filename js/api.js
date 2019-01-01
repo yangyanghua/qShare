@@ -8,6 +8,8 @@ if (currentHost == '172.16.0.59:8080' || currentHost == '172.16.1.6:8080'  ) {
   httpService = 'http://sit-api.irenao.cn'; //測試/預生產
   
 }else if(currentHost == 'pred-h5.irenao.cn'){
+
+	// httpService = 'http://pred-api.irenao.cn'; //測試/預生產
 	 httpService = 'http://sit-api.irenao.cn'; //測試/預生產
 }else{
 	
@@ -48,7 +50,12 @@ var api = {
 	addFriend:httpService + '/api/v1/friend/add',//添加朋友
 	cancleFriend:httpService + '/api/v1/friend/cancle',//取消朋友
   dynamicMpa:httpService + '/api/v2/dynamic/map/dynamic/list',//动态详情，地图模式
-
+  followList:httpService + '/api/v2/dynamic/follow/list',//首页-关注列表
+  followListMap:httpService + '/api/v2/dynamic/map/follow/list',//首页-关注列表地图模式
+  findList:httpService + '/api/v2/dynamic/find/list',//首页-发现列表
+  findListMap:httpService + '/api/v1/dynamic/map/polymeric/list',//首页-发现列表地图
+  hotList:httpService + '/api/v2/dynamic/hot/list',//首页-热门列表
+  hotListMap:httpService + '/api/v1/dynamic/map/hot/polymeric/list',//首页-热门列表地图模式
 }
 
 	//获取用户信息

@@ -120,6 +120,24 @@
 	border-radius:50%;
 }
 
+.banner .toHome{
+	position: absolute;
+	z-index: 5;
+	top: 0.05rem;
+	left: 0.2rem;
+	background: none;
+	border: none;
+	height: 1rem;
+	width: 1rem;
+	background:rgba(253,91,66,.8)  url(../image/home1.png) no-repeat 45% 48%;
+	background-size:0.5rem 0.5rem;
+	border-radius:50%;
+}
+
+
+
+
+
 .banner .Dynpublisher{
 	display: flex;
 	position: absolute;

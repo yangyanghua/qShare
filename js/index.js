@@ -340,12 +340,20 @@ $(function() {
 					var countryName =  item.countryName ? item.countryName : '';
 					var stateName =  item.stateName ? '.' + item.stateName : '';
 					var cityName =  item.cityName ? '.' + item.cityName : '';
-					var loca =  item.locationName ? '.' + item.locationName : '';
-					var altitude = item.altitude  ? '<br/>（海拔：'+ String(item.altitude)+'米）' : '';
+
+					var loca =  item.locationName ? '.' + item.locationName : '';			
+					var altitude = '';
+					if(item.altitude){
+						altitude = '（海拔：'+ String(item.altitude)+'米）';
+					}else if(item.altitude==0){
+						altitude = '（海拔：'+ String(item.altitude)+'米）';
+					}else{
+						altitude = '';
+					}
 					
 					if(item.longitude && item.latitude ) {
 						disabled = '';
-						locationName = countryName + stateName + cityName + town  + loca + altitude ;
+						locationName = countryName + stateName + cityName + town  + loca + '<br/>' + altitude;
 					} else {
 						disabled = 'disableds';
 						locationName = '未知地名'
@@ -373,6 +381,12 @@ $(function() {
 				var comhtml = '';
 				var uiduser = {};
 				var touser = {};
+				
+				
+				
+				if(res.comments.length < 9){
+					$('.loadMoreBtn').hide();
+				}
 				
 				res.comments.forEach(function(item) {
 					res.userBases.forEach(function(item1) {
@@ -794,7 +808,18 @@ $(function() {
 		window.location.href = 'likeList.html?id=' + id;
 
 	})
+	
+	//查看赞列表
+	$('.loadMoreBtn').on('click', function() {
 
+		window.location.href = 'commentList.html?id=' + id;
+
+	})	
+	
+	
+	
+	
+	
 	$('#textarea').on('keyup', function() {
 		if($(this).val().length > 0) {
 			$('#sendBtn').css('color', '#dd524d');
@@ -953,5 +978,15 @@ $(function() {
 		window.location.href = 'list.html?id=' + thisUid;
 
 	})
+
+
+	mui('body').on('tap', '.toHome', function() {
+
+		window.location.href = './home.html?type=hot';
+
+	})
+
+
+
 
 });
