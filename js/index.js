@@ -386,6 +386,12 @@ $(function() {
 				var uiduser = {};
 				var touser = {};
 				
+				
+				
+				if(res.comments.length < 9){
+					$('.loadMoreBtn').hide();
+				}
+				
 				res.comments.forEach(function(item) {
 					res.userBases.forEach(function(item1) {
 						if(item.uid == item1.id) {
@@ -806,7 +812,18 @@ $(function() {
 		window.location.href = 'likeList.html?id=' + id;
 
 	})
+	
+	//查看赞列表
+	$('.loadMoreBtn').on('click', function() {
 
+		window.location.href = 'commentList.html?id=' + id;
+
+	})	
+	
+	
+	
+	
+	
 	$('#textarea').on('keyup', function() {
 		if($(this).val().length > 0) {
 			$('#sendBtn').css('color', '#dd524d');

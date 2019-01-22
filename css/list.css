@@ -191,6 +191,7 @@ body{
 	height: 0.65rem;
 	line-height: 0.65rem;
 	font-size: 14px;
+	width: 70%;
 	font-weight: bold;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -427,6 +428,10 @@ body{
  .c_userInfo .c_user p.c_userName{
 	height: 0.6rem;
 	line-height: 0.6rem;
+	width: 3rem;
 	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	color: #333333;
 }
