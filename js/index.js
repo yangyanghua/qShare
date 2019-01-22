@@ -339,7 +339,12 @@ $(function() {
 					var town =  item.town ? '.'+ item.town : '';
 					var countryName =  item.countryName ? item.countryName : '';
 					var stateName =  item.stateName ? '.' + item.stateName : '';
-					var cityName =  item.cityName ? '.' + item.cityName : '';
+					var cityName = '';
+					if(item.district){
+						cityName = item.district +'.';
+					}else if(item.cityName){
+						cityName = item.cityName +'.';
+					}
 					var loca =  item.locationName ? '.' + item.locationName : '';			
 					var altitude = '';
 					if(item.altitude){
