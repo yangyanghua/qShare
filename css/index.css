@@ -179,7 +179,8 @@
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
-    margin-right: 10px;	
+    margin-right: 10px;
+    font-weight: 600;	
   }
   
   .banner .Dynpublisher .nameInfo .DynpublisherName .sex{	

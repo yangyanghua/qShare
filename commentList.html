@@ -137,7 +137,7 @@
 		</div>			
 		<header id="header" class="mui-bar mui-bar-nav">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-				<h1 class="mui-title" id="titles"></h1>
+				<h1 class="mui-title" id="titles">评论列表</h1>
 		</header>		
 		<!--下拉刷新容器-->
 		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
@@ -170,17 +170,6 @@
 		<script>
 			
 		$(function(){
-			mui.init({
-				pullRefresh: {
-					container: '#pullrefresh',
-					down: {
-						style:'circle',
-						callback: pulldownRefresh
-					},
-				}
-			});
-			
-			var userInfo = getUserInfo();
 			//获取URL参数
 			var getUrlParam = function(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -189,7 +178,12 @@
 					return decodeURI(r[2]);
 				}
 				return null;
-			};
+			};			
+
+			var id = getUrlParam('id')||'';
+			var userInfo = getUserInfo();
+			var lastId = '';
+
 			function dateFtt(fmt,date)   
 				{ //author: meizz   
 				  var o = {   
@@ -209,18 +203,29 @@
 				  return fmt;   
 				} 
 			var $commentsList  = $('.commentsList');
-		    var getCommentsList  = function(id){
+		    var getCommentsList  = function(id,empty){
+				var isLeast = true;
+				if(lastId){
+					isLeast = false;
+				}
+
 		    	$.ajax({
 		    		type:"get",
-		    		data:{dynamicId:id,isLeast:true},
+		    		data:{dynamicId:id,isLeast:isLeast,commentId:lastId},
 		    		url:api.commentList,
 		    		async:true,
 		    		success:function(res){
-		    			$('#titles').text('评论（'+res.comments.length+'）')
+		    			//$('#titles').text('全部评论')
 		    			
 						var comhtml = '';
 						var uiduser  = {};
 						var touser = {};
+						if(res.comments.length>0){
+							lastId = res.comments[res.comments.length-1].id;
+						}else{
+							lastId='';
+						}
+
 						res.comments.forEach(function(item){
 							res.bases.forEach(function(item1){
 								if(item.uid==item1.id){
@@ -261,11 +266,14 @@
 										'</li>';							
 							}					
 						})
-						$commentsList.empty();
+						if(empty){
+							$commentsList.empty();
+						}
 						$commentsList.append(comhtml);
 						$('.loading').fadeOut();
 						setTimeout(function(){
 							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh();
 						},1000)
 						
 						//mui.toast("刷新成功！");		 
@@ -277,16 +285,37 @@
 		    	});
 		
 			}
-		    var id = getUrlParam('id')||'';
-		    getCommentsList(id);
-		    
+
+
+			function pullupRefresh() {
+			   
+			    getCommentsList(id,false);
+
+
+			}
+
 			/**
 			 * 下拉刷新具体业务实现
 			 */function pulldownRefresh() {
+				lastId = '';
+				getCommentsList(id,true);
 
-	getCommentsList(id);
+			}
 
-}
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style:'circle',
+						callback: pulldownRefresh
+					},
+					up: {
+						auto:true,
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}					
+				}
+			});
 
 	mui('body').on('tap', '.userPortrait', function() {
 		if(!userInfo) {
