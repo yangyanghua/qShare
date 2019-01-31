@@ -21,7 +21,7 @@ $(function() {
 		$banner = $('.banner'),
 		$portrait = $('.portrait'),
 		$DynpublisherName = $('#DynpublisherName'),
-		$level = $('.level'),
+
 		$score = $('.score'),
 		$numberOfscores = $('.numberOfscores'),
 		$traveltitle = $('.traveltitle'),
@@ -33,8 +33,6 @@ $(function() {
 		$colTotalityNumer = $('.colTotalityNumer'),
 		$zanTotalityNumer = $('.zanTotalityNumer'),
 		$userList = $('.userList'),
-		$boy = $('.boy'),
-		$girl = $('.girl'),
 		$passCity = $('.passCity'),
 		$usDay = $('.usDay'),
 		$dect = $('.dect');
@@ -248,6 +246,7 @@ $(function() {
 				sessionStorage.setItem('id', res.id);
 				getGoodList(res.id);
 				$banner.css("backgroundImage", "url(" + res.firstUrl + ")");
+				
 				uid = res.uid;
 				isScore = res.isScore;
 				res.userBases.forEach(function(item) {
@@ -257,19 +256,6 @@ $(function() {
 						$DynpublisherName.text(item.nickName);
 					}
 				})
-				if(master.genderType == 'male') {
-					$boy.show();
-				} else if(master.genderType == 'female') {
-					$girl.show();
-				}
-
-				if(master.level == 'freshman' || res.level == 'junior') {
-					$('.level1').show();
-				} else if(master.level == 'medium') {
-					$('.level2').show();
-				} else if(master.level == 'senior' || res.level == 'highest') {
-					$('.level3').show();
-				};
 
 				id = res.id;
 				uid = res.uid;

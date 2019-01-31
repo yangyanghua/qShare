@@ -141,10 +141,10 @@
 .banner .Dynpublisher{
 	display: flex;
 	position: absolute;
-	background: rgba(240,240,240,.8);
-	top: 3.7rem;
-	height: 1.42rem;
-	width: 5.8rem;
+	background: none;
+	bottom: -1.7rem;
+	height: 2.1rem;
+	width: 7rem;
 	border-bottom-right-radius: 100px;
 	border-top-right-radius: 100px;
 }
@@ -157,16 +157,18 @@
  	border-radius:100%;
  	margin-top: 0.15rem;
  	margin-left: 0.3rem;
+	box-shadow: 0 3px 14px 0px #999999;
+ 
  }
   .banner .Dynpublisher .nameInfo{
   	flex: 1;
   	padding-top: 0.3rem;
-  	padding-left: 0.1rem;
   }
   .banner .Dynpublisher .nameInfo .DynpublisherName{
   	font-size: 14px;
   	color: #333333;
   	height: 19px;
+  	margin-top: 0.3rem;
   	line-height: 21px;
   	margin-bottom: 0.1rem;
   }	
@@ -177,7 +179,8 @@
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
-    margin-right: 10px;	
+    margin-right: 10px;
+    font-weight: 600;	
   }
   
   .banner .Dynpublisher .nameInfo .DynpublisherName .sex{	
@@ -216,13 +219,14 @@
 .banner .scorecontent{
 	overflow: hidden;
 	position: absolute;
-	background: rgba(240,240,240,.8);
-	top: 3.7rem;
-	height: 1.42rem;
+	background: #fff;
+	bottom: -1.1rem;
+	height: 1.52rem;
 	width: 1.7rem;
 	right: 0.3rem;
 	border-radius:5px;
-	text-align: center;	
+	text-align: center;
+	box-shadow:0 2px 7px -1px #999;	
 }
 .banner .scorecontent p{
 	font-size: 12px;
@@ -242,6 +246,7 @@
 .travelContent{
 	background: #FFFFFF;
 	padding: 0.3rem;
+	padding-top: 2.5rem;
 }
 .travelContent .traveltitle{
 	font-size: 0.5rem;

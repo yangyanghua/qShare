@@ -337,6 +337,14 @@ $(function(){
 		var allImage = $(this).find('.photoCount').text();
 		window.location.href = 'map.html?id='+id+'&photoCount='+allImage;
 	})
+
+	$('.toMap').on('click',function(){
+		
+		var allImage = $('#photoCount').find('.photoCount').text();
+		window.location.href = 'map.html?id='+id+'&photoCount='+allImage;
+	})
+	
+	
 	
 	$('.imageList').on('click','.dynamics',function(){
 		var dyId = $(this).attr('id');
