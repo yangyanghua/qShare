@@ -11,27 +11,27 @@ $(function(){
 	var type =  getUrlParam('type')||'hot';		
 	var thisUserInfo = {};
 	var lastId = '';
+	var updateTime = '';
 	var count = '';
 	var nowNav = 'dynamicList';
 	var nomore = false;
 	//f发现列表
-	function getFindList(empty,dynamicId){
-		var dyId = dynamicId || '';
+	function getFindList(empty,time = ''){
 		var isLeast = true;
-		if(dyId){
+		if(time){
 			isLeast = false;
 		}
 		
 		$.ajax({
 			type:"get",
 			url:api.findList,
-			data:{isLeast:isLeast,accessToken:token,dynamicId:dyId},
+			data:{isLeast:isLeast,accessToken:token,updateTime:time},
 			async:true,
 			success:function(res){
 			var dynamicHtml1 = '';
 			var dynamicHtml2 = '';
 			if(res.length>0){			
-					lastId = res[res.length-1].id;
+					updateTime = res[res.length-1].updateTime;
 					nomore = false;			
 			}else{
 				nomore = true;			
@@ -230,7 +230,7 @@ $(function(){
 				
 			}else if(type==='find'){
 				getFindList(true);
-				lastId = '';
+				updateTime='';
 				nomore = false;
 				
 			}else if(type==='hot'){
@@ -259,7 +259,7 @@ $(function(){
 								
 								}else if(type==='find'){
 									
-									getFindList(false,lastId);
+									getFindList(false,updateTime);
 									
 								}else if(type==='hot'){
 									
