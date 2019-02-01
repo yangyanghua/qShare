@@ -1,4 +1,4 @@
-@charset "utf-8";
+ @charset "utf-8";
 
 .loading{
 	position: fixed;
@@ -246,7 +246,7 @@
 .travelContent{
 	background: #FFFFFF;
 	padding: 0.3rem;
-	padding-top: 2.5rem;
+	padding-top: 1.5rem;
 }
 .travelContent .traveltitle{
 	font-size: 0.5rem;
