@@ -37,160 +37,9 @@ $(function() {
 		$usDay = $('.usDay'),
 		$dect = $('.dect');
 		
-	//获取用户信息
-	var userInfo = getUserInfo();
-	var code = getUrlParam('code');
+
 	var qobj = JSON.parse(localStorage.getItem('qobj')) || '';
-	var weiboToken = '';
-	var thirdToken = '';
 	var uid = '';
-	//登录开始
-	var login = function(opt) {
-		$.ajax({
-			type: "post",
-			url: api.otherLogin,
-			data: opt,
-			async: true,
-			success: function(res) {
-				localStorage.setItem('quser', JSON.stringify(res));
-				userInfo = res;
-			},
-			error: function(res) {
-
-				mui.toast(opt.accessToken);
-				//mui.toast('登录失败,请重试');
-			}
-		});
-
-	}
-
-	function weiboCallbrack(data) {
-		console.log(data);
-		var opt = {
-			nickName: data.data.screen_name,
-			accountId: data.data.id,
-			openid: '',
-			avatar: data.data.avatar_large,
-			userType: 5,
-			accessToken: thirdToken,
-		};
-		login(opt.accessToken);
-	}
-
-	function weixinCallbrack(data) {
-		var opt = {
-			nickName: data.data.nickname,
-			accountId: data.data.openid,
-			openid: data.data.openid,
-			avatar: data.data.headimgurl,
-			userType: 4,
-			accessToken: thirdToken,
-		};
-		login(opt);
-	}
-
-	//获取微博用户信息
-	var getweiboUserInfo = function(token, uid) {
-		$.ajax({
-			type: "get",
-			url: "https://api.weibo.com/2/users/show.json",
-			dataType: "jsonp",
-			jsonpCallback: "weiboCallbrack",
-			data: {
-				access_token: token,
-				uid: uid
-			},
-			async: true,
-			success: function(res) {
-				var opt = {
-					nickName: res.data.screen_name,
-					accountId: res.data.id,
-					openid: '',
-					avatar: res.data.avatar_large,
-					userType: 5,
-					accessToken: thirdToken,
-				};
-				login(opt);
-			},
-			error: function(res) {
-				mui.toast('获取用户信息失败,请重试');
-			}
-		});
-
-	};
-
-	function getweixinUserInfo(token, openid) {
-
-		$.ajax({
-			type: "get",
-			url: api.getweixinUserinfo,
-			data: {
-				accessToken: token,
-				openid: openid,
-				lang: getLang()
-			},
-			async: true,
-			success: function(res) {
-				var opt = {
-					nickName: res.nickname,
-					accountId: res.unionid,
-					openid: res.openid,
-					avatar: res.headimgurl,
-					userType: 4,
-					accessToken: token,
-				};
-				login(opt);
-			},
-			error: function(res) {
-
-				mui.toast('获取用户信息失败,请重试');
-			}
-		});
-
-	}
-	//微博登录,获取token
-	function getToken() {
-		//$('#code').text(code);
-		if(qobj.type === 'wb') {
-			$.ajax({
-				type: "get",
-				url: api.getweiboToken,
-				data: {
-					code: code
-				},
-				async: true,
-				success: function(res) {
-					thirdToken = res.accessToken;
-					getweiboUserInfo(res.accessToken, res.uid);
-				},
-				error: function(res) {
-					mui.toast('获取用户token失败,请重试');
-				}
-			});
-		} else if(qobj.type === 'wx') {
-			$.ajax({
-				type: "get",
-				url: api.getweixinToken,
-				data: {
-					code: code
-				},
-				async: true,
-				success: function(res) {
-					thirdToken = res.accessToken;
-
-					getweixinUserInfo(res.access_token, res.openid);
-				},
-				error: function(res) {
-
-					mui.toast('获取用户token失败,请重试');
-				}
-			});
-		}
-	}
-
-	if(code) {
-		getToken();
-	}
 	var getGoodList = function(id) {
 		$.ajax({
 			type: "get",
@@ -331,9 +180,9 @@ $(function() {
 					}else if(item.cityName){
 						cityName =  '.' + item.cityName;
 					}
-					var loca =  item.locationName ? '.' + item.locationName : '';
+					var loca =  item.locationName ? item.locationName : '';
 					var street = item.street?'.'+ item.street:'';
-					var streetNumber = item.streetNumber;
+					var streetNumber = item.streetNumber ? item.streetNumber : '' ;
 					var altitude = '';
 					if(item.altitude){
 						altitude = '（海拔：'+ String(item.altitude)+'米）';
@@ -342,13 +191,18 @@ $(function() {
 					}else{
 						altitude = '';
 					}
-					
+					var addres = countryName + stateName + cityName + town + street + streetNumber  + loca
 					if(item.longitude && item.latitude ) {
 						disabled = '';
-						locationName = countryName + stateName + cityName + town + street + streetNumber  + loca + '<br/>' + altitude;
+						locationName = addres  + '<br/>' + altitude;
 					} else {
+
 						disabled = 'disableds';
-						locationName = '未知地名'
+						if(!addres){
+							locationName = '未知地名'
+						}else{
+							locationName = addres  
+						}
 					}		
 					phtml +=
 						'<li class="dynamicItem" id="image' + index + '" >' +
@@ -487,7 +341,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以评论', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -534,7 +388,7 @@ $(function() {
 					if(errorCode == 9) {
 						mui.toast('登录超时');
 						localStorage.removeItem('user');
-						window.location.href = 'login.html?id=' + id;
+						window.location.href = 'login.html?path=index&id=' + id;
 					} else if(errorCode == 10) {
 						mui.toast('动态已被删除');
 					} else {
@@ -557,7 +411,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以参加评分', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -638,7 +492,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以收藏', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -666,7 +520,7 @@ $(function() {
 						if(errorCode == 9) {
 							mui.toast('登录超时');
 							localStorage.removeItem('user');
-							window.location.href = 'login.html?id=' + id;
+							window.location.href = 'login.html?path=index&id=' + id;
 						} else if(errorCode == 10) {
 							mui.toast('动态已被删除');
 						} else {
@@ -690,7 +544,7 @@ $(function() {
 						if(errorCode == 9) {
 							mui.toast('登录超时');
 							localStorage.removeItem('user');
-							window.location.href = 'login.html?id=' + id;
+							window.location.href = 'login.html?path=index&id=' + id;
 						} else if(errorCode == 10) {
 							mui.toast('动态已被删除');
 						} else {
@@ -710,7 +564,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以点赞', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 
 				} else {
 					console.log('关闭提示');
@@ -739,7 +593,7 @@ $(function() {
 						if(errorCode == 9) {
 							mui.toast('登录超时');
 							localStorage.removeItem('user');
-							window.location.href = 'login.html?id=' + id;
+							window.location.href = 'login.html?path=index&id=' + id;
 						} else if(errorCode == 10) {
 							mui.toast('动态已被删除');
 						} else {
@@ -762,7 +616,7 @@ $(function() {
 						if(errorCode == 9) {
 							mui.toast('登录超时');
 							localStorage.removeItem('user');
-							window.location.href = 'login.html?id=' + id;
+							window.location.href = 'login.html?path=index&id=' + id;
 						} else if(errorCode == 10) {
 							mui.toast('动态已被删除');
 							//window.history.go(-1);
@@ -849,7 +703,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 
 				} else {
 					console.log('关闭提示');
@@ -870,7 +724,7 @@ $(function() {
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
 
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -924,7 +778,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -941,7 +795,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -958,7 +812,7 @@ $(function() {
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
 
-					window.location.href = 'login.html?id=' + id;
+					window.location.href = 'login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}

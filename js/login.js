@@ -33,8 +33,9 @@
 		return null;
 	};	
 	var id = getUrlParam('id');
+	var path = getUrlParam('path')||'index';
 	var getLang = function(){
-		　　var type = navigator.appName; 
+		　 var type = navigator.appName; 
 		   var lang = '';
 		　　if (type == "Netscape"){  
 		   
@@ -148,7 +149,7 @@
 				type:'wb',
 			}
 			localStorage.setItem('qobj',JSON.stringify(obj));
-			window.location.href ="https://api.weibo.com/oauth2/authorize?client_id=3668054464&redirect_uri=http://"+currentHost+"/index.html&response_type=code";
+			window.location.href ="https://api.weibo.com/oauth2/authorize?client_id=3668054464&redirect_uri=http://"+currentHost+"/"+path+".html&response_type=code";
 		})
 		//微信登录
 		$('#weixin').on('click',function(){
@@ -157,7 +158,7 @@
 				type:'wx',
 			}
 			localStorage.setItem('qobj',JSON.stringify(obj));
-			window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe684b9740115c7da&redirect_uri=http%3A%2F%2F"+currentHost+"%2Findex.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
+			window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe684b9740115c7da&redirect_uri=http%3A%2F%2F"+currentHost+"%2F"+path+".html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
 		})		
 
 		//手机登录
