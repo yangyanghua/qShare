@@ -246,7 +246,7 @@
 .travelContent{
 	background: #FFFFFF;
 	padding: 0.3rem;
-	padding-top: 1.5rem;
+	padding-top: 1.8rem;
 }
 .travelContent .traveltitle{
 	font-size: 0.5rem;
@@ -969,4 +969,50 @@ background: #fff;
 	top: 13.3rem;
 	left: 50%;
 	margin-left: -20px;
+}
+ .foll-btn{
+ 	display: none;
+	position: absolute;
+	bottom: -0.1rem;
+	background: #FD5B42;
+	color: #fff;
+	padding-top: 0;
+	padding-bottom: 0;
+	height: 26px;
+	line-height: 26px;
+	border-color:#FD5B42;
+	font-size: 12px;
+	left: 10px;
+	min-width: 80px;
+	z-index: 100;
+}
+ .foll-btn.listAdd{
+ 	display: block;
+ }
+ .foll-btn .icon{
+	height: 26px;
+	padding-left: 15px;
+	display: inline-block;
+	width: auto;
+}
+ .foll-btn .icon.gou{
+	background: url(../image/gou.png) no-repeat 0 50%;
+	background-size:12px 9px;
+}
+ .foll-btn .icon.xianghu{
+	background: url(../image/xianghu.png) no-repeat 0 50%;
+	background-size:12px 11px;
+}
+ .foll-btn .icon.jia{
+	background: url(../image/jia.png) no-repeat 0 45%;
+	background-size:12px 11px;
+	padding-left: 16px;
+}
+
+
+
+ .foll-btn.fllowed{
+	background: #fcf0f3;
+	border-color:#fcf0f3 ;
+	color: #FD5B42;
 }

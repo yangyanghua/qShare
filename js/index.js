@@ -21,7 +21,6 @@ $(function() {
 		$banner = $('.banner'),
 		$portrait = $('.portrait'),
 		$DynpublisherName = $('#DynpublisherName'),
-
 		$score = $('.score'),
 		$numberOfscores = $('.numberOfscores'),
 		$traveltitle = $('.traveltitle'),
@@ -77,6 +76,39 @@ $(function() {
 
 	};
 
+	function getUserDetail(id){
+		
+		$.ajax({
+			type:"get",
+			data:{toUid:id,accessToken:userInfo.accessToken},
+			url:api.getUserDetail,
+			async:true,
+			success:function(res){
+
+			if(res.id == userInfo.id){
+				$('.foll-btn').hide();
+			}else{
+				if(res.userFollowState == 'to'){
+						$('#isFollow').show();
+
+				}else if(res.userFollowState == 'two'){
+					
+						$('#followTwo').show();
+					
+				}else{
+						$('#followUser').show();
+	
+				}				
+			}
+
+			},
+			error:function(res){
+			}
+		});
+		
+	}
+	
+
 	var init = function(id) {
 		var opt = {
 			id: id,
@@ -84,6 +116,7 @@ $(function() {
 		}
 		if(userInfo) {
 			opt.accessToken = userInfo.accessToken;
+			
 		}
 		$.ajax({
 			type: "get",
@@ -98,6 +131,7 @@ $(function() {
 				
 				uid = res.uid;
 				isScore = res.isScore;
+				
 				res.userBases.forEach(function(item) {
 					if(item.id == res.uid) {
 						master = item;
@@ -108,6 +142,9 @@ $(function() {
 
 				id = res.id;
 				uid = res.uid;
+				if(userInfo){
+					getUserDetail(res.uid);
+				}
 				$score.text(res.score);
 				$viewed.text(res.readCount);
 				$traveltitle.text(res.title);
@@ -336,6 +373,49 @@ $(function() {
 		$('.comment').css('height', '0');
 		mask.close(); //关闭遮罩
 	})
+	
+	
+	
+	
+	$('#followUser').on('click', function(e) {
+		
+		var e = window.event || e;
+		e.stopPropagation();
+		
+		if(!userInfo) {
+			var btnArray = ['关闭', '去登陆'];
+			mui.confirm('登陆后才可以关注', '提示', btnArray, function(e) {
+				if(e.index == 1) {
+					window.location.href = 'login.html?path=index&id=' + id;
+				} else {
+					console.log('关闭提示');
+				}
+			})
+			return false;
+		} else {
+			
+				let opt = {
+					applicantUserid:uid,
+					accessToken:userInfo.accessToken
+				};
+				$.ajax({
+					type:"post",
+					url:api.addFriend,
+					data:opt,
+					async:true,
+					success:function(res){
+						mui.toast('关注成功！');
+						getUserDetail(uid);
+					},
+					error:function(){
+						mui.toast('操作失败，请重试！');
+					}
+				});
+			
+			
+		}
+	})	
+	
 	$('.inputs').on('click', function() {
 		if(!userInfo) {
 			var btnArray = ['关闭', '去登陆'];
