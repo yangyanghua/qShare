@@ -2,13 +2,13 @@ $(function(){
 	
 	var id =  getUrlParam('id');
 	//var  id = 2716; 
-	var user = getUserInfo();
-	var token  = '';
-	if(user){
-		token = user.accessToken;
-		//$('#follow').show();
-	};
-	var type =  getUrlParam('type')||'hot';		
+	
+	var token  = ''; 
+ 	if(userInfo.id){
+ 		token =  userInfo.accessToken;
+ 	}
+ 	
+	var type = getUrlParam('type')||'hot';
 	var thisUserInfo = {};
 	var lastId = '';
 	var updateTime = '';
@@ -192,12 +192,13 @@ $(function(){
 		getHotList(true);		
 	}else if(type=='follow'){
 		
-		
-		$('.bar-nav-item').removeClass('active');
-		$('#follow').addClass('active');
-		getFollowList(true);
-		
-		
+		if(userInfo.id){
+			$('.bar-nav-item').removeClass('active');
+			$('#follow').addClass('active');
+			getFollowList(true);			
+		}else{
+			window.location.href = 'login.html?path=home'
+		}
 	}else if(type=='find'){
 		$('.bar-nav-item').removeClass('active');
 		$('#find').addClass('active');
@@ -227,10 +228,16 @@ $(function(){
 			$('.bar-nav-item').removeClass('active');
 			$(this).addClass('active');
 			if(type==='follow'){
-			
-				getFollowList(true);
-				lastId = '';
-				nomore = false;
+
+				if(userInfo.id){
+					getFollowList(true);
+					lastId = '';
+					nomore = false;			
+				}else{
+					window.location.href = 'login.html?path=home'
+				}
+
+
 				
 			}else if(type==='find'){
 				getFindList(true);

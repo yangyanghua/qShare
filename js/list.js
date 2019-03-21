@@ -1,11 +1,10 @@
 $(function(){
 	
-	var id =  getUrlParam('id');
+	var id =  getUrlParam('id')||'';
 	//var  id = 2716; 
-	var user = getUserInfo();
 	var token  = '';
-	if(user){
-		token = user.accessToken;
+	if(userInfo){
+		token = userInfo.accessToken;
 	};
 	
 	
@@ -28,7 +27,6 @@ $(function(){
 			async:true,
 			success:function(res){
 			var dynamicHtml1 = '';
-			var dynamicHtml2 = '';
 			if(res.object.length>0){
 				var obj =  res.object[res.object.length-1];
 				if(obj.dynamics.length > 0){
@@ -40,12 +38,13 @@ $(function(){
 			}else{
 				nomore = true;			
 			}
+			var i = 0;
 			res.object.forEach(function(item,index){
 			//	console.log(item.dynamics[0].firstUrl);
 				
 				
 					item.dynamics.forEach(function(item1,index1){
-						
+						i++;
 						var title = item1.title || '';
 								dynamicHtml1+=`<li class="imageItem dynamics" id="${item1.id}">
 										<div class="image">
@@ -68,11 +67,21 @@ $(function(){
 
 
 			})
+
 			if(empty){
 				$('.imageList').empty();
 			}
 			$('.imageList').append(dynamicHtml1);
-			setPsition();
+			if(i > 1 ){
+				$('.imageItem').css({'position':'absolute'});
+				setPsition();
+			}else if(i <= 1 && empty ) {
+				
+				$('.imageItem').css({'position':'relative'});
+				$('.loadingTxt').hide();
+				$('.imageList').css('opacity','1');
+			}
+			
 			$('.loading').fadeOut();	
 			},
 			error:function(){
@@ -92,7 +101,9 @@ $(function(){
 			success:function(res){
 				console.log(res);
 				var cityListHtml1 = '';
+				let i = 0
 				res.forEach(function(item,index){
+					i++;
 					var title = item.title || '' ;
 						cityListHtml1 += `<li class="imageItem city"  citycode="${item.code}">
 								<div class="image">
@@ -114,9 +125,17 @@ $(function(){
 
 
 				});
+				
 				$('.imageList').empty();
 				$('.imageList').append(cityListHtml1);
-				setPsition();
+				if(i>1){
+					$('.imageItem').css({'position':'absolute'});
+					setPsition();
+				}else{
+					$('.imageItem').css({'position':'relative'});
+					$('.loadingTxt').hide();
+					$('.imageList').css('opacity','1');
+				}				
 			//懒加载			
 			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList"), failurelimit : 2 });
 			
@@ -139,7 +158,9 @@ $(function(){
 			async:true,
 			success:function(res){
 				var CountryListHtml1 = '';
+				let i=0;
 				res.forEach(function(item,index){
+					i++;
 					var title = item.title || '' ;
 						CountryListHtml1 += `<li class="imageItem country" countrycode="${item.code}">
 								<div class="image">
@@ -164,7 +185,13 @@ $(function(){
 				});
 				$('.imageList').empty();
 				$('.imageList').append(CountryListHtml1);
-				setPsition();
+				if(i>1){
+					setPsition();
+				}else{
+					$('.imageItem').css({'position':'relative'});
+					$('.loadingTxt').hide();
+					$('.imageList').css('opacity','1');
+				}	
 			//懒加载
 			$("img.lazy").lazyload({effect: "fadeIn", container: $(".imageList"), failurelimit : 2 });
 			},
@@ -187,7 +214,6 @@ $(function(){
 				var fansListHtml = '';
 				
 				var btn = '';
-				console.log(user.id);
 				res.forEach(function(item){
 					if(res.userFollowState == 'to'){
 						btn  = `<button class="foll-btn fllowed isfllowed" id="${item.id}" ><span class="icon gou">已关注</span></button>`;	
@@ -196,7 +222,7 @@ $(function(){
 					}else{
 						btn  = `<button class="foll-btn jiaBtn listAdd" id="${item.id}" ><span class="icon jia">关注</span></button>		`;	
 					}
-					if(user.id == item.id){
+					if(userInfo.id == item.id){
 						btn = '';
 					}
 					
@@ -236,7 +262,7 @@ $(function(){
 	
 			var btn = '';
 			
-			if(res.id == user.id){
+			if(res.id == userInfo.id){
 				btn = '';
 			}else{
 				if(res.userFollowState == 'to'){
@@ -322,7 +348,17 @@ $(function(){
 		});
 		
 	}
-	getUserDetail(id);
+	if(id){
+		getUserDetail(id);
+	}else if(userInfo.id){
+		id = userInfo.id;
+		getUserDetail(userInfo.id);
+	}else{
+		window.location.href = 'login.html?path=list'
+	}
+	
+	
+	
 	
 
 

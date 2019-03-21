@@ -5,7 +5,7 @@ $(function(){
 	var qobj = JSON.parse(localStorage.getItem('qobj')) || '';
 	var weiboToken = '';
 	var thirdToken = '';
-	var uid = '';
+	
 	//登录开始
 	var login = function(opt) {
 		$.ajax({

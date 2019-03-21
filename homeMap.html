@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<meta name="viewport" content="initial-scale=1.0, userInfo-scalable=no" />
     <link rel="stylesheet" type="text/css" href="css/reset.css"/>	
 	<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css/map.css"/>
@@ -46,10 +46,6 @@
 			margin-left: -30%;
 			
 		}
-		#follow{
-			display: none;
-		}
-		
 		.header-bar .toMap{
 			position: absolute;
 			top: 0;
@@ -98,22 +94,27 @@
 				</div>
 			</div>		
 	</div>
+		<script type="text/javascript">
+			
+			var userInfo = {};
+			
+		</script>	
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Gkp2kjITvhmTA0VYLa11Dvli9uRwwN6R"></script>
 	<script src="js/lib/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/lib/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/otherLogin.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/map.js?v=4.2" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	
 
 	var photoCount = getUrlParam('photoCount')||'';
-	var type =  getUrlParam('type')||'hot';	
-	var user = getUserInfo();
+	var type = getUrlParam('type')||'hot';
 	var token  = '';
 	var fastLoad = true;
-	if(user){
-		token = user.accessToken;
-		$('#follow').show();
+		userInfo =  getUserInfo()||{};	
+	if(userInfo){
+		token = userInfo.accessToken;
 	};	
 	
 	map.addEventListener("tilesloaded", function(evt){
@@ -122,9 +123,15 @@
 			
 			$('.bar-nav-item').removeClass('active');
 			if(type==='follow'){
+
+				if(userInfo.id){
+					$('#follow').addClass('active');
+					getFollowListMap();			
+				}else{
+					window.location.href = 'login.html?path=homeMap'
+				}				
 				
-				$('#follow').addClass('active');
-				getFollowListMap();
+				
 			}else if(type==='find'){
 
 				$('#find').addClass('active');
@@ -145,6 +152,7 @@
 			if(type==='follow'){
 				
 				getFollowListMap();
+
 			}else if(type==='find'){
 
 				getFindListMap();
@@ -302,7 +310,14 @@ $(function(){
 			$(this).addClass('active');
 			
 			if(id==='follow'){
-				getFollowListMap();
+				
+				if(userInfo.id){
+					getFollowListMap();			
+				}else{
+					window.location.href = 'login.html?path=homeMap'
+				}	
+				
+				
 			}else if(id==='find'){
 				getFindListMap();
 			}else if(id==='hot'){

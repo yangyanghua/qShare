@@ -984,7 +984,7 @@ background: #fff;
 	font-size: 12px;
 	left: 10px;
 	min-width: 80px;
-	z-index: 100;
+	z-index: 10;
 }
  .foll-btn.listAdd{
  	display: block;
