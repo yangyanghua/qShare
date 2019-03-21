@@ -6,7 +6,7 @@ $(function(){
 	var token  = '';
 	if(user){
 		token = user.accessToken;
-		$('#follow').show();
+		//$('#follow').show();
 	};
 	var type =  getUrlParam('type')||'hot';		
 	var thisUserInfo = {};
@@ -191,9 +191,13 @@ $(function(){
 		$('#hot').addClass('active');
 		getHotList(true);		
 	}else if(type=='follow'){
+		
+		
 		$('.bar-nav-item').removeClass('active');
 		$('#follow').addClass('active');
 		getFollowList(true);
+		
+		
 	}else if(type=='find'){
 		$('.bar-nav-item').removeClass('active');
 		$('#find').addClass('active');
