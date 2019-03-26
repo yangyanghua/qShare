@@ -113,7 +113,7 @@
 				mui.toast('登录成功');
 				localStorage.setItem('quser', JSON.stringify(res));
 				setTimeout(function(){
-					window.location.href = path + '.html?id='+id;
+					window.location.href = './' + path + '.html?id='+id;
 				},1500)				
 			},
 			error:function(xhr,res){

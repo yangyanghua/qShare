@@ -386,7 +386,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以关注', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -421,7 +421,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以评论', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -436,7 +436,7 @@ $(function() {
 
 	$('.comTotalityNumer').on('click', function() {
 
-		window.location.href = 'commentList.html?id=' + id;
+		window.location.href = './commentList.html?id=' + id;
 
 	})
 
@@ -468,7 +468,7 @@ $(function() {
 					if(errorCode == 9) {
 						mui.toast('登录超时');
 						localStorage.removeItem('user');
-						window.location.href = 'login.html?path=index&id=' + id;
+						window.location.href = './login.html?path=index&id=' + id;
 					} else if(errorCode == 10) {
 						mui.toast('动态已被删除');
 					} else {
@@ -491,7 +491,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以参加评分', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -572,7 +572,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以收藏', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -600,7 +600,7 @@ $(function() {
 						if(errorCode == 9) {
 							mui.toast('登录超时');
 							localStorage.removeItem('user');
-							window.location.href = 'login.html?path=index&id=' + id;
+							window.location.href = './login.html?path=index&id=' + id;
 						} else if(errorCode == 10) {
 							mui.toast('动态已被删除');
 						} else {
@@ -624,7 +624,7 @@ $(function() {
 						if(errorCode == 9) {
 							mui.toast('登录超时');
 							localStorage.removeItem('user');
-							window.location.href = 'login.html?path=index&id=' + id;
+							window.location.href = './login.html?path=index&id=' + id;
 						} else if(errorCode == 10) {
 							mui.toast('动态已被删除');
 						} else {
@@ -644,7 +644,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以点赞', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 
 				} else {
 					console.log('关闭提示');
@@ -673,7 +673,7 @@ $(function() {
 						if(errorCode == 9) {
 							mui.toast('登录超时');
 							localStorage.removeItem('user');
-							window.location.href = 'login.html?path=index&id=' + id;
+							window.location.href = './login.html?path=index&id=' + id;
 						} else if(errorCode == 10) {
 							mui.toast('动态已被删除');
 						} else {
@@ -696,7 +696,7 @@ $(function() {
 						if(errorCode == 9) {
 							mui.toast('登录超时');
 							localStorage.removeItem('user');
-							window.location.href = 'login.html?path=index&id=' + id;
+							window.location.href = './login.html?path=index&id=' + id;
 						} else if(errorCode == 10) {
 							mui.toast('动态已被删除');
 							//window.history.go(-1);
@@ -716,7 +716,7 @@ $(function() {
 			return false;
 		}
 		sessionStorage.setItem('historyIndex', $(this).attr('index'));
-		window.location.href = 'detailmap.html?id=' + id + '&index=' + $(this).attr('index') + '&photoId=' + $(this).attr('id');
+		window.location.href = './detailmap.html?id=' + id + '&index=' + $(this).attr('index') + '&photoId=' + $(this).attr('id');
 
 	})
 
@@ -724,21 +724,21 @@ $(function() {
 
 	$('.toMap').on('click', function() {
 
-		window.location.href = 'map.html?dynamicId=' + id +'&longitude='+longitude + '&latitude=' + latitude;
+		window.location.href = './map.html?dynamicId=' + id +'&longitude='+longitude + '&latitude=' + latitude;
 
 	})
 
 	//查看赞列表
 	$('#loadmoreZan').on('click', function() {
 
-		window.location.href = 'likeList.html?id=' + id;
+		window.location.href = './likeList.html?id=' + id;
 
 	})
 	
 	//查看赞列表
 	$('.loadMoreBtn').on('click', function() {
 
-		window.location.href = 'commentList.html?id=' + id;
+		window.location.href = './commentList.html?id=' + id;
 
 	})	
 	
@@ -783,7 +783,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 
 				} else {
 					console.log('关闭提示');
@@ -793,7 +793,7 @@ $(function() {
 		}
 		var thisUid = $(this).attr('uid');
 		if(thisUid) {
-			window.location.href = 'list.html?id=' + thisUid;
+			window.location.href = './list.html?id=' + thisUid;
 		}
 	})
 
@@ -804,7 +804,7 @@ $(function() {
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
 
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -813,7 +813,7 @@ $(function() {
 		}
 
 		if(uid) {
-			window.location.href = 'list.html?id=' + uid;
+			window.location.href = './list.html?id=' + uid;
 		}
 
 	})
@@ -858,7 +858,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -866,7 +866,7 @@ $(function() {
 			return false;
 		}
 		var thisUid = $(this).attr('userid');
-		window.location.href = 'list.html?id=' + thisUid;
+		window.location.href = './list.html?id=' + thisUid;
 
 	})
 
@@ -875,7 +875,7 @@ $(function() {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -883,7 +883,7 @@ $(function() {
 			return false;
 		}
 		var thisUid = $(this).attr('userid');
-		window.location.href = 'list.html?id=' + thisUid;
+		window.location.href = './list.html?id=' + thisUid;
 
 	})
 	mui('body').on('tap', '.userItem', function() {
@@ -892,7 +892,7 @@ $(function() {
 			mui.confirm('登陆后才可以查看用户详情', '提示', btnArray, function(e) {
 				if(e.index == 1) {
 
-					window.location.href = 'login.html?path=index&id=' + id;
+					window.location.href = './login.html?path=index&id=' + id;
 				} else {
 					console.log('关闭提示');
 				}
@@ -901,7 +901,7 @@ $(function() {
 		}
 
 		var thisUid = $(this).attr('userid');
-		window.location.href = 'list.html?id=' + thisUid;
+		window.location.href = './list.html?id=' + thisUid;
 
 	})
 
