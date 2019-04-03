@@ -354,7 +354,7 @@ $(function(){
 		id = userInfo.id;
 		getUserDetail(userInfo.id);
 	}else{
-		window.location.href = 'login.html?path=list'
+		window.location.href = './login.html?path=list'
 	}
 	
 	
@@ -371,13 +371,13 @@ $(function(){
 
 	$('.userInfo').on('click','#photoCount',function(){
 		var allImage = $(this).find('.photoCount').text();
-		window.location.href = 'map.html?id='+id+'&photoCount='+allImage;
+		window.location.href = './map.html?id='+id+'&photoCount='+allImage;
 	})
 
 	$('.toMap').on('click',function(){
 		
 		var allImage = $('#photoCount').find('.photoCount').text();
-		window.location.href = 'map.html?id='+id+'&photoCount='+allImage;
+		window.location.href = './map.html?id='+id+'&photoCount='+allImage;
 	})
 	
 	
@@ -385,7 +385,7 @@ $(function(){
 	$('.imageList').on('click','.dynamics',function(){
 		var dyId = $(this).attr('id');
 		if(dyId){
-			window.location.href = 'index.html?id='+dyId;
+			window.location.href = './index.html?id='+dyId;
 		}	
 	})
 	$('.userInfo').on('click','.navItem',function(){

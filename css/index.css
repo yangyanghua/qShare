@@ -638,21 +638,28 @@ background: #fff;
 
 
 .footerLsit li.colTotality.notCollection{
-	flex: 0 0 60px;
+	flex: 0 0 40px;
 	background: url(../image/icon_collect2x.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;
 	
 }
 
 .footerLsit li.colTotality{
-	flex: 0 0 60px;
+	flex: 0 0 40px;
 	background: url(../image/collect_press.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;
 	
 }
 
+.footerLsit li.sartTotality{
+	flex: 0 0 40px;
+	background: url(../image/icon_score.png) no-repeat 50% 15%;
+	background-size:0.7rem 0.7rem;
+	
+}
+
 .footerLsit li.zanTotality{
-	flex: 0 0 60px;
+	flex: 0 0 40px;
 	background: url(../image/icon_praise2x.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;
 	

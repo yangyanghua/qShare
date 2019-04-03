@@ -197,7 +197,7 @@ $(function(){
 			$('#follow').addClass('active');
 			getFollowList(true);			
 		}else{
-			window.location.href = 'login.html?path=home'
+			window.location.href = './login.html?path=home'
 		}
 	}else if(type=='find'){
 		$('.bar-nav-item').removeClass('active');
@@ -228,13 +228,12 @@ $(function(){
 			$('.bar-nav-item').removeClass('active');
 			$(this).addClass('active');
 			if(type==='follow'){
-
 				if(userInfo.id){
 					getFollowList(true);
 					lastId = '';
 					nomore = false;			
 				}else{
-					window.location.href = 'login.html?path=home'
+					window.location.href = './login.html?path=home'
 				}
 
 
