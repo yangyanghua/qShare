@@ -20,52 +20,105 @@
 	margin-left: -1.7rem;
 }
 .mui-bar-nav~.mui-content{
-	padding-top:1.4rem;
+	padding-top:1.2rem;
 }
 .header{
 	width: 100%;
-	height: 1.4rem;
-	background: #F5F5F5;
+	height: 1.2rem;
+	background: #fff;
 }
 
 .header .headerCon{
 	border-top:1px solid #F5F5F5;
 	width: 100%;
-	height: 1.4rem;
+	height: 1.2rem;
 	display: flex;
 }
-.header .headerCon .applogo{
-	flex: 0 0 2.5rem;
-}
-.header .headerCon .applogo img{
-	margin-top: 0.2rem;
-	width: 2.2rem;
-}
 
-.header .headerCon .appTitle{
+.header .userInfo{
+	position: relative;
 	flex: 1;
-	line-height:1.4rem;
-	color: #666666;
-	font-size: 12px;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-}
-.header .headerCon .downApp{
-	flex: 0 0 2.5rem;
-	text-align: right;
-	font-size: 12px;	
-	padding-top: 0.3rem;
+	
 }
 
-.header .headerCon .downApp .downBtn{
+.header .followBtn{
+	
+	position: absolute;
+	height: 0.6rem;
+	width: 70px;
+	line-height: 0.6rem;
+	padding: 0;
+	border: none;
+	background: #FF5B40;
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
 	border-radius:100px;
-	padding-top: 0;
-	padding-bottom: 0;
-	height: 0.8rem;
-	line-height: 0.8rem;
-	top: 0;
+	z-index: 10;
+	top: 50%;
+	margin-top: -0.3rem;
+	left: 0.8rem;
+	overflow: hidden;
+	transition: all .3s;
 }
+
+.header .followBtn.btnHidden{
+	width: 0;
+}
+
+
+
+
+.header .userInfo .portrait{
+	position: relative;
+	z-index: 20;
+	width: 0.9rem;
+	height: 0.9rem;
+ 	margin-top: 0.15rem;
+ 	margin-left: 0.3rem;
+ 	
+}
+ .header .userInfo .portrait img{
+ 	height: 0.9rem;
+ 	width: 0.9rem;
+ 	border-radius:100%;
+ }
+
+
+.header .btns{
+	flex: 1;
+	
+}
+
+.header .toMap{
+	float: right;
+	background: none;
+	border: none;
+	height: 1rem;
+	width: 1rem;
+	background: url(../image/icon_map.png) no-repeat 50% 50%;
+	background-size:0.6rem 0.6rem;
+	border-radius:50%;
+	margin-top: 0.1rem;
+}
+
+.header .toHome{
+	background: none;
+	border: none;
+	height: 1rem;
+	width: 1rem;
+	float: right;
+	margin-top: 0.1rem;
+	margin-right: 10px;
+	background: url(../image/home.png) no-repeat 50% 50%;
+	background-size:0.6rem 0.6rem;
+	border-radius:50%;
+}
+
+
+
+
+
 .header .ranking{
 	position: absolute;
 	top: 12.5rem;
@@ -105,33 +158,6 @@
 	background-repeat:no-repeat ;
 	background-position:50% 0 ;
 	background-size:cover ;
-}
-.banner .toMap{
-	position: absolute;
-	z-index: 5;
-	top: 0.05rem;
-	right: 0.2rem;
-	background: none;
-	border: none;
-	height: 1rem;
-	width: 1rem;
-	background:rgba(253,91,66,.8) url(../image/icon_map_white.png) no-repeat 50% 50%;
-	background-size:0.5rem 0.5rem;
-	border-radius:50%;
-}
-
-.banner .toHome{
-	position: absolute;
-	z-index: 5;
-	top: 0.05rem;
-	left: 0.2rem;
-	background: none;
-	border: none;
-	height: 1rem;
-	width: 1rem;
-	background:rgba(253,91,66,.8) url(../image/home1.png) no-repeat 50% 50%;
-	background-size:0.5rem 0.5rem;
-	border-radius:50%;
 }
 
 
@@ -246,7 +272,7 @@
 .travelContent{
 	background: #FFFFFF;
 	padding: 0.3rem;
-	padding-top: 1.8rem;
+	padding-top: .6rem;
 }
 .travelContent .traveltitle{
 	font-size: 0.5rem;
@@ -1022,4 +1048,68 @@ background: #fff;
 	background: #fcf0f3;
 	border-color:#fcf0f3 ;
 	color: #FD5B42;
+}
+.footer{
+	width: 100%;
+	height: 1.4rem;
+	background: #fff;
+	padding: 0 10px;
+}
+
+.footer .headerCon{
+	width: 100%;
+	height: 1.4rem;
+	display: flex;
+}
+.footer .headerCon .applogo{
+	flex: 0 0 2.5rem;
+}
+.footer .headerCon .applogo img{
+	margin-top: 0.2rem;
+	width: 2.2rem;
+}
+
+.footer .headerCon .appTitle{
+	flex: 1;
+	line-height:1.4rem;
+	color: #666666;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.footer .headerCon .downApp{
+	flex: 0 0 2.5rem;
+	text-align: right;
+	font-size: 12px;	
+	padding-top: 0.3rem;
+}
+
+.footer .headerCon .downApp .downBtn{
+	border-radius:100px;
+	padding-top: 0;
+	padding-bottom: 0;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	top: 0;
+}
+.footer .ranking{
+	position: absolute;
+	top: 12.5rem;
+	right: 0.3rem;
+	height: 1.3rem;
+	width: 1.3rem;
+	border-radius:100%;
+	z-index: 10;
+	text-align: center;
+	box-sizing: border-box;
+    -webkit-box-shadow:-1px 3px 14px 0px #999999;
+    box-shadow: -1px 3px 14px 0px #999999;
+    padding-top: 0.6rem;
+    background:#FFFFFF url(../image/icon_data2x.png) no-repeat 50% 20%;
+    background-size:0.5rem 0.5rem;
+}
+.footer .ranking p{
+	font-size: 12px;
+	color: #333333;
 }
