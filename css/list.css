@@ -1,5 +1,5 @@
 body{
-	background: #F1EFEF;
+	background: #fff;
 }
 /*html,body{
 	height: 100%;
@@ -10,7 +10,6 @@ body{
 .header{
 	position: relative;
 	height: auto;
-	padding-top: 4rem;	
 }
 .toHome{
 	position: absolute;
@@ -80,10 +79,16 @@ body{
 	color: #FFFFFF;
 	font-size: 14px;
 }
-
-.header .headerBg{
+.header  .botBg{
 	position: absolute;
-	top: 0;
+	height: 26px;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	z-index: 10;
+	
+}
+.header .headerBg{
 	z-index: 1;
 	height: 5.5rem;
 	width: 100%;
@@ -96,22 +101,22 @@ body{
 	            filter: blur(10px);
 	    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); */
 }
-
-.header .userInfo{
-	z-index: 5;
+.line{
+	position: relative;
+	left: -10%;
+	height: 10px;
+	background:#F2F2F2 ;
+	width: 120%;
+}
+ .userInfo{
 	position: relative;
 	width: 96%;
 	box-sizing: border-box;
 	padding: 0.3rem;
-	background: #FFFFFF;
-	border-top-left-radius:6px;
-	border-top-right-radius:6px;
 	margin:auto;
 	/*height: 4.3rem;*/
 	min-height: 3rem;
 	height: auto;
-	top: 60%;
-	box-shadow: 0 4px 11px -1px #CCCCCC;
 }
 
  .foll-btn{
@@ -162,37 +167,38 @@ body{
 
 
 
-.header .userInfo .baseInfo{
+ .userInfo .baseInfo{
 	display: flex;
-	height: 1.3rem;
+	height: 1.6rem;
 }
 
-.header .userInfo .sexImage{
+ .userInfo .sexImage{
 	width: 0.6rem;
 	height: 0.6rem !important;
 	margin: 0 !important;
 	
 }
 
-.header .userInfo .baseInfo .userImg{
-	flex: 0 0 1.3rem;
+ .userInfo .baseInfo .userImg{
+	flex: 0 0 1.6rem;
 	text-align: center;
 } 
-.header .userInfo .baseInfo .userImg span{
+ .userInfo .baseInfo .userImg span{
 	display: block;
-	height: 1.3rem;
-	width: 1.3rem;
+	height: 1.6rem;
+	width: 1.6rem;
 	border-radius:100px;
 	/*background:#CCCCCC url(../image/bg.jpg) no-repeat 50% 50%;
 	background-size:cover;*/
 }
-.header .userInfo .baseInfo .userName{
+ .userInfo .baseInfo .userName{
 	flex: 1;
 	box-sizing: border-box;
 	padding-left: 0.3rem;
 }
-.header .userInfo .baseInfo .userName p{
+ .userInfo .baseInfo .userName p{
 	height: 0.65rem;
+	color: #333;
 	line-height: 0.65rem;
 	font-size: 14px;
 	width: 70%;
@@ -201,12 +207,12 @@ body{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-.header .userInfo .baseInfo .userName p img{
+ .userInfo .baseInfo .userName p img{
 	height: 0.4rem;
 	margin-top: 0.1rem;
 }
 
-.header .userInfo .introduce{
+.userInfo .introduce{
 	line-height: 18px;
 	margin-top: 0.1rem;
 	font-size: 12px;
@@ -219,26 +225,26 @@ body{
 	border-bottom:1px solid #CCCCCC;
 	text-align: justify;	
 }
-.header .navList{
+ .navList{
 	display: flex;
 	height: 1.2rem;
 	text-align: center;
 }
-.header .navList .navItem{
+ .navList .navItem{
 	flex: 1;
 	position: relative;
 }
-.header .navList .navItem p{
+ .navList .navItem p{
 	color: #333333;
 	height: 0.6rem;
 	line-height: 0.6rem;
 	font-weight: bold;
 	font-size: 12px;
 }
-.header .navList .navItem.active p{
+ .navList .navItem.active p{
 	color: #FF5B40;
 }
-.header .navList .navItem.active::before{
+ .navList .navItem.active::before{
 	content: '';
 	height: 2px;
 	width: 1rem;
@@ -304,7 +310,6 @@ body{
 .imageList{
 	transition: all 0.4s;
 	width: 100%;
-	overflow: hidden;
 	position: relative;
 	
 }

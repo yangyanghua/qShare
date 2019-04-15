@@ -59,7 +59,7 @@
 	margin-top: -0.3rem;
 	left: 0.8rem;
 	overflow: hidden;
-	transition: all .3s;
+	transition: all .5s;
 }
 
 .header .followBtn.btnHidden{
@@ -151,128 +151,12 @@
 	top: 1.4rem;
 }
 
-.banner{
-	position: relative;
-	height: 5.5rem;
-	width: 100%;
-	background-repeat:no-repeat ;
-	background-position:50% 0 ;
-	background-size:cover ;
-}
-
-
-
-
-
-.banner .Dynpublisher{
-	display: flex;
-	position: absolute;
-	background: none;
-	bottom: -1.7rem;
-	height: 2.1rem;
-	width: 7rem;
-	border-bottom-right-radius: 100px;
-	border-top-right-radius: 100px;
-}
-.banner .Dynpublisher .portrait{
-	flex: 0 0 1.7rem;
-}
- .banner .Dynpublisher .portrait img{
- 	height: 1.1rem;
- 	width: 1.1rem;
- 	border-radius:100%;
- 	margin-top: 0.15rem;
- 	margin-left: 0.3rem;
-	box-shadow: 0 3px 14px 0px #999999;
- 
- }
-  .banner .Dynpublisher .nameInfo{
-  	flex: 1;
-  	padding-top: 0.3rem;
-  }
-  .banner .Dynpublisher .nameInfo .DynpublisherName{
-  	font-size: 14px;
-  	color: #333333;
-  	height: 19px;
-  	margin-top: 0.3rem;
-  	line-height: 21px;
-  	margin-bottom: 0.1rem;
-  }	
-  #DynpublisherName{
-  	max-width:3.9rem;
-  	width: auto;
-  	float: left;	
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    margin-right: 10px;
-    font-weight: 600;	
-  }
-  
-  .banner .Dynpublisher .nameInfo .DynpublisherName .sex{	
-   display: none;
- 	float: left;
-  	width: 20px;
-  	height: 20px;
-  	
-  }
-   .banner .Dynpublisher .nameInfo .DynpublisherName .boy{
-		display: none;
-		background: url(../image/icon_boy2x.png) no-repeat 50% 50%;
-		background-size:30px 30px;  	
-  	} 
-   .banner .Dynpublisher .nameInfo .DynpublisherName .girl{
-		background: url(../image/icon_girlx.png) no-repeat 50% 50%;
-		background-size:30px 30px;  	
-  	} 
-  .banner .Dynpublisher .nameInfo .level{
-  	display: none;
-	  	width: 1.2rem;
-	  	height: 0.3rem;
-  }
-.banner .Dynpublisher .nameInfo .level.level1{
-	background: url(../image/btnphontoer12x.png) no-repeat 50% 50%;
-	background-size:1.2rem 0.3rem;
-}  
-.banner .Dynpublisher .nameInfo .level.level2{
-	background: url(../image/btn_phontoer2x.png) no-repeat 50% 50%;
-	background-size:1.2rem 0.3rem;
-}  
-.banner .Dynpublisher .nameInfo .level.level3{
-	background: url(../image/btn_phontoer3x.png) no-repeat 50% 50%;
-	background-size:1.2rem 0.3rem;
-}  
-.banner .scorecontent{
-	overflow: hidden;
-	position: absolute;
-	background: #fff;
-	bottom: -1.1rem;
-	height: 1.52rem;
-	width: 1.7rem;
-	right: 0.3rem;
-	border-radius:5px;
-	text-align: center;
-	box-shadow:0 2px 7px -1px #999;	
-}
-.banner .scorecontent p{
-	font-size: 12px;
-	color: #333333;
-	margin: 0;
-	height: 0.47rem;
-	line-height: 0.47rem;
-	text-align: center;
-}
- .banner .scorecontent p.scoreP .score{
- 	color: #ff5b42;
- 	font-size: 16px;
- 	font-weight: bold;
- }
 
 
 .travelContent{
 	background: #FFFFFF;
 	padding: 0.3rem;
-	padding-top: .6rem;
+	padding-top: .4rem;
 }
 .travelContent .traveltitle{
 	font-size: 0.5rem;
@@ -280,6 +164,10 @@
 	line-height: 0.7rem;
 }
 
+.secondary{
+	height: 26px;
+	line-height: 26px;
+}
 
 .travelContent .secondary span{
 	margin-right: 0.5rem;
@@ -291,6 +179,27 @@
 	background: url(../image/icon_look2x.png) no-repeat 0 30%;
 	background-size:16px 10px;
 }
+
+
+
+.travelContent .secondary .scorebox{
+	height: 26px;
+	line-height: 23px;
+	float: right;
+	font-size: 12px;
+	color: #666;
+	text-align: right;
+}
+.travelContent .secondary .scorebox .score{
+	font-size: 18px;
+	font-weight: 600;
+	color: #FF5B40;
+	margin: 0;
+	padding: 0;
+	margin-left: 2px;
+	
+}
+
 
 .travelContent .viaNav{
 	height: 30px;
@@ -656,7 +565,7 @@ background: #fff;
 
 
 .footerLsit li.comTotality{
-	flex: 0 0 60px;
+	flex: 0 0 50px;
 	background: url(../image/icon_comments2x.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;
 	
@@ -664,28 +573,33 @@ background: #fff;
 
 
 .footerLsit li.colTotality.notCollection{
-	flex: 0 0 40px;
+	flex: 0 0 50px;
 	background: url(../image/icon_collect2x.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;
 	
 }
 
 .footerLsit li.colTotality{
-	flex: 0 0 40px;
+	flex: 0 0 50px;
 	background: url(../image/collect_press.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;
 	
 }
 
 .footerLsit li.sartTotality{
-	flex: 0 0 40px;
-	background: url(../image/icon_score.png) no-repeat 50% 15%;
-	background-size:0.7rem 0.7rem;
-	
+	flex: 0 0 50px;
+	background: url(../image/icon_score@2x.png) no-repeat 50% 15%;
+	background-size:0.8rem 0.8rem;	
+}
+
+.footerLsit li.sartTotality.isSart{
+	flex: 0 0 50px;
+	background: url(../image/icon_score_press@2x.png) no-repeat 50% 15%;
+	background-size:0.8rem 0.8rem;	
 }
 
 .footerLsit li.zanTotality{
-	flex: 0 0 40px;
+	flex: 0 0 50px;
 	background: url(../image/icon_praise2x.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;
 	
@@ -694,8 +608,6 @@ background: #fff;
 	background: url(../image/icon_praise_pre2x.png) no-repeat 50% 15%;
 	background-size:0.8rem 0.8rem;	
 }
-
-
 
 .comment{
 	position: fixed;

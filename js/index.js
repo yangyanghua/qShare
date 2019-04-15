@@ -31,6 +31,7 @@ $(function() {
 		$comTotalityNumer = $('.comTotalityNumer'),
 		$colTotalityNumer = $('.colTotalityNumer'),
 		$zanTotalityNumer = $('.zanTotalityNumer'),
+		$sartTotalityNumer = $('.sartTotalityNumer'),
 		$userList = $('.userList'),
 		$passCity = $('.passCity'),
 		$usDay = $('.usDay'),
@@ -127,8 +128,7 @@ $(function() {
 				var master = {};
 				sessionStorage.setItem('id', res.id);
 				getGoodList(res.id);
-				$banner.css("backgroundImage", "url(" + res.firstUrl + ")");
-				
+
 				uid = res.uid;
 				isScore = res.isScore;
 				
@@ -152,6 +152,7 @@ $(function() {
 				$comTotalityNumer.text(res.commentCount);
 				$zanTotalityNumer.text(res.likeCount);
 				$colTotalityNumer.text(res.collectionCount);
+				$sartTotalityNumer.text(res.scoreCount);
 				$numberOfscores.text(res.scoreCount);
 				$passCity.text(res.cityCount);
 				$usDay.text(res.days);
@@ -168,10 +169,20 @@ $(function() {
 					$('.zanTotality').removeClass('isApplaud');
 				};
 
+				if(res.isScore) {
+					$('.sartTotality').addClass('isSart');
+				} else {
+					$('.sartTotality').removeClass('isSart');
+				}
+
 				if(res.isCollection) {
 					$('.colTotality').removeClass('notCollection');
 				} else {
 					$('.colTotality').addClass('notCollection');
+				}
+				
+				if(res.isScore){
+					$('#followUser').addClass('btnHidden');
 				}
 
 				var createTime = dateFtt('yyyy-MM-dd hh:mm', new Date(res.createTime));
@@ -389,6 +400,8 @@ $(function() {
 			return false;
 		} else {
 			
+			
+			
 				let opt = {
 					applicantUserid:uid,
 					accessToken:userInfo.accessToken
@@ -400,6 +413,7 @@ $(function() {
 					async:true,
 					success:function(res){
 						mui.toast('关注成功！');
+						$('#followUser').addClass('btnHidden');
 						getUserDetail(uid);
 					},
 					error:function(){
@@ -481,7 +495,7 @@ $(function() {
 		mask.close(); //关闭遮罩	
 	})
 	//评分
-	$('.scorecontent').on('click', function() {
+	$('.sartTotality').on('click', function() {
 		if(!userInfo) {
 			var btnArray = ['关闭', '去登陆'];
 			mui.confirm('登陆后才可以参加评分', '提示', btnArray, function(e) {
