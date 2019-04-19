@@ -6,6 +6,11 @@ $(function(){
 	var token  = ''; 
  	if(userInfo.id){
  		token =  userInfo.accessToken;
+ 		$('.loginUser').css({
+ 			'background':'#ededed url('+userInfo.avatar+') no-repeat 50% 50%',	
+			'background-size':'cover',	
+			'display':' block'	
+ 		})
  	}
  	
 	var type = getUrlParam('type')||'hot';
@@ -209,6 +214,18 @@ $(function(){
 		window.location.href = './homeMap.html?type='+type;
 	});
 
+	$('.loginUser').on('click',  function(e) {
+		
+		var e  = window.event || e;
+		e.stopPropagation();
+		var thisUid = userInfo.id;
+		
+		if(thisUid) {
+			window.location.href = './list.html?id=' + thisUid;
+		}
+	})		
+	
+	
 	
 	$('.imageList').on('click','.image',function(){
 		var dyId = $(this).attr('id');
