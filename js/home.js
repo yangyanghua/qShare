@@ -40,13 +40,13 @@ $(function(){
 					res.forEach(function(item1,index1){
 						
 						var title = item1.title || '';
-								dynamicHtml1+=`<li class="imageItem dynamics" id="${item1.id}">
-										<div class="image">
+								dynamicHtml1+=`<li class="imageItem dynamics">
+										<div class="image"  id="${item1.id}" >
 											<img class="lazy"  src="${item1.firstUrl}" />
 										</div>
 										<div class="info" >
 										<h2 class="cname">${title}</h2>
-										<div class="c_userInfo">
+										<div class="c_userInfo" uid="${item.userBases[0].id}" >
 											<div class="c_userImage"><span style="background:#CCCCCC url(${item1.userBases[0].avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 											<div class="c_user">
 												<p class="c_userName">${item1.userBases[0].nickName}</p>
@@ -94,13 +94,13 @@ $(function(){
 				}				
 				res.forEach(function(item,index){
 					var title = item.title || '' ;
-						cityListHtml1 += `<li class="imageItem dynamics" id="${item.id}">
-								<div class="image">
+						cityListHtml1 += `<li class="imageItem dynamics" >
+								<div class="image" id="${item.id}" >
 									<img class="lazy" src="${item.firstUrl}" />
 								</div>
 								<div class="info">
 								<h2 class="cname">${title}</h2>
-								<div class="c_userInfo">
+								<div class="c_userInfo" uid="${item.userBases[0].id}" >
 									<div class="c_userImage"><span style="background:#CCCCCC url(${item.userBases[0].avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 									<div class="c_user">
 										<p class="c_userName">${item.userBases[0].nickName}</p>
@@ -148,13 +148,13 @@ $(function(){
 				if(res){
 					res.forEach(function(item,index){
 						var title = item.title || '' ;
-							CountryListHtml1 += `<li class="imageItem dynamics" id="${item.id}">
-									<div class="image">
+							CountryListHtml1 += `<li class="imageItem dynamics" >
+									<div class="image" id="${item.id}" >
 										<img class="lazy" src="${item.firstUrl}"    data-preview-src="" data-preview-group="1" />
 									</div>
 									<div class="info">
 									<h2 class="cname">${title}</h2>
-									<div class="c_userInfo">
+									<div class="c_userInfo" uid="${item.userBases[0].id}" >
 										<div class="c_userImage"><span style="background:#CCCCCC url(${item.userBases[0].avatar}) no-repeat 50% 50%;background-size:cover;"></span></div>
 										<div class="c_user">
 											<p class="c_userName">${item.userBases[0].nickName}</p>
@@ -210,12 +210,33 @@ $(function(){
 	});
 
 	
-	$('.imageList').on('click','.dynamics',function(){
+	$('.imageList').on('click','.image',function(){
 		var dyId = $(this).attr('id');
 		if(dyId){
 			window.location.href = 'index.html?id='+dyId;
 		}	
 	})
+	
+	
+	$('.imageList').on('click', '.c_userInfo', function(e) {
+		
+		var e  = window.event || e;
+		e.stopPropagation();
+		var thisUid = $(this).attr('uid');
+		
+		if(thisUid) {
+			window.location.href = './list.html?id=' + thisUid;
+		}
+	})	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	$('.bar-nav').on('click','.bar-nav-item',function(){
 		
